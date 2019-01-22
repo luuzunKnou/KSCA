@@ -1,0 +1,11 @@
+@charset "EUC-KR";
+
+section{
+	overflow:hidden; width: 60%; margin: 0 auto; 
+}
+
+#introduce{
+	width: 430px; height:600px; margin:0 auto; margin-top: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 

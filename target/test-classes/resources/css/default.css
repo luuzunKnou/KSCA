@@ -1,0 +1,117 @@
+@charset "EUC-KR";
+
+/* Cross Browsing*/
+html, body, form, div, p, dl, dt, dd, ul, ol, li, h1, h2, h3 {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;	
+}
+
+* {
+	font-size: 13px;
+	font-weight: normal;
+	font-family: 'Nanum Gothic', dotum, µ¸¿ò, sans-serif;
+	color: black;
+}
+
+h1 {
+	font-weight: bold;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+}
+
+input {
+	margin: 0;
+}
+
+a img {
+	border: 0;
+}
+
+/* Header And Footer */
+
+#wrap {
+	position: relative;
+}
+
+nav {
+	position: fixed; top: 0px;
+	width: 100%; overflow:hidden;
+	background-color: #3F4448;
+	border-bottom: 4px solid #FFC740;
+}
+
+/*** logo ***/
+#logo { 
+	height:55px; width: 300px; margin-left: 20%; float: left;
+}
+
+#logo p:nth-child(1){
+	font-size: 15px; 
+	color: white; font-weight: bold;
+	padding-top: 10px;
+}
+#logo p:nth-child(2){
+	color: white; font-family: 'Cabin'; font-weight: bold;
+}
+
+/*** menu ***/
+#menu {
+	margin-left: 20px; overflow:hidden; float: left; 
+}
+
+.menu_btn{ 
+	float: left; padding: 0 20px; 
+}
+
+.menu_btn a{
+	font-weight: bold; color: white; height: 55px; line-height: 55px;
+}
+
+/*** login menu ***/
+#login_menu {
+}
+ 
+.login_btn {
+	float: right; padding-right: 30px; 
+	color: white; font-size:12px; height: 55px; line-height: 55px;
+}
+
+.login_btn a{
+	color: white; font-size:12px; height: 55px; line-height: 55px;
+}
+
+/*** footer ***/
+footer {
+	position: fixed; bottom:0px; width:100%; height: 30px;
+	background-color: #3F4448; border-top: 4px solid #FFC740;
+}
+
+footer p{
+	color: white; font-size:11px; text-align: center;
+	height: 30px; line-height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+

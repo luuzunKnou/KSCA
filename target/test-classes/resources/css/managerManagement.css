@@ -1,0 +1,34 @@
+@charset "EUC-KR";
+
+#managerManagement{
+	width: 430px; margin:0 auto; margin-top: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+.div_head h3{
+	height: 30px; line-height: 30px; border-bottom: 1px solid #e67e22;
+	font-size: 15px; color: #e67e22; font-weight: bold;
+}
+
+.manager_list_ul{
+	margin-top: 20px;
+}
+
+.manager_list_li{
+	padding:10px; border-bottom: 1px solid #B2B2B2;
+}
+
+.manager_list_li span{
+	padding-right:10px;
+}
+
+.checkbox{
+	height: 17px; width: 17px; border: 2px solid #bcbcbc;
+	text-shadow: none; vertical-align:-5px; 
+}
+
+.btn_success{
+	width: 420px; margin: 20px 5px 0px 5px; border-radius:5px; padding:3px 0; font-weight:bold;
+	background-color: #e67e22; color: white; border:none; height:30px; 
+}

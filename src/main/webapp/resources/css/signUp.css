@@ -1,0 +1,40 @@
+@charset "EUC-KR";
+
+section{
+	overflow:hidden; width: 60%; margin: 0 auto; 
+}
+
+#sign_up{
+	width: 430px; height:600px; margin:0 auto; margin-top: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+.form_group{
+	margin: 10px;
+}
+
+.sign_up_label{
+	margin:5px 0; font-weight: bold;
+}
+
+.col-sm-6{
+	padding: 5px 0;
+}
+
+.help-block{
+	font-size: 11px; padding: 3px 0;
+}
+
+.sign_up_form{
+	width: 400px; height: 30px; box-sizing: border-box; padding: 5px;
+	border: 1px solid #e67e22; border-radius: 4px; resize: vertical;
+}
+
+.name{
+	width: 284px; margin: 10px 10px 10px 0;
+}
+
+.code{
+	width: 100px;
+}
