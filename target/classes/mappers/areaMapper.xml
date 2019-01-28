@@ -25,7 +25,7 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE area	
+		UPDATE area
 			<set> 
 				<if test="code != null"> 		code		=#{code}, </if>
 				<if test="manager != manager"> 	manager		=#{manager}, </if>
