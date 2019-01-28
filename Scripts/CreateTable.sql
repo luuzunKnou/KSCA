@@ -2,19 +2,12 @@ DROP DATABASE ksca;
 CREATE DATABASE ksca;
 USE ksca;
 
-CREATE TABLE cat1 (
-	code VARCHAR(10) NOT NULL,
-	name VARCHAR(50) NOT NULL,
+CREATE TABLE category (
+	code 		VARCHAR(10) NOT NULL,
+	name 		VARCHAR(50) NOT NULL,
+	par_cat 	VARCHAR(10) NOT NULL,
+	par_name	VARCHAR(50) NOT NULL,
 	PRIMARY KEY (code)
-);
-
-CREATE TABLE cat2 (
-	code        VARCHAR(10) NOT NULL,
-	name        VARCHAR(50) NOT NULL,
-	parents_cat VARCHAR(10) NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (parents_cat)
-		REFERENCES cat1 (code) ON DELETE CASCADE
 );
 
 CREATE TABLE agency (
@@ -34,7 +27,7 @@ CREATE TABLE program (
 	FOREIGN KEY (agency)
 		REFERENCES agency (code) ON DELETE CASCADE,
 	FOREIGN KEY (cat)
-		REFERENCES cat2 (code) ON DELETE CASCADE
+		REFERENCES category (code) ON DELETE CASCADE
 );
 
 CREATE TABLE manager (
