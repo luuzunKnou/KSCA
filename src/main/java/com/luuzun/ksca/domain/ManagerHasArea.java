@@ -1,6 +1,8 @@
 package com.luuzun.ksca.domain;
 
-public class Manager {
+import java.util.List;
+
+public class ManagerHasArea {
 	private String id;
 	private String password; 
 	private String name;
@@ -9,39 +11,19 @@ public class Manager {
 	private boolean isApprove; 
 	private boolean isExist;
 	private Permission permission;
-	
-	public Manager() {
-		super();
-	}
-
-	public Manager(String id, String password, String name, String tel, String mail, boolean isApprove,
-			Permission permission) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.tel = tel;
-		this.mail = mail;
-		this.isApprove = isApprove;
-		this.permission = permission;
-	}
-	
-	public String permToString() {
-		System.out.println("permission : " + this.permission);
-		switch (this.permission) {
-			case MASTER:
-				return "Master";
-			case MANAGER:
-				return "Manager";
-			default: return "";
-		}
-	}
+	private List<Area> areaList;
 	
 	@Override
 	public String toString() {
-		return String.format("Manager [id=%s, password=%s, name=%s, tel=%s, mail=%s, isApprove=%s, permission=%s]", id,
-				password, name, tel, mail, isApprove, permission);
+		return String.format(
+				"[id=%s, password=%s, name=%s, tel=%s, mail=%s, isApprove=%s, isExist=%s, permission=%s, areaList=%s]",
+				id, password, name, tel, mail, isApprove, isExist, permission, areaList);
 	}
+	
+	public Area getArea() {
+		return this.areaList.get(0);
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -78,16 +60,22 @@ public class Manager {
 	public void setApprove(boolean isApprove) {
 		this.isApprove = isApprove;
 	}
+	public boolean isExist() {
+		return isExist;
+	}
+	public void setExist(boolean isExist) {
+		this.isExist = isExist;
+	}
 	public Permission getPermission() {
 		return permission;
 	}
 	public void setPermission(Permission permission) {
 		this.permission = permission;
 	}
-	public boolean isExist() {
-		return isExist;
+	public List<Area> getAreaList() {
+		return areaList;
 	}
-	public void setExist(boolean isExist) {
-		this.isExist = isExist;
+	public void setAreaList(List<Area> areaList) {
+		this.areaList = areaList;
 	}
 }

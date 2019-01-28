@@ -4,19 +4,49 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.luuzun.ksca.persistence.ManagerDAO">
+
+	<resultMap id="managerHasArea" type="managerHasArea">
+		<id property="id" 				column="id"/>
+		<result property="pssword" 		column="pssword"/>
+		<result property="name" 		column="name"/>
+		<result property="tel" 			column="tel"/>
+		<result property="mail" 		column="mail"/>
+		<collection property="areaList" ofType="com.luuzun.ksca.domain.Area">
+			<id property="code" column="code"/>
+			<result property="manager" 		column="manager"/>
+			<result property="city"		 	column="city"/>
+			<result property="cityCode" 	column="city_code"/>
+			<result property="gu" 			column="gu"/>
+			<result property="guCode" 		column="gu_code"/>
+			<result property="branch" 		column="branch"/>
+			<result property="branchCode" 	column="branch_code"/>
+		</collection>
+	</resultMap>
+
 	<select id="listAll" resultType="Manager">
 		SELECT * FROM manager 
 	</select>
 
 	<select id="read" resultType="Manager">
 		SELECT * FROM manager 
-			WHERE id=#{id} 
+			WHERE BINARY(id)=#{id} 
 	</select>
 	
-		
 	<select id="readForLogin" resultType="Manager">
 		SELECT * FROM manager 
-			WHERE id=#{id} AND password=#{password};
+			WHERE BINARY(id)=#{id} AND BINARY(password)=#{password} AND is_exist=TRUE;
+	</select>
+	
+	<select id="readWaitingManager" resultType="Manager">
+		SELECT * FROM manager
+			WHERE is_approve=0;
+	</select>
+	
+	<select id="readManagerHasArea" resultMap="managerHasArea">
+		SELECT DISTINCT id, name, tel, mail, 
+				city, city_code, gu, gu_code
+		FROM manager, area
+			WHERE BINARY(id)=#{id};
 	</select>
 	
 	<insert id="create">
@@ -37,14 +67,22 @@
 			WHERE id = #{id}
 	</update>
 	
+	<update id="leave">
+		UPDATE manager 
+			SET is_exist=FALSE
+			WHERE id = #{id}
+	</update>
+	
+	<update id="rejoin">
+		UPDATE manager 
+			SET is_exist=TRUE
+			WHERE id = #{id}
+	</update>
+	
+	
 	<delete id="delete">
 		DELETE FROM manager WHERE id= #{id}
 	</delete>
-	
-	<select id="readWaitingManager" resultType="Manager">
-		SELECT * FROM manager
-			WHERE is_approve=0;
-	</select>
 	
 	<update id="updateApproveManager">
 		UPDATE manager SET is_approve=1

@@ -1,3 +1,5 @@
-select * from manager, area where left(manager.area,5)=left(area.code,5) and id="luuzun";
-
-SELECT * FROM manager;
+-- readManagerHasArea
+SELECT DISTINCT id, password, name, tel, mail, is_approve, permission, 
+		city, city_code, gu, gu_code
+	FROM manager, area
+	WHERE id="mcmoto";

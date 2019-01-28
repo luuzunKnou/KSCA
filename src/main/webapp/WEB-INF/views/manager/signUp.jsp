@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
-<link href="${pageContext.request.contextPath}/resources/css/signUp.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/manager/signUp.css" rel="stylesheet">
 
 <section>
 	<div id="sign_up">
@@ -74,7 +74,7 @@
 					<input id="input_city" class="sign_up_form name"
 						name="city" type="text" placeholder="대구"></input>
 					<input id="input_city_code" class="sign_up_form code"
-						name="city_code"type="text" placeholder="03"></input>
+						name="cityCode"type="text" placeholder="03"></input>
 				</div>
 				
 			<label class="sign_up_label" for="input_city">지회/코드</label>
@@ -82,7 +82,7 @@
 				<input id="input_gu" class="sign_up_form name"
 						name="gu" type="text" placeholder="중구"></input>
 					<input id="input_gu_code" class="sign_up_form code"
-						name="gu_code" type="text" placeholder="01"></input>
+						name="guCode" type="text" placeholder="01"></input>
 				</div>
 			</div>
 		</div>

@@ -2,8 +2,10 @@ package com.luuzun.ksca.daotest;
 
 import javax.inject.Inject;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +17,7 @@ import com.luuzun.ksca.persistence.ManagerDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class) //Spring loading
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"}) //Spring loading
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ManagerDAOTest {
 	@Inject
 	private ManagerDAO dao;
@@ -45,7 +48,7 @@ public class ManagerDAOTest {
 	
 	@Test
 	public void test_03_Read() throws Exception{
-		logger.info(dao.read(id).toString());
+		logger.info("***read"+dao.read(id).toString());
 	}
 	
 	@Test
@@ -55,21 +58,36 @@ public class ManagerDAOTest {
 	
 	@Test
 	public void test_05_ListAll() throws Exception{
-		logger.info(dao.listAll().toString());
+		logger.info("***listAll"+dao.listAll().toString());
 	}
 	
 	@Test
 	public void test_06_ReadForLogin() throws Exception{
-		logger.info(dao.readForLogin("luuzun", "1234").toString());
+		logger.info("***readForLogin"+dao.readForLogin("luuzun", "1234").toString());
 	}
 	
 	@Test
 	public void test_07_ReadWaitingManager() throws Exception{
-		logger.info(dao.readWaitingManager().toString());
+		logger.info("***readWaitingManager"+dao.readWaitingManager().toString());
 	}
 	
 	@Test
 	public void test_08_UpdateApproveManager() throws Exception{
 		dao.updateApproveManager(newManager.getId());
+	}
+	
+	@Test
+	public void test_09_readManagerHasArea() throws Exception{
+		logger.info("***readManagerHasArea"+dao.readManagerHasArea("mcmoto").toString());
+	}
+	
+	@Test
+	public void test_10_leave() throws Exception{
+		dao.leave("mcmoto");
+	}
+	
+	@Test
+	public void test_11_rejosin() throws Exception{
+		dao.rejoin("mcmoto");
 	}
 }

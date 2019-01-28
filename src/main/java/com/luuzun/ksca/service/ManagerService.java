@@ -3,6 +3,7 @@ package com.luuzun.ksca.service;
 import java.util.List;
 
 import com.luuzun.ksca.domain.Manager;
+import com.luuzun.ksca.domain.ManagerHasArea;
 
 public interface ManagerService {
 	public List<Manager> listAll() throws Exception;
@@ -13,4 +14,7 @@ public interface ManagerService {
 	public void delete(String id) throws Exception;
 	public List<Manager> readWaitingManager();
 	public void updateApproveManager(String id);
+	public ManagerHasArea readManagerHasArea(String id);
+	public void leave(String id);
+	public void rejoin(String id);
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
-<link href="${pageContext.request.contextPath}/resources/css/logIn.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/manager/logIn.css" rel="stylesheet">
 	<section>
 		 <div id="login">
 		 	<form id="form_login" action="/manager/logInPost" method="post">

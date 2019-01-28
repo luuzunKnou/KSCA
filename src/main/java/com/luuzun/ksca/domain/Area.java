@@ -34,6 +34,17 @@ public class Area {
 				manager, city, cityCode, gu, guCode, branch, branchCode);
 	}
 	
+	//Set code by association other code
+	public void SetCode(String cityCode, String guCode, String branchCode) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(cityCode);	
+		sb.append("-");
+		sb.append(guCode);		
+		sb.append("-");
+		sb.append(branchCode);
+		this.code=sb.toString();
+	}
+	
 	public String getCode() {
 		return code;
 	}

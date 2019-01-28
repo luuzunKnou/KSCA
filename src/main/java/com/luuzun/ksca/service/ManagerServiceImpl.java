@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.luuzun.ksca.domain.Manager;
+import com.luuzun.ksca.domain.ManagerHasArea;
 import com.luuzun.ksca.persistence.ManagerDAO;
 
 @Service
@@ -53,6 +54,21 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public void updateApproveManager(String id) {
 		dao.updateApproveManager(id);
+	}
+
+	@Override
+	public ManagerHasArea readManagerHasArea(String id) {
+		return dao.readManagerHasArea(id);
+	}
+
+	@Override
+	public void leave(String id) {
+		dao.leave(id);
+	}
+
+	@Override
+	public void rejoin(String id) {
+		dao.rejoin(id);
 	}
 
 

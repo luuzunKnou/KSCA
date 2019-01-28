@@ -29,7 +29,7 @@
 					/introduce/introduce">경로당 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/introduce/introduce">스케줄 관리</a></li>
-				<c:if test="${permission eq 'Master'}">
+				<c:if test="${login.permToString() eq 'Master'}">
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/manager/managerManagement">매니저 관리</a></li>
 				</c:if>
@@ -37,16 +37,18 @@
 		</div>  
 		<div id="login_menu">
 			<ul> 
-			<c:if test="${empty id}">
+			<c:if test="${empty login.id}">
 				<li class="login_btn"><a href="${pageContext.request.contextPath}
 					/manager/logIn">로그인</a></li>
 				<li class="login_btn"><a href="${pageContext.request.contextPath}
 					/manager/signUp">회원가입</a></li>
 			</c:if>
-			<c:if test="${!empty id}">
+			<c:if test="${!empty login.id}">
 				<li class="login_btn""><a href="${pageContext.request.contextPath}
 					/manager/logOut">로그아웃</a></li>
-				<li class="login_btn">${id}님 환영합니다.</li>
+				<li class="login_btn""><a href="${pageContext.request.contextPath}
+					/manager/modify">내 정보</a></li>
+				<li class="login_btn">${login.id}님 환영합니다.</li>
 			</c:if>
 			</ul>
 		</div>

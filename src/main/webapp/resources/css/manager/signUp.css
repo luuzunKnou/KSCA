@@ -1,0 +1,64 @@
+@charset "EUC-KR";
+
+section{
+	overflow:hidden; width: 60%; margin: 0 auto; 
+}
+
+#sign_up{
+	width: 430px; height:650px; margin:0 auto; margin-top: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+.form_group{
+	margin: 10px;
+}
+
+.sign_up_label{
+	margin:5px 0; font-weight: bold;
+}
+
+.col-sm-6{
+	padding: 5px 0;
+}
+
+.help-block{
+	font-size: 11px; padding: 3px 0;
+}
+
+.sign_up_form{
+	width: 400px; height: 30px; box-sizing: border-box; padding: 5px;
+	border: 1px solid #e67e22; border-radius: 4px; resize: vertical;
+}
+
+.name{
+	width: 284px; margin: 10px 10px 10px 0;
+}
+
+.code{
+	width: 100px;
+}
+
+.sign_up_btn{
+	width: 400px; margin: 5px; border-radius:5px; padding:3px 0; font-weight:bold;
+	background-color: #e67e22; color: white; 
+	border:none; position:relative; height:30px; cursor:pointer; 
+	transition:800ms ease all; outline:none;
+}
+
+.sign_up_btn:hover{
+  background:#fff; color:#e67e22;
+}
+
+.sign_up_btn:before, .sign_up_btn:after{
+  content:''; position:absolute; top:0; right:0; height:2px; width:0;
+  background: #e67e22; transition:400ms ease all;
+}
+
+.sign_up_btn:after{
+  right:inherit; top:inherit; left:0; bottom:0;
+}
+
+.sign_up_btn:hover:before, .sign_up_btn:hover:after{
+  width:100%; transition:800ms ease all;
+}

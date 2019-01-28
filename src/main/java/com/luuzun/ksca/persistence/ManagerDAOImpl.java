@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Manager;
+import com.luuzun.ksca.domain.ManagerHasArea;
 
 @Repository //DAO를 스프링에 인식시키기 위해 사용
 public class ManagerDAOImpl implements ManagerDAO{
@@ -59,5 +60,20 @@ public class ManagerDAOImpl implements ManagerDAO{
 	@Override
 	public void updateApproveManager(String id) {
 		sqlSession.update(namespace+"updateApproveManager", id);
+	}
+
+	@Override
+	public ManagerHasArea readManagerHasArea(String id) {
+		return sqlSession.selectOne(namespace+"readManagerHasArea",id);
+	}
+
+	@Override
+	public void leave(String id) {
+		sqlSession.update(namespace+"leave", id);
+	}
+
+	@Override
+	public void rejoin(String id) {
+		sqlSession.update(namespace+"rejoin", id);
 	}
 }

@@ -1,96 +1,3 @@
-DROP DATABASE ksca;
-CREATE DATABASE ksca;
-USE ksca;
-
-CREATE TABLE cat1 (
-	code VARCHAR(10) NOT NULL,
-	name VARCHAR(50) NOT NULL,
-	PRIMARY KEY (code)
-);
-
-CREATE TABLE cat2 (
-	code        VARCHAR(10) NOT NULL,
-	name        VARCHAR(50) NOT NULL,
-	parents_cat VARCHAR(10) NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (parents_cat)
-		REFERENCES cat1 (code) ON DELETE CASCADE
-);
-
-CREATE TABLE agency (
-	code    INTEGER     NOT NULL AUTO_INCREMENT, 
-	name    VARCHAR(50) NOT NULL, 
-	manager VARCHAR(12) NULL,     
-	tel     VARCHAR(30) NULL,     
-	PRIMARY KEY (code)
-);
-
-CREATE TABLE program (
-	code   INTEGER     NOT NULL AUTO_INCREMENT,
-	name   VARCHAR(50) NOT NULL,
-	cat    VARCHAR(10) NOT NULL,
-	agency INTEGER     NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (agency)
-		REFERENCES agency (code) ON DELETE CASCADE,
-	FOREIGN KEY (cat)
-		REFERENCES cat2 (code) ON DELETE CASCADE
-);
-
-CREATE TABLE manager (
-	id         VARCHAR(50) NOT NULL, 
-	password   VARCHAR(20) NOT NULL, 
-	name       VARCHAR(12) NOT NULL, 
-	tel        VARCHAR(30) NOT NULL, 
-	mail       VARCHAR(40) NOT NULL, 
-	is_approve BOOLEAN     DEFAULT 0, 
-	permission ENUM('MASTER','MANAGER') DEFAULT 'MANAGER', 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE area (
-	code        VARCHAR(20) NOT NULL,
-	manager		VARCHAR(50)	NOT NULL,
-	city        VARCHAR(20) NOT NULL,
-	city_code   VARCHAR(5) 	NOT NULL,
-	gu          VARCHAR(20) NOT NULL,
-	gu_code     VARCHAR(5)  NOT NULL,
-	branch      VARCHAR(50) NOT NULL,
-	branch_code VARCHAR(5)  NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
-);
-
-CREATE TABLE scc (
-	code    VARCHAR(15) NOT NULL,
-	name    VARCHAR(50) NOT NULL,
-	area    VARCHAR(15) NOT NULL,
-	manager VARCHAR(50) NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
-);
-
-CREATE TABLE schedule (
-	code         INTEGER     NOT NULL AUTO_INCREMENT, 
-	manager		 VARCHAR(50) NOT NULL,
-	ssc          VARCHAR(15) NOT NULL, 
-	program      INTEGER     NOT NULL, 
-	begin_date   DATE        NOT NULL, 
-	end_date     DATE        NOT NULL, 
-	time		 TIME        NULL,
-	monthly_oper INTEGER     NOT NULL, 
-	active_user  INTEGER     NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (ssc)
-		REFERENCES scc (code) ON DELETE CASCADE,
-	FOREIGN KEY (program)
-		REFERENCES program (code) ON DELETE CASCADE,
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
-);
-
 -- -------------------------------------------------
 -- code name
 INSERT INTO cat1(code, name) VALUES
@@ -117,18 +24,18 @@ INSERT INTO cat2(code, name, parents_cat) VALUES
 	('3003103',' 인식개선교육',				'3003'),
 	('3003104',' 에너지교육',				'3003'),
 	('3003105',' 노인상담',					'3003'),
-	('3003106',' 생활ㆍ안전교육',				'3003'),
+	('3003106',' 생활ㆍ안전교육',			'3003'),
 	('3003107',' 프로그램발표대회',			'3003'),
 	('3004101',' 음악활동',					'3004'),
-	('3004102',' 바둑ㆍ장기교실',				'3004'),
+	('3004102',' 바둑ㆍ장기교실',			'3004'),
 	('3004103',' 문학활동',					'3004'),
 	('3004104',' 미술활동',					'3004'),
-	('3004105',' 문화ㆍ공연활동',				'3004'),
+	('3004105',' 문화ㆍ공연활동',			'3004'),
 	('3005101',' 노인성교육',				'3005'),
-	('3005102',' 소비자피해예방교육',			'3005'),
-	('3005103',' 노인자살ㆍ학대예방교육',		'3005'),
-	('3006101',' 방문 이ㆍ미용서비스',			'3006'),
-	('3006102',' 시설 방문 위문공연',			'3006'),
+	('3005102',' 소비자피해예방교육',		'3005'),
+	('3005103',' 노인자살ㆍ학대예방교육',	'3005'),
+	('3006101',' 방문 이ㆍ미용서비스',		'3006'),
+	('3006102',' 시설 방문 위문공연',		'3006'),
 	('3006103',' 자원봉사활동',				'3006'),
 	('3007101',' 공동작업장',				'3007');
 

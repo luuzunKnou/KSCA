@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IntroduceController {
 	private static final Logger logger = LoggerFactory.getLogger(IntroduceController.class);
 	
-	//홈페이지 소게 이동
+	//홈페이지 소개 이동
 	@RequestMapping(value="/introduce")
 	public String introduceGET(HttpSession session){
 		logger.info("Introduce Page..........");

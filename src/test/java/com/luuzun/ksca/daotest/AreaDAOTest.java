@@ -2,8 +2,10 @@ package com.luuzun.ksca.daotest;
 
 import javax.inject.Inject;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,6 +16,7 @@ import com.luuzun.ksca.persistence.AreaDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class) //Spring loading
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"}) //Spring loading
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AreaDAOTest {
 	@Inject
 	private AreaDAO dao;
