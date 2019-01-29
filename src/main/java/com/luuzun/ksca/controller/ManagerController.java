@@ -3,6 +3,7 @@ package com.luuzun.ksca.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Area;
@@ -40,7 +42,7 @@ public class ManagerController {
 				inputMember.getId(), inputMember.getPassword());
 		logger.info("Manager(Login Controller) :"+manager);
 		if(manager==null){
-			//interceptor에서 Manager 정보가 없으면 login화면으로 다시 가도록 처리
+			//interceptor에서 Manager 정보가 없으면 login화면으로 return
 			logger.info("Cannot Find Manager");
 			model.addAttribute("manager",null);
 			return;
@@ -90,7 +92,49 @@ public class ManagerController {
 		return "redirect:/";
 	}
 	
-
+	//아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/checkID", method=RequestMethod.POST)
+	public int checkID(HttpServletRequest req) throws Exception{
+		logger.info("Check duplication ID");
+		 
+		 String id = req.getParameter("id");
+		 Manager manager =  service.read(id);
+		
+		 logger.info(id+" : "+manager);
+		 
+		 if(manager != null) { //아이디 중복시 0 반환
+			 return 0;
+		 } 
+		 return 1;
+	}
+	
+	//아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/checkCode", method=RequestMethod.POST)
+	public int checkCode(HttpServletRequest req) throws Exception{
+		logger.info("Check duplication ID");
+		 
+		 String cityCode = req.getParameter("cityCode");
+		 String guCode = req.getParameter("guCode");
+		
+		 StringBuffer sb = new StringBuffer();
+			sb.append(cityCode);	
+			sb.append("-");
+			sb.append(guCode);
+			sb.append("-99");
+		String code = sb.toString();
+		logger.info(code);
+		
+		Area area = areaService.read(code);
+		 
+		if(area != null) { //아이디 중복시 0 반환
+			return 0;
+		} 
+		return 1;
+	}
+	
+	
 	
 	
 	//회원정보 수정 페이지 이동
@@ -188,3 +232,4 @@ public class ManagerController {
 		return "redirect:/";
 	}
 }
+

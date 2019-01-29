@@ -35,6 +35,15 @@ public class Area {
 	}
 	
 	//Set code by association other code
+	public void SetCode(String cityCode, String guCode) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(cityCode);	
+		sb.append("-");
+		sb.append(guCode);		
+		this.code=sb.toString();
+	}
+	
+	//Set code by association other code
 	public void SetCode(String cityCode, String guCode, String branchCode) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(cityCode);	

@@ -14,11 +14,36 @@
 		<!-- 아이디 -->
 		<div class="form_group">
 			<label class="sign_up_label" for="inputID">ID</label>
-			<div class="col-sm-6">
+			<div class="col-sm-6 div_id">
 				<input class="sign_up_form" id="inputID" type="text"
 					name="id" required>
+				<p id='p_checkID'></p>
 			</div>
 		</div>
+		
+		<!-- Check ID AJAX -->
+		<script>
+			$("#inputID").keyup(function() {
+				var query = {id : $("#inputID").val()};
+				$.ajax({
+					url  : "/manager/checkID",
+					type : "post",
+					data : query,
+					success : function(data){
+						if(data == 0){ //아이디 중복
+							$("#p_checkID").text("사용할 수 없는 아이디입니다.");
+							$("#p_checkID").css("color","red");
+							$(".btn_submit").prop("disabled",true);
+						} else { //사용가능
+							$("#p_checkID").text("사용가능한 아이디입니다.");
+							$("#p_checkID").css("color","#2EB74E");
+							$(".btn_submit").prop("disabled",false);
+						}
+					}
+				});
+			});
+		</script>
+		
 
 		<!-- 이메일 -->
 		<div class="form_group">
@@ -73,7 +98,7 @@
 				<div id="locationField">
 					<input id="input_city" class="sign_up_form name"
 						name="city" type="text" placeholder="대구"></input>
-					<input id="input_city_code" class="sign_up_form code"
+					<input id="input_city_code" class="sign_up_form code 11"
 						name="cityCode"type="text" placeholder="03"></input>
 				</div>
 				
@@ -85,15 +110,40 @@
 						name="guCode" type="text" placeholder="01"></input>
 				</div>
 			</div>
+			<p id='p_checkCode'></p>
 		</div>
+		
+		<!-- Check Code AJAX -->
+		<script>
+			$(".code").keyup(function() {
+				var query = {cityCode : $("#input_city_code").val(),
+							   guCode : $("#input_gu_code").val()};
+				$.ajax({
+					url  : "/manager/checkCode",
+					type : "post",
+					data : query,
+					success : function(data){
+						if(data == 0){ //아이디 중복
+							$("#p_checkCode").text("이미 등록된 코드입니다.");
+							$("#p_checkCode").css("color","red");
+							$(".btn_submit").prop("disabled",true);
+						} else { //사용가능
+							$("#p_checkCode").text("등록 가능한 코드입니다.");
+							$("#p_checkCode").css("color","#2EB74E");
+							$(".btn_submit").prop("disabled",false);
+						}
+					}
+				});
+			});
+		</script>
 
 		<!-- 버튼 -->
 		<div class="form_group">
 			<div>
-				<button class="sign_up_btn" type="submit">
+				<button class="sign_up_btn btn_submit" type="submit">
 					회원가입
 				</button>
-				<button class="sign_up_btn" type="reset">
+				<button class="sign_up_btn btn_reset" type="reset">
 					가입취소
 				</button>
 			</div>

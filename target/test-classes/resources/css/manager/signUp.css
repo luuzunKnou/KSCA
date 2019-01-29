@@ -39,6 +39,10 @@ section{
 	width: 100px;
 }
 
+#p_checkID{
+	padding-top: 3px;
+}
+
 .sign_up_btn{
 	width: 400px; margin: 5px; border-radius:5px; padding:3px 0; font-weight:bold;
 	background-color: #e67e22; color: white; 
