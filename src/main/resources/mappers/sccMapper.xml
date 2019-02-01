@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luuzun.ksca.persistence.SccDAO">
+	<select id="listAll" resultType="SCC">
+		SELECT * From scc
+	</select>
+	
+	<select id="read" resultType="SCC">
+		SELECT * From scc 
+			WHERE code=#{code} 
+	</select>
+	
+	<select id="readByManager" resultType="SCC">
+		SELECT * FROM scc 
+			WHERE manager=#{manager};
+	</select>
+		
+	<insert id="create">
+		INSERT INTO scc(code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone, manager, area) VALUES 
+			(#{code}, #{dong}, #{name}, #{address}, #{regDate}, #{site}, #{building}, #{member}, #{male}, #{female}, #{own}, #{tel}, #{president}, #{phone}, #{manager}, #{area});
+	</insert>
+	
+	<update id="update">
+		UPDATE scc	
+			<set>
+				<if test="dong 		!=null">dong		= #{dong},		</if> 
+				<if test="name 		!=null">name		= #{name}, 		</if>
+				<if test="address 	!=null">address		= #{address}, 	</if>
+				<if test="regDate 	!=null">reg_date	= #{regDate}, 	</if> 
+				<if test="site 		!=null">site		= #{site}, 		</if>
+				<if test="building 	!=null">building	= #{building},	</if>
+				<if test="member 	!=null">member		= #{member}, 	</if>
+				<if test="male 		!=null">male		= #{male}, 		</if>
+				<if test="female 	!=null">female		= #{female}, 	</if>
+				<if test="own 		!=null">own			= #{own}, 		</if>
+				<if test="tel 		!=null">tel			= #{tel}, 		</if>
+				<if test="president !=null">president	= #{president}, </if>
+				<if test="phone 	!=null">phone		= #{phone}, 	</if>
+				<if test="manager 	!=null">manager		= #{manager}, 	</if>
+				<if test="area 		!=null">area		= #{area} 		</if>
+			</set>
+			WHERE code=#{code};
+
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM scc 
+			WHERE code=#{code};
+	</delete>
+</mapper>

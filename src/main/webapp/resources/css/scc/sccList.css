@@ -1,0 +1,64 @@
+@charset "EUC-KR";
+
+.sccList{
+	width: 1750px; margin:0 auto; margin-top: 100px; margin-bottom: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC; 
+} 
+
+#form_div{
+	position: fixed; bottom: 50px; left:50%; margin-left:-896px;
+	width: 1750px; 
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+form{
+	 overflow: hidden;
+}
+
+.scc_list_tr{
+	padding:10px; border-bottom: 1px solid #B2B2B2;
+}
+
+th{
+	padding: 7px; text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #e67e22;
+}
+
+td{
+	padding: 7px; text-align: center;
+}
+
+.btn_create{
+	width: 490px; margin: 20px 5px 0px 5px; border-radius:5px; padding:3px 0; font-weight:bold;
+	background-color: #e67e22; color: white; border:none; height:30px; 
+}
+
+.btn_delete{
+	width: 40px; border-radius:3px; padding:3px 0;
+	background-color: #e67e22; color: white; border:none;  
+}
+
+.input{
+	width: 70%; text-align: center;
+}
+
+/*********  Table Width *********/
+.code 		{ width : 100px;}
+.dong		{ width : 70px;}
+.name		{ width : 200px; text-align: left;}
+.address	{ width : 350px; text-align: left;}
+.reg_data	{ width : 85px;}
+.site		{ width : 60px;}
+.building	{ width : 60px;}
+.member		{ width : 45px;}
+.male		{ width : 65px;}
+.female		{ width : 65px;}
+.own		{ width : 45px;}
+.tel		{ width : 100px;}
+.president	{ width : 65px;}
+.phone		{ width : 100px;}
+.input code { winth : 28px;}
+

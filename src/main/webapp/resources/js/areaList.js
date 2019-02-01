@@ -1,10 +1,4 @@
 $(document).ready(function(){
-	//Modal JavaScript
-	var modal 	= $("#myModal");
-    var close 	= $(".close");      
-    var save	= $(".save");
-	var inputs 	= $(".input");
-	
 	/* Create Branch AJAX */
 	$(".save").click(function() {
 		var query = {
@@ -77,7 +71,8 @@ $(document).ready(function(){
 	});
 
 	//Delete Button 
-	$(".btn_delete").click(function() {
+	//$(".btn_delete").click(function() {
+	$(document).on("click",".btn_delete",function() {
 		var result = confirm("정말 삭제하시겠습니까?");
 		if(result){
 			var query = {
