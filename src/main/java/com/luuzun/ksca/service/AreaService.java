@@ -10,4 +10,5 @@ public interface AreaService {
 	public void create(Area area) throws Exception;
 	public void update(Area area) throws Exception;
 	public void delete(String code) throws Exception;
+	public List<Area> readByManager(String manager);
 }

@@ -54,4 +54,11 @@ public class AreaDAOTest {
 	public void test_05_ListAll() throws Exception{
 		logger.info(dao.listAll().toString());
 	}
+	
+	@Test
+	public void test_06_readByManager() throws Exception{
+		logger.info(dao.readByManager("mcmoto").toString());
+	}
+	
+	
 }

@@ -40,4 +40,9 @@ public class AreaDAOImpl implements AreaDAO{
 	public void delete(String code) throws Exception {
 		sqlSession.delete(namespace+"delete", code);
 	}
+
+	@Override
+	public List<Area> readByManager(String manager) {
+		return sqlSession.selectList(namespace+"readByManager",manager);
+	}
 }

@@ -39,4 +39,9 @@ public class AreaServiceImpl implements AreaService{
 	public void delete(String code) throws Exception{
 		dao.delete(code);
 	}
+
+	@Override
+	public List<Area> readByManager(String manager) {
+		return dao.readByManager(manager);
+	}
 }

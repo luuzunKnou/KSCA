@@ -1,0 +1,40 @@
+@charset "EUC-KR";
+
+.areaList{
+	width: 500px; margin:0 auto; margin-top: 100px; margin-bottom: 100px;
+	border: 1px solid #e67e22; border-radius:5px; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+.area_list_table{
+	margin-top: 20px;
+}
+
+.area_list_tr{
+	padding:10px; border-bottom: 1px solid #B2B2B2;
+}
+
+th{
+	padding: 7px; text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #e67e22;
+}
+
+td{
+	padding: 7px; text-align: center;
+}
+
+.checkbox{
+	height: 17px; width: 17px; border: 2px solid #bcbcbc;
+	text-shadow: none; vertical-align:-5px; 
+}
+
+.btn_create{
+	width: 490px; margin: 20px 5px 0px 5px; border-radius:5px; padding:3px 0; font-weight:bold;
+	background-color: #e67e22; color: white; border:none; height:30px; 
+}
+
+.btn_delete{
+	width: 40px; border-radius:3px; padding:3px 0;
+	background-color: #e67e22; color: white; border:none;  
+}

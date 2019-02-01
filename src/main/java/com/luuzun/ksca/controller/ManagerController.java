@@ -188,6 +188,9 @@ public class ManagerController {
 		return "redirect:/";
 	}
 
+	
+	
+	
 	//회원관리 창으로 이동
 	@RequestMapping(value="/managerManagement")
 	public String managerManagementGET(Model model, HttpSession session, 

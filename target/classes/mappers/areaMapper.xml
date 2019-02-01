@@ -13,11 +13,10 @@
 			WHERE code=#{code} 
 	</select>
 	
-	<!-- <select id="readByManager" resultType="Area">
-		SELECT DISTINCT city, city_code, gu, gu_code 
-			FROM area 
+	<select id="readByManager" resultType="Area">
+		SELECT * FROM area 
 			WHERE manager=#{manager};
-	</select> -->
+	</select>
 		
 	<insert id="create">
 		INSERT INTO area(code, manager, city, city_code, gu, gu_code, branch, branch_code) VALUES
