@@ -72,7 +72,8 @@ public class AreaController {
 		area.setManager(manager.getId());
 		
 		logger.info("area: "+area);
-
+		
+		//비어있는 값 처리
 		//중복 입력 처리
 		if(service.read(area.getCode())!=null) {
 			return new Area("DUPLICATED");

@@ -47,6 +47,7 @@ INSERT INTO manager(id, password, name, tel, mail, is_approve, permission) VALUE
 	
 -- code manager city city_code gu gu_code branch branch_code
 INSERT INTO area(code, manager, city, city_code, gu, gu_code, branch, branch_code) VALUES
+	('00-00-99', 'luuzun', '대구', '03', '중구', '01', '없음' , '99'),	
 	('03-01-99', 'mcmoto', '대구', '03', '중구', '01', '없음' , '99'),
 	('03-01-01', 'mcmoto', '대구', '03', '중구', '01', '남산동', '01'),
 	('03-01-02', 'mcmoto', '대구', '03', '중구', '01', '대봉동', '02'),
