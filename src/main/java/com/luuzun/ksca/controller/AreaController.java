@@ -8,10 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,16 +64,20 @@ public class AreaController {
 	//분회 추가
 	@ResponseBody
 	@RequestMapping(value="/createBranch", method=RequestMethod.POST)
-	public Area createBranch(Area area, HttpSession session, 
-			Model model, HttpServletRequest req) {
-		logger.info("createBranch..........");
-		ResponseEntity<String> entity = null;
+	public Area createBranch(Area area, HttpSession session, Model model) throws Exception  {
+		logger.info("Create Branch..........");
+		//ResponseEntity<String> entity = null;
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		area.setManager(manager.getId());
 		
 		logger.info("area: "+area);
 
+		//중복 입력 처리
+		if(service.read(area.getCode())!=null) {
+			return new Area("DUPLICATED");
+		}
+		
 		try {
 			service.create(area);
 			//entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
@@ -86,5 +89,21 @@ public class AreaController {
 
 		//return entity;
 		return area;
+	}
+	
+	//분회 삭제
+	@ResponseBody
+	@RequestMapping(value="/removeBranch", method=RequestMethod.POST)
+	public String removeBranch(Model model, HttpServletRequest req, String code) throws Exception {
+		logger.info("Remove Branch..........: " + code);
+		
+		//99 삭제 불가
+		String checkBranch = code.split("-")[2];
+		if(checkBranch.equals("99")){
+			return "ERROR";
+		}
+			
+		service.delete(code);
+		return code;
 	}
 }

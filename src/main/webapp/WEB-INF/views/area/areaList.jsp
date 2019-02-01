@@ -4,17 +4,22 @@
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/area/areaList.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/modal.css" rel="stylesheet">
-
+<script>
+		var result = '${msg}';
+		if(result.length!=0){
+			alert(result);
+		} 
+</script>
 <section>
 <div class="areaList">
-	<table class="manager_list_table">
+	<table class="area_list_table">
 		<tr>
 			<th>코드</th> <th>연합회</th> <th>연합회 코드</th> <th>지회</th> <th>지회 코드</th>
 			<th>분회</th> <th> 분회 코드</th> <th></th>
 		</tr>
 		<c:forEach var="area" items="${areaList}">
 			<tr class="area_list_tr">
-				<td>${area.code}</td>
+				<td class="list_code">${area.code}</td>
 				<td>${area.city}</td>
 				<td>${area.cityCode}</td>
 				<td>${area.gu}</td>
@@ -96,17 +101,22 @@
 				success : function(data){
 					modal.style.display = "none";
 					clear();
-					$(".manager_list_table").append("<tr class='area_list_tr'>"
-						+"<td>"+data.code+"</td>"
-						+"<td>"+data.city+"</td>"
-						+"<td>"+data.cityCode+"</td>"
-						+"<td>"+data.gu+"</td>"
-						+"<td>"+data.guCode+"</td>"
-						+"<td>"+data.branch+"</td>"
-						+"<td>"+data.branchCode+"</td>"
-						+"<td><button class='btn_delete'>삭제</button></td>"
-						+"</tr>"
-					);
+					if(data.code=="DUPLICATED"){
+						alert("이미 존재하는 분회입니다.");
+					} else {
+						alert("등록되었습니다.");
+						$(".area_list_table").append("<tr class='area_list_tr'>"
+							+"<td class='list_code'>"+data.code+"</td>"
+							+"<td>"+data.city+"</td>"
+							+"<td>"+data.cityCode+"</td>"
+							+"<td>"+data.gu+"</td>"
+							+"<td>"+data.guCode+"</td>"
+							+"<td>"+data.branch+"</td>"
+							+"<td>"+data.branchCode+"</td>"
+							+"<td><button class='btn_delete'>삭제</button></td>"
+							+"</tr>"
+						);
+					}
 				}
 			})
 		});
@@ -148,13 +158,38 @@
 			return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
 		}
 	    
-	    //Key up - Make Code
+	    //Key up시 Code 생성
 		$(".input").keyup(function(){
 			var code = $(".city_code").val()+"-"
 					  +$(".gu_code").val()	+"-"
 					  +$(".branch_code").val();
 			$(".code").val(code);
 		});
+	</script>
+	
+	<!-- Delete Button -->
+	<script>
+	$(".btn_delete").click(function() {
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			var query = {
+				code : $(this).parent().siblings(".list_code").text()
+			};
+			
+			$.ajax({
+				url  : "/area/removeBranch",
+				type : "post",
+				data : query,
+				success : function(data){
+					if(data=="ERROR"){
+						alert("삭제할 수 없는 항목입니다.");
+					} else {
+						$(".area_list_tr:contains("+data+")").remove();
+					}
+				}
+			})
+		}
+	});
 	</script>
 	
 </div>

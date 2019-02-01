@@ -14,6 +14,12 @@ public class Area {
 		super();
 	}
 
+	//for making error area
+	public Area(String code) {
+		super();
+		this.code = code;
+	}
+
 	public Area(String code, String manager, String city, String cityCode, String gu, String guCode, String branch,
 			String branchCode) {
 		super();
