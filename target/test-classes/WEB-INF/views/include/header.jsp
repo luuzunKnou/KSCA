@@ -5,8 +5,8 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet"> -->
 <html>
 <head>
 	<title>The Korea Senior Citizens Assoiation Program Schduler</title>
