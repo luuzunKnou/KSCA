@@ -59,9 +59,4 @@ public class AreaDAOTest {
 	public void test_06_readByManager() throws Exception{
 		logger.info(dao.readByManager("mcmoto").toString());
 	}
-
-	@Test
-	public void test_07_readFrontCode() throws Exception{
-		logger.info(dao.readFrontCode("mcmoto").toString());
-	}
 }

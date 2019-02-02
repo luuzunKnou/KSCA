@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Area;
 
-@Repository //DAO를 스프링에 인식시키기 위해 사용
+@Repository
 public class AreaDAOImpl implements AreaDAO{
 	
 	@Inject //자동 주입
@@ -44,10 +44,5 @@ public class AreaDAOImpl implements AreaDAO{
 	@Override
 	public List<Area> readByManager(String manager) {
 		return sqlSession.selectList(namespace+"readByManager",manager);
-	}
-
-	@Override
-	public String readFrontCode(String manager) {
-		return sqlSession.selectOne(namespace+"readFrontCode",manager);
 	}
 }

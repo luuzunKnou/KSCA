@@ -44,9 +44,4 @@ public class AreaServiceImpl implements AreaService{
 	public List<Area> readByManager(String manager) {
 		return dao.readByManager(manager);
 	}
-
-	@Override
-	public String readFrontCode(String manager) {
-		return dao.readFrontCode(manager);
-	}
 }

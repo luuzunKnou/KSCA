@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.SCC;
 
-@Repository //DAO를 스프링에 인식시키기 위해 사용
+@Repository
 public class SccDAOImpl implements SccDAO{
 	
-	@Inject //자동 주입
+	@Inject
 	private SqlSession sqlSession;
 	private static final String namespace = "com.luuzun.ksca.persistence.SccDAO.";
 	

@@ -35,6 +35,11 @@ public class SCC {
 		super();
 	}
 	
+	public SCC(String code) {
+		super();
+		this.code = code;
+	}
+
 	public SCC(String code, String name, String manager, String area) {
 		super();
 		this.code = code;

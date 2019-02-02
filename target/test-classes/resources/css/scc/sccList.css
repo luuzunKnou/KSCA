@@ -49,14 +49,14 @@ td{
 .code 		{ width : 110px;}
 .dong		{ width : 70px;}
 .name		{ width : 200px; text-align: left;}
-.address	{ width : 350px; text-align: left;}
+.address	{ width : 320px; text-align: left;}
 .reg_data	{ width : 85px;}
 .site		{ width : 60px;}
 .building	{ width : 60px;}
 .member		{ width : 45px;}
 .male		{ width : 65px;}
 .female		{ width : 65px;}
-.own		{ width : 45px;}
+.own		{ width : 55px;}
 .tel		{ width : 100px;}
 .president	{ width : 65px;}
 .phone		{ width : 100px;}

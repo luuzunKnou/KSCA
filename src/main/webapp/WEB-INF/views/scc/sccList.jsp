@@ -47,10 +47,10 @@
 	 		<tr>
 	 			<td><span class="front_code">${frontCode}</span>
 	 				<select class="input branch">
-	 					<option selected="selected"> 분회 선택
-	 					<option>99(없음)</option>
-	 					<option>01(비산동)</option>
-	 					<option>02(복현동)</option> 
+	 					<option selected="selected"> 분회 선택 </option>
+	 					<c:forEach var="branchCode" items="${branchCodeList}" varStatus="status">
+		 					<option value="${branchCode}">${branchCode} (${branchNameList[status.index]})</option>
+	 					</c:forEach>
 	 				</select><span>-</span>
 	 				<input type="text" class="input code"></td>
 				<td><input type="text" class="input dong"></td>
@@ -62,21 +62,28 @@
 				<td><input type="text" class="input member"></td>
 				<td><input type="text" class="input male"></td>
 				<td><input type="text" class="input female"></td>
-				<td><input type="text" class="input own"></td>
+				<td>
+					<select class="input own">
+						<option value="공설" selected="selected"> 공설 </option>
+						<option value="사설"> 사설 </option>
+					</select>
+<!--				<input type="text" class="input own"></td> -->
+				
 				<td><input type="text" class="input tel"></td>
 				<td><input type="text" class="input president"></td>
 				<td><input type="text" class="input phone"></td>
 	 		</tr>
 		</table>
-		<button class="save">추가</button>
+		<button type="button" class="save">추가</button>
 		<button class="close" type="reset">취소</button>
 	</form>
 	<script>
 	$(document).ready(function(){
+
 		$(".save").click(function() {
+			//alert($(".front_code").text());
 			var query = {
-				front_code	: $(".front_code").val(),
-				code		: $(".front_code").val()+$(".input.code").val(),
+				code		: $(".front_code").val()+$("input branch").val()+"-"+$(".input.code").val(),
 				dong 		: $(".input.dong").val(),
 				name 		: $(".input.name").val(),
 				address		: $(".input.address").val(),
@@ -91,6 +98,18 @@
 				president 	: $(".input.president").val(),
 				phone 		: $(".input.phone").val()
 			};
+			$.ajax({
+				url  : "/scc/createScc",
+				type : "post",
+				data : query,
+				success : function(data){
+					if(data.code=="DUPLICATED"){
+						alert("이미 존재하는 경로당입니다.");
+					} else {
+						alert("등록되었습니다.");
+					}
+				}
+			})
 		});
 	});
 	</script>

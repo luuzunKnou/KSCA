@@ -18,11 +18,6 @@
 			WHERE manager=#{manager};
 	</select>
 	
-	<select id="readFrontCode" resultType="String">
-		SELECT DISTINCT LEFT(code,6) FROM area 
-			WHERE manager=#{manager};
-	</select>
-	
 	<insert id="create">
 		INSERT INTO area(code, manager, city, city_code, gu, gu_code, branch, branch_code) VALUES
 			(#{code}, #{manager}, #{city}, #{cityCode}, #{gu}, #{guCode}, #{branch}, #{branchCode})
