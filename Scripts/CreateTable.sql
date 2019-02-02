@@ -75,7 +75,9 @@ CREATE TABLE scc (
 	area      VARCHAR(20)  NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
+		REFERENCES manager (id) ON DELETE CASCADE,
+	FOREIGN KEY (area)
+		REFERENCES area (code) ON DELETE CASCADE
 );
 
 CREATE TABLE schedule (

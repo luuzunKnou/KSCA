@@ -1,6 +1,7 @@
 
 package com.luuzun.ksca.domain;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,6 +30,14 @@ public class SCC {
 		if(regDate!=null)
 			simpleRegDate=sd.format(regDate);
 		return simpleRegDate;
+	}
+	
+	public void setSimpleRegData(String strDate) {
+		try {
+			this.regDate = sd.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public SCC() {

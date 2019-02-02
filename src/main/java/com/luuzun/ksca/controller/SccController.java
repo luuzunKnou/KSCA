@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class SccController {
 		logger.info("SCC List Page..........");
 		Manager manager = (Manager) session.getAttribute("login");
 		
-		//권한 확인
+		//Permission Check
 		if(manager==null) {
 			rttr.addFlashAttribute("msg","권한이 없습니다.");
 			return "redirect:/"; 
@@ -68,21 +69,23 @@ public class SccController {
 		return "scc/sccList";
 	}
 	
-	//경로당 추가
+	//Create SCC
 	@ResponseBody
 	@RequestMapping(value="/createScc", method=RequestMethod.POST)
-	public SCC createScc(SCC scc, HttpSession session, Model model) throws Exception  {
+	public SCC createScc(SCC scc, HttpSession session, Model model, String regDateStr) throws Exception  {
 		logger.info("Create Branch..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
-		logger.info("SCC: "+scc);
 		
 		//Set insert SCC
-		//전체 코드, area code 필요.
 		scc.setManager(manager.getId());
 		scc.setArea(scc.getCode().substring(0,8));
+		if(regDateStr.length()!=0) {
+			scc.setSimpleRegData(regDateStr);
+		}
+		
 		logger.info("SCC: "+scc);
-
+		logger.info("regDateStr: "+regDateStr);
 		//비어있는 값 처리
 		
 		//중복 입력 처리
@@ -98,5 +101,15 @@ public class SccController {
 		}
 
 		return scc;
+	}
+	
+	//remove SCC
+	@ResponseBody
+	@RequestMapping(value="/removeScc", method=RequestMethod.POST)
+	public String removeScc(Model model, HttpServletRequest req, String code) throws Exception {
+		logger.info("Remove SCC..........: " + code);
+		
+		service.delete(code);
+		return code;
 	}
 }

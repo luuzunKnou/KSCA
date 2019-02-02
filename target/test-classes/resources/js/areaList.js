@@ -56,7 +56,7 @@ $(document).ready(function(){
     	$(".branch_code").val("");
 	}
     
-    //자리수에 맞게 0 추가
+    //n에 width 자리수에 맞게 0 추가
 	function pad(n, width) {
 		n = n + '';
 		return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;

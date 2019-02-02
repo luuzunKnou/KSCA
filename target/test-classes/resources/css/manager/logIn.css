@@ -6,8 +6,7 @@ section{
 
 #login{
 	width: 600px; height:250px; margin:0 auto; margin-top: 200px;
-	border: 1px solid #e67e22; border-radius:5px; 
-	background-color: #FAFBFC;
+	border: 1px solid #e67e22; background-color: #FAFBFC;
 } 
 
 #form_login{
@@ -34,7 +33,7 @@ section{
 	width: 235px; margin: 5px; border-radius:5px; padding:3px 0; font-weight:bold;
 	background-color: #e67e22; color: white; 
 	border:none; position:relative; height:30px; cursor:pointer; 
-	transition:800ms ease all; outline:none;
+	transition:300ms ease all; outline:none;
 }
 
 .btn_login:hover{
@@ -43,7 +42,7 @@ section{
 
 .btn_login:before,.btn_login:after{
   content:''; position:absolute; top:0; right:0; height:2px; width:0;
-  background: #e67e22; transition:400ms ease all;
+  background: #e67e22; transition:300ms ease all;
 }
 
 .btn_login:after{
@@ -51,5 +50,5 @@ section{
 }
 
 .btn_login:hover:before,.btn_login:hover:after{
-  width:100%; transition:800ms ease all;
+  width:100%; transition:300ms ease all;
 }
