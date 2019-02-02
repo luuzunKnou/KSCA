@@ -45,8 +45,13 @@
 				<th>회원 수(여)</th> <th>소유</th> <th>전화번호</th> <th>회장 명</th> <th>회장 연락처</th>
 			</tr>
 	 		<tr>
-	 			<!-- 분회 선택 추가 -->
 	 			<td><span class="front_code">${frontCode}</span>
+	 				<select class="input branch">
+	 					<option selected="selected"> 분회 선택
+	 					<option>99(없음)</option>
+	 					<option>01(비산동)</option>
+	 					<option>02(복현동)</option> 
+	 				</select><span>-</span>
 	 				<input type="text" class="input code"></td>
 				<td><input type="text" class="input dong"></td>
 				<td><input type="text" class="input name"></td>
@@ -64,8 +69,31 @@
 	 		</tr>
 		</table>
 		<button class="save">추가</button>
-		<button class="close">취소</button>
+		<button class="close" type="reset">취소</button>
 	</form>
+	<script>
+	$(document).ready(function(){
+		$(".save").click(function() {
+			var query = {
+				front_code	: $(".front_code").val(),
+				code		: $(".front_code").val()+$(".input.code").val(),
+				dong 		: $(".input.dong").val(),
+				name 		: $(".input.name").val(),
+				address		: $(".input.address").val(),
+				reg_date 	: $(".input.reg_date").val(),
+				site 		: $(".input.site").val(),
+				building 	: $(".input.building").val(),
+				member 		: $(".input.member").val(),
+				male 		: $(".input.male").val(),
+				female		: $(".input.female").val(),
+				own 		: $(".input.own").val(),
+				tel	 		: $(".input.tel").val(),
+				president 	: $(".input.president").val(),
+				phone 		: $(".input.phone").val()
+			};
+		});
+	});
+	</script>
 </div>
 </section>
 <%@ include file="../include/footer.jsp"%> 

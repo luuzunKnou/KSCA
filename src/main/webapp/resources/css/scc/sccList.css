@@ -46,7 +46,7 @@ td{
 }
 
 /*********  Table Width *********/
-.code 		{ width : 100px;}
+.code 		{ width : 110px;}
 .dong		{ width : 70px;}
 .name		{ width : 200px; text-align: left;}
 .address	{ width : 350px; text-align: left;}
@@ -60,5 +60,6 @@ td{
 .tel		{ width : 100px;}
 .president	{ width : 65px;}
 .phone		{ width : 100px;}
-.input code { winth : 28px;}
+.input.code { width : 33px;}
+.input.branch{ width : 100px;}
 
