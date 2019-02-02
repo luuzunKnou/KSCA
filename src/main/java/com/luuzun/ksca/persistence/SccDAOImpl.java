@@ -45,4 +45,9 @@ public class SccDAOImpl implements SccDAO{
 	public List<SCC> readByManager(String manager) {
 		return sqlSession.selectList(namespace+"readByManager",manager);
 	}
+
+	@Override
+	public int countByArea(String area) {
+		return sqlSession.selectOne(namespace+"countByArea",area);
+	}
 }

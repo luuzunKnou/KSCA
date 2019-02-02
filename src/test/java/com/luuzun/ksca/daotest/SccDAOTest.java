@@ -32,7 +32,7 @@ public class SccDAOTest {
 	
 	@Test
 	public void test_02_Update() throws Exception{
-		SCC updateScc = new SCC("99-99-999", "TestDong", "UpdateSCC", "UpdateAdd", new Date(), 
+		SCC updateScc = new SCC("99-99-99-999", "TestDong", "UpdateSCC", "UpdateAdd", new Date(), 
 				(float)999.9, (float)999.9, 99, 9, 9, "°ø¼³", "999-9999-9999", 
 				"Tester", "053-999-9999", "mcmoto", "03-01-99");
 		dao.update(updateScc);
@@ -40,12 +40,12 @@ public class SccDAOTest {
 	
 	@Test
 	public void test_03_Read() throws Exception{
-		logger.info(dao.read("99-99-999").toString());
+		logger.info(dao.read("99-99-99-999").toString());
 	}
 	
 	@Test
 	public void test_04_Delete() throws Exception{
-		dao.delete("99-99-999");
+		dao.delete("99-99-99-999");
 	}
 	
 	@Test
@@ -57,4 +57,10 @@ public class SccDAOTest {
 	public void test_06_readByManager() throws Exception{
 		logger.info(dao.readByManager("mcmoto").toString());
 	}
+	
+	@Test
+	public void test_07_countByArea() throws Exception{
+		logger.info(String.valueOf(dao.countByArea("03-01-99")));
+	}
+	
 }

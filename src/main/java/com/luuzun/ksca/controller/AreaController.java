@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.luuzun.ksca.domain.Area;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.service.AreaService;
+import com.luuzun.ksca.service.SccService;
 
 @Controller
 @RequestMapping("/area/*")
@@ -25,7 +26,8 @@ public class AreaController {
 	private static final Logger logger = LoggerFactory.getLogger(AreaController.class);
 	
 	@Inject	private AreaService service;
-	
+	@Inject	private SccService sccService;
+
 	//Area List
 	@RequestMapping(value="/areaList")
 	public String areaListGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
@@ -100,9 +102,14 @@ public class AreaController {
 		//99 삭제 불가
 		String checkBranch = code.split("-")[2];
 		if(checkBranch.equals("99")){
-			return "ERROR";
+			return "ERROR:def";
 		}
-			
+		
+		//분회에 소속된 경로당이 존재하면 삭제 불가
+		if(sccService.countByArea(code)!=0) {
+			return "ERROR:cascade";
+		}
+		
 		service.delete(code);
 		return code;
 	}

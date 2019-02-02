@@ -18,6 +18,11 @@
 			WHERE manager=#{manager};
 	</select>
 		
+	<select id="countByArea" resultType="int">
+		SELECT COUNT(*) FROM scc 
+			WHERE area=#{area};
+	</select>
+	
 	<insert id="create">
 		INSERT INTO scc(code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone, manager, area) VALUES 
 			(#{code}, #{dong}, #{name}, #{address}, #{regDate}, #{site}, #{building}, #{member}, #{male}, #{female}, #{own}, #{tel}, #{president}, #{phone}, #{manager}, #{area});
@@ -43,7 +48,6 @@
 				<if test="area 		!=null">area		= #{area} 		</if>
 			</set>
 			WHERE code=#{code};
-
 	</update>
 	
 	<delete id="delete">

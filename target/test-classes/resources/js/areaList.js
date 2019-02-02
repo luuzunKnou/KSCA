@@ -84,8 +84,10 @@ $(document).ready(function(){
 				type : "post",
 				data : query,
 				success : function(data){
-					if(data=="ERROR"){
+					if(data=="ERROR:def"){
 						alert("삭제할 수 없는 항목입니다.");
+					} else if(data=="ERROR:cascade"){
+						alert("분회에 소속된 경로당이 존재하므로 삭제할 수 없습니다.");
 					} else {
 						$(".area_list_tr:contains("+data+")").remove();
 					}

@@ -11,4 +11,5 @@ public interface SccService {
 	public void update(SCC scc) throws Exception;
 	public void delete(String code) throws Exception;
 	public List<SCC> readByManager(String manager);
+	public int countByArea(String area);
 }

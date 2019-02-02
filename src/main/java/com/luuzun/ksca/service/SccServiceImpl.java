@@ -44,4 +44,9 @@ public class SccServiceImpl implements SccService{
 	public List<SCC> readByManager(String manager) {
 		return dao.readByManager(manager);
 	}
+
+	@Override
+	public int countByArea(String area) {
+		return dao.countByArea(area);
+	}
 }
