@@ -73,7 +73,7 @@ public class SccController {
 	@ResponseBody
 	@RequestMapping(value="/createScc", method=RequestMethod.POST)
 	public SCC createScc(SCC scc, HttpSession session, Model model, String regDateStr) throws Exception  {
-		logger.info("Create Branch..........");
+		logger.info("Create SCC..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		
@@ -81,7 +81,7 @@ public class SccController {
 		scc.setManager(manager.getId());
 		scc.setArea(scc.getCode().substring(0,8));
 		if(regDateStr.length()!=0) {
-			scc.setSimpleRegData(regDateStr);
+			scc.setSimpleRegDate(regDateStr);
 		}
 		
 		logger.info("SCC: "+scc);
@@ -102,6 +102,33 @@ public class SccController {
 
 		return scc;
 	}
+	
+	
+	
+	//Modify SCC
+	@ResponseBody
+	@RequestMapping(value="/modifyScc", method=RequestMethod.POST)
+	public SCC modifyScc(SCC scc, Model model, String regDateStr) throws Exception  {
+		logger.info("Modify SCC..........");
+		
+		//Set insert SCC
+		if(regDateStr.length()!=0) {
+			scc.setSimpleRegDate(regDateStr);
+		}
+		
+		logger.info("SCC: "+scc);
+		
+		try {
+			service.update(scc);
+			model.addAttribute("updateScc",scc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return scc;
+	}
+	
+	
 	
 	//remove SCC
 	@ResponseBody

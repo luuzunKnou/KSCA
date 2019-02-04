@@ -25,14 +25,14 @@ public class SCC {
 	
 	SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public String getSimpleRegData() {
+	public String getSimpleRegDate() {
 		String simpleRegDate = "";
 		if(regDate!=null)
 			simpleRegDate=sd.format(regDate);
 		return simpleRegDate;
 	}
 	
-	public void setSimpleRegData(String strDate) {
+	public void setSimpleRegDate(String strDate) {
 		try {
 			this.regDate = sd.parse(strDate);
 		} catch (ParseException e) {

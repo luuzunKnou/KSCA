@@ -20,7 +20,7 @@
 				<td class="list dong">${scc.dong}</td>
 				<td class="list name">${scc.name}</td>
 				<td class="list address">${scc.address}</td>
-				<td class="list reg_data">${scc.simpleRegData}</td>
+				<td class="list reg_date">${scc.simpleRegDate}</td>
 				<td class="list site">${scc.site}</td>
 				<td class="list building">${scc.building}</td>
 				<td class="list member">${scc.member}</td>
@@ -78,14 +78,123 @@
 	</form>
 	<script>
 	$(document).ready(function(){
-
-		$(".save").click(function() {
+		$(document).on("click",".save",function() {
 			var frontCode = $(".front_code").text(); 
 			var branchCode= $(".input.branch").val(); 
 			var sccCode   = $(".input.code").val();
 			
 			var code = frontCode+branchCode+"-"+pad(sccCode,3);
-			console.log($(".input.reg_date").val());
+			//console.log($(".input.reg_date").val());
+			var query = {
+				code		: code,
+				dong 		: $(".input.dong").val(),
+				name 		: $(".input.name").val(),
+				address		: $(".input.address").val(),
+				regDateStr	: $(".input.reg_date").val(),
+				site 		: $(".input.site").val(),
+				building 	: $(".input.building").val(),
+				member 		: $(".input.member").val(),
+				male 		: $(".input.male").val(),
+				female		: $(".input.female").val(),
+				own 		: $(".input.own").val(),
+				tel	 		: $(".input.tel").val(),
+				president 	: $(".input.president").val(),
+				phone 		: $(".input.phone").val()
+			};
+					
+			$.ajax({
+				url  : "/scc/createScc",
+				type : "post",
+				data : query,
+				success : function(data){
+					if(data.code=="DUPLICATED"){
+						alert("이미 존재하는 경로당입니다.");
+					} else {
+						$(".scc_list_table").append("<tr class='scc_list_tr'>"
+							+"<td class='list code'>"	 +data.code+"</td>"
+							+"<td class='list dong'>"	 +data.dong+"</td>"
+							+"<td class='list name'>"	 +data.name+"</td>"
+							+"<td class='list address'>" +data.address+"</td>"
+							+"<td class='list simpleRegDate'>"+data.simpleRegDate+"</td>"
+							+"<td class='list site'>"	 +data.site+"</td>"
+							+"<td class='list building'>"+data.building+"</td>"
+							+"<td class='list member'>"	 +data.member+"</td>"
+							+"<td class='list male'>"	 +data.male+"</td>"
+							+"<td class='list female'>"	 +data.female+"</td>"
+							+"<td class='list own'>"	 +data.own+"</td>"
+							+"<td class='list tel'>"	 +data.tel+"</td>"
+							+"<td class='list president'>"+data.president+"</td>"
+							+"<td class='list phone'>"	 +data.phone+"</td>"
+							+"<td><button class='btn_modify'>수정</button></td>"
+							+"<td><button class='btn_delete'>삭제</button></td>"
+							+"</tr>"
+						);
+						alert("등록되었습니다.");
+						$("body").animate({
+							scrollTop: $(document).height()
+						}, 1000);
+					}
+				}
+			})
+		});
+		
+		
+		//Delete Button
+		$(document).on("click",".btn_delete",function() {
+			var result = confirm("정말 삭제하시겠습니까?");
+			if(result){
+				var query = {
+					code : $(this).parent().siblings(".list.code").text()
+				};
+				
+				$.ajax({
+					url  : "/scc/removeScc",
+					type : "post",
+					data : query,
+					success : function(data){
+						$(".scc_list_tr:contains("+data+")").remove();
+					}
+				})
+			}
+		});
+		
+		
+		//Modify Button Click
+		$(document).on("click",".btn_modify",function() {
+			var modifyingTr = $(this).parent().parent();
+			var code = $(this).parent().siblings(".list.code").text();
+			var branchCode = code.split('-')[2];
+			var sccCode = code.split('-')[3];
+			
+			//Set input value
+			$(".input.branch").val(branchCode);
+			$(".input.code").val(sccCode);
+			$(".input.dong").val(		modifyingTr.children(".list.dong").text());
+			$(".input.name").val(		modifyingTr.children(".list.name").text());		
+			$(".input.address").val(	modifyingTr.children(".list.address").text());
+			$(".input.reg_date").val(	modifyingTr.children(".list.reg_date").text());
+			$(".input.site").val(		modifyingTr.children(".list.site").text());
+			$(".input.building").val(	modifyingTr.children(".list.building").text());
+			$(".input.member").val(		modifyingTr.children(".list.member").text());
+			$(".input.male").val(		modifyingTr.children(".list.male").text());
+			$(".input.female").val(		modifyingTr.children(".list.female").text());
+			$(".input.own").val(		modifyingTr.children(".list.own").text());
+			$(".input.tel").val(		modifyingTr.children(".list.tel").text());
+			$(".input.president").val(	modifyingTr.children(".list.president").text());
+			$(".input.phone").val(		modifyingTr.children(".list.phone").text());
+			
+			//change button and opacity
+			$(".save").text("수정").attr("class","modify");
+			$(".sccList").css("opacity",0.2);
+		});
+		
+		//Modify Ajax
+		$(document).on("click",".modify",function() {
+			var frontCode = $(".front_code").text(); 
+			var branchCode= $(".input.branch").val(); 
+			var sccCode   = $(".input.code").val();
+			var code = frontCode+branchCode+"-"+pad(sccCode,3);
+			//console.log($(".input.reg_date").val());
 			var query = {
 				code		: code,
 				dong 		: $(".input.dong").val(),
@@ -104,55 +213,33 @@
 			};
 			
 			$.ajax({
-				url  : "/scc/createScc",
+				url  : "/scc/modifyScc",
 				type : "post",
 				data : query,
 				success : function(data){
-					if(data.code=="DUPLICATED"){
-						alert("이미 존재하는 경로당입니다.");
-					} else {
-						$(".scc_list_table").append("<tr class='scc_list_tr'>"
-							+"<td class='list code'>"	 +data.code+"</td>"
-							+"<td class='list dong'>"	 +data.dong+"</td>"
-							+"<td class='list name'>"	 +data.name+"</td>"
-							+"<td class='list address'>" +data.address+"</td>"
-							+"<td class='list simpleRegData'>"+data.simpleRegData+"</td>"
-							+"<td class='list site'>"	 +data.site+"</td>"
-							+"<td class='list building'>"+data.building+"</td>"
-							+"<td class='list member'>"	 +data.member+"</td>"
-							+"<td class='list male'>"	 +data.male+"</td>"
-							+"<td class='list female'>"	 +data.female+"</td>"
-							+"<td class='list own'>"	 +data.own+"</td>"
-							+"<td class='list tel'>"	 +data.tel+"</td>"
-							+"<td class='list president'>"+data.president+"</td>"
-							+"<td class='list phone'>"	 +data.phone+"</td>"
-							+"<td><button class='btn_modify'>수정</button></td>"
-							+"<td><button class='btn_delete'>삭제</button></td>"
-							+"</tr>"
-						);
-						alert("등록되었습니다.");
-					}
-				}
-			})
-		});
+					var modifyingTr=$('td:contains("'+data.code+'")').parent();
 
-		//Delete Button 
-		$(document).on("click",".btn_delete",function() {
-			var result = confirm("정말 삭제하시겠습니까?");
-			if(result){
-				var query = {
-					code : $(this).parent().siblings(".list.code").text()
-				};
-				
-				$.ajax({
-					url  : "/scc/removeScc",
-					type : "post",
-					data : query,
-					success : function(data){
-						$(".scc_list_tr:contains("+data+")").remove();
-					}
-				})
-			}
+					modifyingTr.children(".list.code").text(data.code);
+ 					modifyingTr.children(".list.dong").text(data.dong);
+ 					modifyingTr.children(".list.name").text(data.name);		
+ 					modifyingTr.children(".list.address").text(data.address);
+ 					modifyingTr.children(".list.reg_date").text(data.simpleRegDate);
+ 					modifyingTr.children(".list.site").text(data.site);
+ 					modifyingTr.children(".list.building").text(data.building);
+ 					modifyingTr.children(".list.member").text(data.member);
+ 					modifyingTr.children(".list.male").text(data.male);
+ 					modifyingTr.children(".list.female").text(data.female);
+ 					modifyingTr.children(".list.own").text(data.own);
+ 					modifyingTr.children(".list.tel").text(data.tel);
+ 					modifyingTr.children(".list.president").text(data.president);
+ 					modifyingTr.children(".list.phone").text(data.phone);
+					
+					alert("수정되었습니다.");
+					//change button and opacity
+					$(".modify").text("추가").attr("class","save");
+					$(".sccList").css("opacity",1.0);
+				}
+			});
 		});
 		
 	    //n에 width 자리수에 맞게 0 추가
