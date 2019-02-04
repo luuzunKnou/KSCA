@@ -57,13 +57,27 @@ CREATE TABLE area (
 );
 
 CREATE TABLE scc (
-	code    VARCHAR(15) NOT NULL,
-	name    VARCHAR(50) NOT NULL,
-	area    VARCHAR(15) NOT NULL,
-	manager VARCHAR(50) NOT NULL,
+	code      VARCHAR(15)  NOT NULL,
+	dong      VARCHAR(50)  NULL,
+	name      VARCHAR(50)  NOT NULL,
+	address   VARCHAR(255) NULL,
+	reg_date  DATE         NULL,
+	site      FLOAT        NULL,
+	building  FLOAT        NULL,
+	member    INTEGER      NULL,
+	male      INTEGER      NULL,
+	female    INTEGER      NULL,
+	own       VARCHAR(10)  NULL,
+	tel       VARCHAR(30)  NULL,
+	president VARCHAR(12)  NULL,
+	phone     VARCHAR(30)  NULL,
+	manager   VARCHAR(50)  NOT NULL,
+	area      VARCHAR(20)  NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
+		REFERENCES manager (id) ON DELETE CASCADE,
+	FOREIGN KEY (area)
+		REFERENCES area (code) ON DELETE CASCADE
 );
 
 CREATE TABLE schedule (

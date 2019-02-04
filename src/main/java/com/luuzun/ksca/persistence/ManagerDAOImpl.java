@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.ManagerHasArea;
 
-@Repository //DAO를 스프링에 인식시키기 위해 사용
+@Repository
 public class ManagerDAOImpl implements ManagerDAO{
 	
-	@Inject //자동 주입
+	@Inject
 	private SqlSession sqlSession;
 	private static final String namespace = "com.luuzun.ksca.persistence.ManagerDAO.";
 	

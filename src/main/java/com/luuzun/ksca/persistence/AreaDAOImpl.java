@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Area;
 
-@Repository //DAO를 스프링에 인식시키기 위해 사용
+@Repository
 public class AreaDAOImpl implements AreaDAO{
 	
 	@Inject //자동 주입

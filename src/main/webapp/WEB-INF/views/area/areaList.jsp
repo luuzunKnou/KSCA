@@ -3,16 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/area/areaList.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/modal.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/area/areaModal.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/areaList.js"></script>
-<script>
-		var result = '${msg}';
-		if(result.length!=0){
-			alert(result);
-		} 
-</script>
+
 <section>
 <div class="areaList">
+	<!-- Paging : 15 obj -->
 	<table class="area_list_table">
 		<tr>
 			<th>코드</th> <th>연합회</th> <th>연합회 코드</th> <th>지회</th> <th>지회 코드</th>

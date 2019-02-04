@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Category;
 
-@Repository //DAO를 스프링에 인식시키기 위해 사용
+@Repository
 public class CategoryDAOImpl implements CategoryDAO{
 	
-	@Inject //자동 주입
+	@Inject
 	private SqlSession sqlSession;
 	private static final String namespace = "com.luuzun.ksca.persistence.CategoryDAO.";
 	@Override

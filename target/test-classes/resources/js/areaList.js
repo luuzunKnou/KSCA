@@ -1,10 +1,4 @@
 $(document).ready(function(){
-	//Modal JavaScript
-	var modal 	= $("#myModal");
-    var close 	= $(".close");      
-    var save	= $(".save");
-	var inputs 	= $(".input");
-	
 	/* Create Branch AJAX */
 	$(".save").click(function() {
 		var query = {
@@ -62,7 +56,7 @@ $(document).ready(function(){
     	$(".branch_code").val("");
 	}
     
-    //자리수에 맞게 0 추가
+    //n에 width 자리수에 맞게 0 추가
 	function pad(n, width) {
 		n = n + '';
 		return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
@@ -77,7 +71,8 @@ $(document).ready(function(){
 	});
 
 	//Delete Button 
-	$(".btn_delete").click(function() {
+	//$(".btn_delete").click(function() {
+	$(document).on("click",".btn_delete",function() {
 		var result = confirm("정말 삭제하시겠습니까?");
 		if(result){
 			var query = {
@@ -89,8 +84,10 @@ $(document).ready(function(){
 				type : "post",
 				data : query,
 				success : function(data){
-					if(data=="ERROR"){
+					if(data=="ERROR:def"){
 						alert("삭제할 수 없는 항목입니다.");
+					} else if(data=="ERROR:cascade"){
+						alert("분회에 소속된 경로당이 존재하므로 삭제할 수 없습니다.");
 					} else {
 						$(".area_list_tr:contains("+data+")").remove();
 					}

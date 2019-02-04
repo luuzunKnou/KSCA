@@ -104,16 +104,27 @@ DELETE FROM program WHERE code = 4;
 
 
 -- scc
-INSERT INTO scc(code, name, area, manager) VALUES 
-	("99-99-99-999","까치아파트","03-01-99","mcmoto" );
+INSERT INTO scc(code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone, manager, area) VALUES 
+	('99-99-99-999','남산동','까치아파트','국채보상로 679-13','1997.04.29','224.80','220.4',28,10,18,'공설','053-421-5222','김혜수','010-5135-4777','mcmoto','03-01-99');
 
-SELECT code, name, area, manager FROM scc;
+SELECT * FROM scc;
 
 UPDATE scc SET 
-	code 	="99-99-99-999",
-	name 	="UpTest", 
-	area	="03-01-99", 
-	manager	="luuzun"
+		dong		="", 
+		name		="TestName", 
+		address		="", 
+		reg_date	="2019-01-01", 
+		site		=1.1, 
+		building	=1.1,
+		MEMBER		=20, 
+		male		=10, 
+		female		=10, 
+		own			="", 
+		tel			="", 
+		president	="", 
+		phone		="", 
+		manager		="mcmoto", 
+		area		="03-01-99"
 	WHERE code="99-99-99-999";
 
 DELETE FROM scc WHERE code = "99-99-99-999";

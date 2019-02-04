@@ -5,8 +5,8 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet"> -->
 <html>
 <head>
 	<title>The Korea Senior Citizens Assoiation Program Schduler</title>
@@ -24,9 +24,9 @@
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/introduce/introduce">소개 및 사용법</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/area/areaList">지회/분회 관리</a></li>
+					/area/areaList">분회 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/introduce/introduce">경로당 관리</a></li>
+					/scc/sccList">경로당 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/introduce/introduce">스케줄 관리</a></li>
 				<c:if test="${login.permToString() eq 'Master'}">
