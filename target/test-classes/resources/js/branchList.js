@@ -61,6 +61,7 @@ $(document).ready(function(){
 			branch 		: $(".branch").val(),
 			branchCode	: $(".branch_code").val()
 		};
+		var modifyingTr=$(".list_branch_code:contains("+$(".dest_branch_code").val()+")").parent();
 		
 		$.ajax({
 			url  : "/branch/updateBranch",
@@ -71,8 +72,6 @@ $(document).ready(function(){
 					alert("분회 코드가 중복되었습니다.");
 					clear();
 				} else {
-					var modifyingTr=$(".list_branch_code:contains("+data.branchCode+")").parent();
-
 					modifyingTr.children(".list_branch").text(data.branch);
 					modifyingTr.children(".list_branch_code").text(data.branchCode);
 					alert("수정되었습니다.");
