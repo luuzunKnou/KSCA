@@ -217,6 +217,7 @@
 				type : "post",
 				data : query,
 				success : function(data){
+					//중복 체크 추가
 					var modifyingTr=$('td:contains("'+data.code+'")').parent();
 
 					modifyingTr.children(".list.code").text(data.code);

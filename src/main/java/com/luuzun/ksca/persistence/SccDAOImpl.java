@@ -75,6 +75,6 @@ public class SccDAOImpl implements SccDAO{
 		code.put("areaCode", areaCode);
 		code.put("branchCode", branchCode);
 		
-		return sqlSession.selectOne(namespace+"readByBranchCode",code);
+		return sqlSession.selectList(namespace+"readByBranchCode",code);
 	}
 }

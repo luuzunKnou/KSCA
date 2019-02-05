@@ -7,19 +7,16 @@
 
 	<resultMap id="managerHasArea" type="managerHasArea">
 		<id property="id" 				column="id"/>
-		<result property="pssword" 		column="pssword"/>
+		<result property="password" 	column="password"/>
 		<result property="name" 		column="name"/>
 		<result property="tel" 			column="tel"/>
 		<result property="mail" 		column="mail"/>
-		<collection property="areaList" ofType="com.luuzun.ksca.domain.Area">
+		<collection property="area" ofType="com.luuzun.ksca.domain.Area">
 			<id property="code" column="code"/>
-			<result property="manager" 		column="manager"/>
 			<result property="city"		 	column="city"/>
 			<result property="cityCode" 	column="city_code"/>
 			<result property="gu" 			column="gu"/>
 			<result property="guCode" 		column="gu_code"/>
-			<result property="branch" 		column="branch"/>
-			<result property="branchCode" 	column="branch_code"/>
 		</collection>
 	</resultMap>
 
@@ -34,7 +31,8 @@
 	
 	<select id="readForLogin" resultType="Manager">
 		SELECT * FROM manager 
-			WHERE BINARY(id)=#{id} AND BINARY(password)=#{password} AND is_exist=TRUE;
+			WHERE BINARY(id)=#{id} AND BINARY(password)=#{password} 
+				AND is_exist=TRUE;
 	</select>
 	
 	<select id="readWaitingManager" resultType="Manager">
@@ -43,15 +41,16 @@
 	</select>
 	
 	<select id="readManagerHasArea" resultMap="managerHasArea">
-		SELECT DISTINCT id, name, tel, mail, 
-				city, city_code, gu, gu_code
-		FROM manager, area
-			WHERE BINARY(id)=#{id};
+		SELECT id, name, tel, mail, 
+				city, city_code, gu, gu_code 
+			FROM manager, area
+			WHERE area.code=manager.area 
+				AND BINARY(id)=#{id};
 	</select>
 	
 	<insert id="create">
-		INSERT INTO manager(id, password, name, tel, mail) 
-			VALUES (#{id}, #{password}, #{name}, #{tel}, #{mail})
+		INSERT INTO manager(id, password, name, tel, mail, area) 
+			VALUES (#{id}, #{password}, #{name}, #{tel}, #{mail}, #{area})
 	</insert>
 	
 	<update id="update">

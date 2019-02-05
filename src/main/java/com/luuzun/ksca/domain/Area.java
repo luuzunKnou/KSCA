@@ -2,21 +2,10 @@ package com.luuzun.ksca.domain;
 
 public class Area {
 	private String code; 
-	private String manager;
 	private String city;
 	private String cityCode; 
 	private String gu;
 	private String guCode;
-	
-	public Area() {
-		super();
-	}
-
-	//for making error area
-	public Area(String code) {
-		super();
-		this.code = code;
-	}
 	
 	//Set code by this.**code
 	public void setCode() {
@@ -37,20 +26,10 @@ public class Area {
 		this.code=sb.toString();
 	}
 
-	public Area(String code, String manager, String city, String cityCode, String gu, String guCode) {
-		super();
-		this.code = code;
-		this.manager = manager;
-		this.city = city;
-		this.cityCode = cityCode;
-		this.gu = gu;
-		this.guCode = guCode;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("Area [code=%s, manager=%s, city=%s, cityCode=%s, gu=%s, guCode=%s]", code, manager, city,
-				cityCode, gu, guCode);
+		return String.format("Area [code=%s, city=%s, cityCode=%s, gu=%s, guCode=%s]", code, city, cityCode, gu,
+				guCode);
 	}
 
 	public String getCode() {
@@ -59,14 +38,6 @@ public class Area {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
 	}
 
 	public String getCity() {

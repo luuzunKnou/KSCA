@@ -1,7 +1,5 @@
 package com.luuzun.ksca.domain;
 
-import java.util.List;
-
 public class ManagerHasArea {
 	private String id;
 	private String password; 
@@ -11,19 +9,13 @@ public class ManagerHasArea {
 	private boolean isApprove; 
 	private boolean isExist;
 	private Permission permission;
-	private List<Area> areaList;
-	
+	private Area area;
 	@Override
 	public String toString() {
 		return String.format(
-				"[id=%s, password=%s, name=%s, tel=%s, mail=%s, isApprove=%s, isExist=%s, permission=%s, areaList=%s]",
-				id, password, name, tel, mail, isApprove, isExist, permission, areaList);
+				"ManagerHasArea [id=%s, password=%s, name=%s, tel=%s, mail=%s, isApprove=%s, isExist=%s, permission=%s, area=%s]",
+				id, password, name, tel, mail, isApprove, isExist, permission, area);
 	}
-	
-	public Area getArea() {
-		return this.areaList.get(0);
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -72,10 +64,10 @@ public class ManagerHasArea {
 	public void setPermission(Permission permission) {
 		this.permission = permission;
 	}
-	public List<Area> getAreaList() {
-		return areaList;
+	public Area getArea() {
+		return area;
 	}
-	public void setAreaList(List<Area> areaList) {
-		this.areaList = areaList;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 }

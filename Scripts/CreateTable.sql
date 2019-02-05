@@ -10,11 +10,12 @@ CREATE TABLE category (
 	PRIMARY KEY (code)
 );
 
-CREATE TABLE agency (
-	code    INTEGER     NOT NULL AUTO_INCREMENT, 
-	name    VARCHAR(50) NOT NULL, 
-	manager VARCHAR(12) NULL,     
-	tel     VARCHAR(30) NULL,     
+CREATE TABLE area (
+	code        VARCHAR(20) NOT NULL,
+	city        VARCHAR(20) NOT NULL,
+	city_code   VARCHAR(5) 	NOT NULL,
+	gu          VARCHAR(20) NOT NULL,
+	gu_code     VARCHAR(5)  NOT NULL,
 	PRIMARY KEY (code)
 );
 
@@ -26,20 +27,11 @@ CREATE TABLE manager (
 	mail       VARCHAR(40) NOT NULL, 
 	is_approve BOOLEAN     DEFAULT FALSE,
 	is_exist   BOOLEAN     DEFAULT TRUE,
-	permission ENUM('MASTER','MANAGER') DEFAULT 'MANAGER', 
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE area (
-	code        VARCHAR(20) NOT NULL,
-	manager		VARCHAR(50)	NOT NULL,
-	city        VARCHAR(20) NOT NULL,
-	city_code   VARCHAR(5) 	NOT NULL,
-	gu          VARCHAR(20) NOT NULL,
-	gu_code     VARCHAR(5)  NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
+	permission ENUM('MASTER','MANAGER') DEFAULT 'MANAGER',
+	area       VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (area)
+		REFERENCES area (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE branch (
@@ -48,7 +40,7 @@ CREATE TABLE branch (
 	branch      VARCHAR(50) NOT NULL,
 	PRIMARY KEY (area_code, branch_code),
 	FOREIGN KEY (area_code)
-		REFERENCES area (code) ON DELETE CASCADE
+		REFERENCES area (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE scc (
@@ -71,6 +63,17 @@ CREATE TABLE scc (
 	PRIMARY KEY (area_code, branch_code, scc_code),
 	FOREIGN KEY (area_code, branch_code)
 		REFERENCES branch (area_code, branch_code) ON DELETE CASCADE
+);
+
+CREATE TABLE agency (
+	code    INTEGER     NOT NULL AUTO_INCREMENT,
+	area    VARCHAR(20) NOT NULL,
+	name    VARCHAR(50) NOT NULL, 
+	manager VARCHAR(12) NULL,     
+	tel     VARCHAR(30) NULL,     
+	PRIMARY KEY (code),
+	FOREIGN KEY (area)
+		REFERENCES area (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE program (

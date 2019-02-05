@@ -19,6 +19,7 @@ import com.luuzun.ksca.domain.Area;
 import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.service.AreaService;
+import com.luuzun.ksca.service.BranchService;
 import com.luuzun.ksca.service.ManagerService;
 
 @Controller
@@ -28,6 +29,7 @@ public class ManagerController {
 	
 	@Inject	private ManagerService service;
 	@Inject	private AreaService areaService;
+	@Inject	private BranchService branchService;
 	
 	//로그인 페이지 이동
 	@RequestMapping(value="/logIn")
@@ -43,7 +45,7 @@ public class ManagerController {
 				inputMember.getId(), inputMember.getPassword());
 		logger.info("Manager(Login Controller) :"+manager);
 		if(manager==null){
-			//interceptor에서 Manager 정보가 없으면 login화면으로 return
+			//일치하는 매니저가 없다면 null 전달
 			logger.info("Cannot Find Manager");
 			model.addAttribute("manager",null);
 			return;
@@ -79,18 +81,21 @@ public class ManagerController {
 		logger.info(manager.toString());
 		
 		//set area
-		area.setManager(manager.getId());
-		area.SetCode(area.getCityCode(), area.getGuCode());
+		area.setCode();
 		logger.info(area.toString());
-
+		
+		//set manager
+		manager.setArea(area.getCode());
+		
 		//set branch 
 		Branch branch = new Branch();
+		branch.setAreaCode(area.getCode());
 		branch.setBranch("없음");
 		branch.setBranchCode("99");
 
 		//Transaction
-		service.create(manager);
 		areaService.create(area);
+		service.create(manager);
 		branchService.create(branch);
 		
 		rttr.addFlashAttribute("msg","회원 가입 신청이 완료되었습니다.");
@@ -114,7 +119,7 @@ public class ManagerController {
 		 return 1;
 	}
 	
-	//아이디 중복 체크
+	//담당지역 코드 중복 체크
 	@ResponseBody
 	@RequestMapping(value="/checkCode", method=RequestMethod.POST)
 	public int checkCode(HttpServletRequest req) throws Exception{
@@ -127,13 +132,12 @@ public class ManagerController {
 			sb.append(cityCode);	
 			sb.append("-");
 			sb.append(guCode);
-			sb.append("-99");
 		String code = sb.toString();
 		logger.info(code);
 		
 		Area area = areaService.read(code);
 		 
-		if(area != null) { //아이디 중복시 0 반환
+		if(area != null) { //중복시 0 반환
 			return 0;
 		} 
 		return 1;
@@ -160,10 +164,10 @@ public class ManagerController {
 	
 	//회원정보 수정 Post
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modifyPost(Manager manager, Area area, 
+	public String modifyPost(Manager manager,
 			HttpSession session, Model model, RedirectAttributes rttr) throws Exception{
 		logger.info("Modify Profile Post..........");
-		logger.info(manager.toString() + area.toString());
+		logger.info(manager.toString());
 
 		//password null 처리
 		if(manager.getPassword().length()==0) {
@@ -171,9 +175,7 @@ public class ManagerController {
 			logger.info("Set Password null..........");
 		}
 		
-		//transaction
 		service.update(manager);
-		areaService.update(area);
 
 		rttr.addFlashAttribute("msg","회원 정보 수정이 완료되었습니다.");
 		return "redirect:/";

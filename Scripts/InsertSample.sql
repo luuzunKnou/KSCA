@@ -27,25 +27,26 @@ INSERT INTO category(code, name, par_cat, par_name) VALUES
 	('3006102',' 시설 방문 위문공연',		'3006', '사회참여분야'),
 	('3006103',' 자원봉사활동',				'3006', '사회참여분야'),
 	('3007101',' 공동작업장',				'3007', '공동작업장');
-
--- code name manager tel
-INSERT INTO agency(name) VALUES 
-	('중구체육회'),
-	('중구보건소'),
-	('건강보험공단');
-
--- id password name tel mail is_approve permission
-INSERT INTO manager(id, password, name, tel, mail, is_approve, permission) VALUES
-	('luuzun','1234','이원준','010-4940-5498','luuzun@naver.com',true,'MASTER'),
-	('mcmoto','1234','우금주','010-9004-0726','mcmoto@naver.com',true,'MANAGER');
 	
--- code manager city city_code gu gu_code branch branch_code
-INSERT INTO area(code, manager, city, city_code, gu, gu_code) VALUES
-	('00-00', 'luuzun', '대구', '03', '중구', '01'),	
-	('03-01', 'mcmoto', '대구', '03', '중구', '01');
+-- code city city_code gu gu_code branch branch_code
+INSERT INTO area(code, city, city_code, gu, gu_code) VALUES
+	('00-00', '대구', '03', '중구', '01'),	
+	('03-01', '대구', '03', '중구', '01');
+
+-- code area name manager tel
+INSERT INTO agency(area, name) VALUES 
+	('03-01', '중구체육회'),
+	('03-01', '중구보건소'),
+	('03-01', '건강보험공단');
+
+-- id password name tel mail is_approve permission area
+INSERT INTO manager(id, password, name, tel, mail, is_approve, permission, area) VALUES
+	('luuzun','1234','이원준','010-4940-5498','luuzun@naver.com',true,'MASTER', '00-00'),
+	('mcmoto','1234','우금주','010-9004-0726','mcmoto@naver.com',true,'MANAGER','03-01');
+
 
 INSERT INTO branch(area_code, branch_code, branch) VALUES
-	('00-00', '99', '없음'),	
+	('03-01', '99', '없음'),	
 	('03-01', '01', '비산동'),
 	('03-01', '02', '달성동'),
 	('03-01', '03', '남산동'),

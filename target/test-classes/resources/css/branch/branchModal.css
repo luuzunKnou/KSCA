@@ -25,7 +25,7 @@
     z-index: 10;
 }
 
-.save, .close{
+.save, .close, .modify_save{
 	width: 70px; margin: 10px 5px 0px 5px; border-radius:5px; padding:3px 0;
 	background-color: #e67e22; color: white; border:none; height:25px; float: right; 
 }

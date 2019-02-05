@@ -24,7 +24,7 @@
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/introduce/introduce">소개 및 사용법</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/area/areaList">분회 관리</a></li>
+					/branch/branchList">분회 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/scc/sccList">경로당 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}

@@ -23,7 +23,7 @@
 	<select id="readByBranchCode" resultType="SCC">
 		SELECT * FROM scc 
 			WHERE area_code=#{areaCode} 
-				AND	branch_code = #{destBranchCode};
+				AND	branch_code = #{branchCode};
 			
 	</select>
 	
