@@ -46,7 +46,7 @@ $(document).ready(function(){
 		var branch = $(this).parent().siblings(".list_branch").text();
 		var branchCode = $(this).parent().siblings(".list_branch_code").text();
 		
-		$(".dest_branch_code").val(branch);
+		$(".dest_branch_code").val(branchCode);
 		$(".branch").val(branch);
 		$(".branch_code").val(branchCode);
 		
