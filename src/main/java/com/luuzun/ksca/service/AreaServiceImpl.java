@@ -31,8 +31,8 @@ public class AreaServiceImpl implements AreaService{
 	}
 
 	@Override
-	public void update(Area area) throws Exception{
-		dao.update(area);
+	public void update(String destCode, Area area) throws Exception{
+		dao.update(destCode, area);
 	}
 
 	@Override

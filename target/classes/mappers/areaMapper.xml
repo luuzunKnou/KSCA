@@ -19,23 +19,21 @@
 	</select>
 	
 	<insert id="create">
-		INSERT INTO area(code, manager, city, city_code, gu, gu_code, branch, branch_code) VALUES
-			(#{code}, #{manager}, #{city}, #{cityCode}, #{gu}, #{guCode}, #{branch}, #{branchCode})
+		INSERT INTO area(code, manager, city, city_code, gu, gu_code) VALUES
+			(#{code}, #{manager}, #{city}, #{cityCode}, #{gu}, #{guCode})
 	</insert>
 	
 	<update id="update">
 		UPDATE area	
 			<set> 
-				<if test="code != null"> 		code		=#{code}, </if>
-				<if test="manager != manager"> 	manager		=#{manager}, </if>
-				<if test="city != null"> 		city		=#{city}, </if>
-				<if test="cityCode != null"> 	city_code	=#{cityCode}, </if>
-				<if test="gu != null"> 			gu			=#{gu}, </if>
-				<if test="guCode != null"> 		gu_code		=#{guCode}, </if> 
-				<if test="branch != null"> 		branch		=#{branch}, </if>
-				<if test="branchCode != null"> 	branch_code	=#{branchCode} </if>
+				<if test="code 		!= null"> code		=#{code}, </if>
+				<if test="manager 	!= null"> manager	=#{manager}, </if>
+				<if test="city 	 	!= null"> city		=#{city}, </if>
+				<if test="cityCode	!= null"> city_code	=#{cityCode}, </if>
+				<if test="gu 		!= null"> gu		=#{gu}, </if>
+				<if test="guCode	!= null"> gu_code	=#{guCode}, </if> 
 			</set>
-			WHERE code=#{code};
+			WHERE code=#{destCode};
 	</update>
 	
 	<delete id="delete">

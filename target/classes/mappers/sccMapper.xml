@@ -5,32 +5,38 @@
 
 <mapper namespace="com.luuzun.ksca.persistence.SccDAO">
 	<select id="listAll" resultType="SCC">
-		SELECT * From scc
+		SELECT * FROM scc
 	</select>
 	
 	<select id="read" resultType="SCC">
-		SELECT * From scc 
-			WHERE code=#{code} 
+		SELECT * FROM scc 
+			WHERE area_code		=#{areaCode}
+				AND branch_code	=#{branchCode}
+				AND scc_code	=#{sccCode};
 	</select>
 	
-	<select id="readByManager" resultType="SCC">
+	<select id="readByAreaCode" resultType="SCC">
 		SELECT * FROM scc 
-			WHERE manager=#{manager};
+			WHERE area_code=#{areaCode};
 	</select>
 		
-	<select id="countByArea" resultType="int">
-		SELECT COUNT(*) FROM scc 
-			WHERE area=#{area};
+	<select id="readByBranchCode" resultType="SCC">
+		SELECT * FROM scc 
+			WHERE area_code=#{areaCode} 
+				AND	branch_code = #{destBranchCode};
+			
 	</select>
 	
 	<insert id="create">
-		INSERT INTO scc(code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone, manager, area) VALUES 
-			(#{code}, #{dong}, #{name}, #{address}, #{regDate}, #{site}, #{building}, #{member}, #{male}, #{female}, #{own}, #{tel}, #{president}, #{phone}, #{manager}, #{area});
+		INSERT INTO scc(area_code, branch_code, scc_code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone) VALUES 
+			(#{areaCode}, #{branchCode}, #{sccCode}, #{dong}, #{name}, #{address}, #{regDate}, #{site}, #{building}, #{member}, #{male}, #{female}, #{own}, #{tel}, #{president}, #{phone});
 	</insert>
 	
 	<update id="update">
 		UPDATE scc	
 			<set>
+				<if test="branchCode!=null">branch_code	= #{branchCode},</if>
+				<if test="sccCode	!=null">scc_code	= #{sccCode}, 	</if>
 				<if test="dong 		!=null">dong		= #{dong},		</if> 
 				<if test="name 		!=null">name		= #{name}, 		</if>
 				<if test="address 	!=null">address		= #{address}, 	</if>
@@ -43,15 +49,17 @@
 				<if test="own 		!=null">own			= #{own}, 		</if>
 				<if test="tel 		!=null">tel			= #{tel}, 		</if>
 				<if test="president !=null">president	= #{president}, </if>
-				<if test="phone 	!=null">phone		= #{phone}, 	</if>
-				<if test="manager 	!=null">manager		= #{manager}, 	</if>
-				<if test="area 		!=null">area		= #{area} 		</if>
+				<if test="phone 	!=null">phone		= #{phone}	 	</if>
 			</set>
-			WHERE code=#{code};
+			WHERE area_code		=#{destAreaCode}
+				AND branch_code	=#{destBranchCode}
+				AND scc_code	=#{destSccCode};
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM scc 
-			WHERE code=#{code};
+			WHERE area_code		=#{areaCode}
+				AND branch_code	=#{branchCode}
+				AND scc_code	=#{sccCode};
 	</delete>
 </mapper>

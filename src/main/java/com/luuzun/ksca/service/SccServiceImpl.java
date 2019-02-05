@@ -21,8 +21,8 @@ public class SccServiceImpl implements SccService{
 	}
 
 	@Override
-	public SCC read(String code) throws Exception{
-		return dao.read(code);
+	public SCC read(String areaCode, String branchCode, String sccCode) throws Exception{
+		return dao.read(areaCode, branchCode, sccCode);
 	}
 
 	@Override
@@ -31,22 +31,22 @@ public class SccServiceImpl implements SccService{
 	}
 
 	@Override
-	public void update(SCC scc) throws Exception{
-		dao.update(scc);
+	public void update(String destAreaCode, String destBranchCode, String destSccCode, SCC scc) throws Exception{
+		dao.update(destAreaCode, destBranchCode, destSccCode, scc);
 	}
 
 	@Override
-	public void delete(String code) throws Exception{
-		dao.delete(code);
+	public void delete(String areaCode, String branchCode, String sccCode) throws Exception{
+		dao.delete(areaCode, branchCode, sccCode);
 	}
 
 	@Override
-	public List<SCC> readByManager(String manager) {
-		return dao.readByManager(manager);
+	public List<SCC> readByAreaCode(String areaCode) {
+		return dao.readByAreaCode(areaCode);
 	}
 
 	@Override
-	public int countByArea(String area) {
-		return dao.countByArea(area);
+	public List<SCC> readByBranchCode(String areaCode, String branchCode) {
+		return dao.readByBranchCode(areaCode, branchCode);
 	}
 }

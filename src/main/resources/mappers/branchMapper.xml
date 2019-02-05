@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luuzun.ksca.persistence.BranchDAO">
+	<select id="listAll" resultType="Branch">
+		SELECT * From branch
+	</select>
+	
+	<select id="read" resultType="Branch">
+		SELECT * From branch 
+			WHERE area_code=#{areaCode} 
+				AND branch_code=#{branchCode}; 
+	</select>
+	
+	<select id="readByAreaCode" resultType="Branch">
+		SELECT * FROM Branch 
+			WHERE area_code=#{areaCode};
+	</select>
+	
+	<insert id="create">
+		INSERT INTO branch(area_code, branch_code, branch) VALUES
+			(#{areaCode}, #{branchCode}, #{branch})
+	</insert>
+	
+	<update id="update">
+		UPDATE branch	
+			<set> 
+				<if test="branchCode!= null"> 	branch_code	=#{branchCode}, </if>
+				<if test="branch 	!= null"> 	branch		=#{branch}, </if>
+			</set>
+			WHERE area_code=#{destAreaCode} 
+				AND branch_code=#{destBranchCode};
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM branch 
+			WHERE area_code=#{areaCode} 
+				AND branch_code=#{branchCode};
+	</delete>
+</mapper>

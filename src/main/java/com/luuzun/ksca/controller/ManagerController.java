@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Area;
+import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.service.AreaService;
 import com.luuzun.ksca.service.ManagerService;
@@ -77,17 +78,21 @@ public class ManagerController {
 		logger.info("SignUp..........");
 		logger.info(manager.toString());
 		
-		//set area code
+		//set area
 		area.setManager(manager.getId());
-		area.setBranch("없음");
-		area.setBranchCode("99");
-		area.SetCode(area.getCityCode(), area.getGuCode(), area.getBranchCode());
+		area.SetCode(area.getCityCode(), area.getGuCode());
 		logger.info(area.toString());
-		
+
+		//set branch 
+		Branch branch = new Branch();
+		branch.setBranch("없음");
+		branch.setBranchCode("99");
+
 		//Transaction
 		service.create(manager);
 		areaService.create(area);
-
+		branchService.create(branch);
+		
 		rttr.addFlashAttribute("msg","회원 가입 신청이 완료되었습니다.");
 		return "redirect:/";
 	}

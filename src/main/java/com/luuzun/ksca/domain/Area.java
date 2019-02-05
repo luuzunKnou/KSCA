@@ -7,8 +7,6 @@ public class Area {
 	private String cityCode; 
 	private String gu;
 	private String guCode;
-	private String branch;
-	private String branchCode;
 	
 	public Area() {
 		super();
@@ -19,9 +17,27 @@ public class Area {
 		super();
 		this.code = code;
 	}
+	
+	//Set code by this.**code
+	public void setCode() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.cityCode);	
+		sb.append("-");
+		sb.append(this.guCode);	
+		
+		this.code=sb.toString();
+	}
+	
+	//Set code by association other code
+	public void setCode(String cityCode, String guCode) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(cityCode);	
+		sb.append("-");
+		sb.append(guCode);		
+		this.code=sb.toString();
+	}
 
-	public Area(String code, String manager, String city, String cityCode, String gu, String guCode, String branch,
-			String branchCode) {
+	public Area(String code, String manager, String city, String cityCode, String gu, String guCode) {
 		super();
 		this.code = code;
 		this.manager = manager;
@@ -29,83 +45,59 @@ public class Area {
 		this.cityCode = cityCode;
 		this.gu = gu;
 		this.guCode = guCode;
-		this.branch = branch;
-		this.branchCode = branchCode;
 	}
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Area [code=%s, manager=%s, city=%s, cityCode=%s, gu=%s, guCode=%s, branch=%s, branchCode=%s]", code,
-				manager, city, cityCode, gu, guCode, branch, branchCode);
+		return String.format("Area [code=%s, manager=%s, city=%s, cityCode=%s, gu=%s, guCode=%s]", code, manager, city,
+				cityCode, gu, guCode);
 	}
-	
-	//Set code by association other code
-	public void SetCode(String cityCode, String guCode) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(cityCode);	
-		sb.append("-");
-		sb.append(guCode);		
-		this.code=sb.toString();
-	}
-	
-	//Set code by association other code
-	public void SetCode(String cityCode, String guCode, String branchCode) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(cityCode);	
-		sb.append("-");
-		sb.append(guCode);		
-		sb.append("-");
-		sb.append(branchCode);
-		this.code=sb.toString();
-	}
-	
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public String getManager() {
 		return manager;
 	}
+
 	public void setManager(String manager) {
 		this.manager = manager;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getCityCode() {
 		return cityCode;
 	}
+
 	public void setCityCode(String cityCode) {
 		this.cityCode = cityCode;
 	}
+
 	public String getGu() {
 		return gu;
 	}
+
 	public void setGu(String gu) {
 		this.gu = gu;
 	}
+
 	public String getGuCode() {
 		return guCode;
 	}
+
 	public void setGuCode(String guCode) {
 		this.guCode = guCode;
-	}
-	public String getBranch() {
-		return branch;
-	}
-	public void setBranch(String branch) {
-		this.branch = branch;
-	}
-	public String getBranchCode() {
-		return branchCode;
-	}
-	public void setBranchCode(String branchCode) {
-		this.branchCode = branchCode;
 	}
 }

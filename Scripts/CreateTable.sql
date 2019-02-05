@@ -18,18 +18,6 @@ CREATE TABLE agency (
 	PRIMARY KEY (code)
 );
 
-CREATE TABLE program (
-	code   INTEGER     NOT NULL AUTO_INCREMENT,
-	name   VARCHAR(50) NOT NULL,
-	cat    VARCHAR(10) NOT NULL,
-	agency INTEGER     NOT NULL,
-	PRIMARY KEY (code),
-	FOREIGN KEY (agency)
-		REFERENCES agency (code) ON DELETE CASCADE,
-	FOREIGN KEY (cat)
-		REFERENCES category (code) ON DELETE CASCADE
-);
-
 CREATE TABLE manager (
 	id         VARCHAR(50) NOT NULL, 
 	password   VARCHAR(20) NOT NULL, 
@@ -49,52 +37,71 @@ CREATE TABLE area (
 	city_code   VARCHAR(5) 	NOT NULL,
 	gu          VARCHAR(20) NOT NULL,
 	gu_code     VARCHAR(5)  NOT NULL,
-	branch      VARCHAR(50) NOT NULL,
-	branch_code VARCHAR(5)  NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (manager)
 		REFERENCES manager (id) ON DELETE CASCADE
 );
 
+CREATE TABLE branch (
+	area_code	VARCHAR(20) NOT NULL,
+	branch_code VARCHAR(10) NOT NULL,	
+	branch      VARCHAR(50) NOT NULL,
+	PRIMARY KEY (area_code, branch_code),
+	FOREIGN KEY (area_code)
+		REFERENCES area (code) ON DELETE CASCADE
+);
+
 CREATE TABLE scc (
-	code      VARCHAR(15)  NOT NULL,
-	dong      VARCHAR(50)  NULL,
-	name      VARCHAR(50)  NOT NULL,
-	address   VARCHAR(255) NULL,
-	reg_date  DATE         NULL,
-	site      FLOAT        NULL,
-	building  FLOAT        NULL,
-	member    INTEGER      NULL,
-	male      INTEGER      NULL,
-	female    INTEGER      NULL,
-	own       VARCHAR(10)  NULL,
-	tel       VARCHAR(30)  NULL,
-	president VARCHAR(12)  NULL,
-	phone     VARCHAR(30)  NULL,
-	manager   VARCHAR(50)  NOT NULL,
-	area      VARCHAR(20)  NOT NULL,
+	area_code   VARCHAR(20)  NOT NULL,
+	branch_code VARCHAR(10)  NOT NULL,	
+	scc_code    VARCHAR(10)  NOT NULL,
+	dong      	VARCHAR(50)  NULL,
+	name      	VARCHAR(50)  NOT NULL,
+	address   	VARCHAR(255) NULL,
+	reg_date  	DATE         NULL,
+	site      	FLOAT        NULL,
+	building  	FLOAT        NULL,
+	member    	INTEGER      NULL,
+	male      	INTEGER      NULL,
+	female   	INTEGER      NULL,
+	own      	VARCHAR(10)  NULL,
+	tel      	VARCHAR(30)  NULL,
+	president   VARCHAR(12)  NULL,
+	phone    	VARCHAR(30)  NULL,
+	PRIMARY KEY (area_code, branch_code, scc_code),
+	FOREIGN KEY (area_code, branch_code)
+		REFERENCES branch (area_code, branch_code) ON DELETE CASCADE
+);
+
+CREATE TABLE program (
+	code   INTEGER     NOT NULL AUTO_INCREMENT,
+	area   VARCHAR(20) NOT NULL,
+	name   VARCHAR(50) NOT NULL,
+	cat    VARCHAR(10) NOT NULL,
+	agency INTEGER     NOT NULL,
 	PRIMARY KEY (code),
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE,
+	FOREIGN KEY (agency)
+		REFERENCES agency (code) ON DELETE CASCADE,
+	FOREIGN KEY (cat)
+		REFERENCES category (code) ON DELETE CASCADE,
 	FOREIGN KEY (area)
 		REFERENCES area (code) ON DELETE CASCADE
 );
 
 CREATE TABLE schedule (
 	code         INTEGER     NOT NULL AUTO_INCREMENT, 
-	manager		 VARCHAR(50) NOT NULL,
-	ssc          VARCHAR(15) NOT NULL, 
+	area_code    VARCHAR(20) NOT NULL,
+	branch_code	 VARCHAR(10) NOT NULL,	
+	ssc_code	 VARCHAR(10) NOT NULL,
 	program      INTEGER     NOT NULL, 
 	begin_date   DATE        NOT NULL, 
 	end_date     DATE        NOT NULL, 
-	time		 TIME        NULL,
+	time		 DATETIME    NOT NULL,
 	monthly_oper INTEGER     NOT NULL, 
 	active_user  INTEGER     NULL,
 	PRIMARY KEY (code),
-	FOREIGN KEY (ssc)
-		REFERENCES scc (code) ON DELETE CASCADE,
+	FOREIGN KEY (area_code, branch_code, ssc_code)
+		REFERENCES scc (area_code, branch_code, scc_code) ON DELETE CASCADE,
 	FOREIGN KEY (program)
-		REFERENCES program (code) ON DELETE CASCADE,
-	FOREIGN KEY (manager)
-		REFERENCES manager (id) ON DELETE CASCADE
+		REFERENCES program (code) ON DELETE CASCADE
 );

@@ -22,32 +22,40 @@ public class AreaDAOTest {
 	private AreaDAO dao;
 	private static Logger logger = LoggerFactory.getLogger(AreaDAOTest.class);
 	
-	private String code="99-99-99";
-	
-	private Area area = new Area(code, "mcmoto", "TestCity", "99", "TestGu", "99",
-	  "TestBr", "99");
-	  
-	private Area updateArea = new Area(code, "luuzun", "updateCity", "99", "TestGu",
-	  "99", "TestBr", "00");
-	
 	@Test
 	public void test_01_Create() throws Exception{
+		Area area = new Area();
+		area.setManager("mcmoto");
+		area.setCity("Test");
+		area.setCityCode("99");
+		area.setGu("Test");
+		area.setGuCode("99");
+		area.setCode();
+		
 		dao.create(area);
 	}
 	
 	@Test
 	public void test_02_Update() throws Exception{
-		dao.update(updateArea);
+		Area area = new Area();
+		area.setManager("mcmoto");
+		area.setCity("Up Test");
+		area.setCityCode("88");
+		area.setGu("Up Test");
+		area.setGuCode("88");
+		area.setCode();
+
+		dao.update("99-99",area);
 	}
 	
 	@Test
 	public void test_03_Read() throws Exception{
-		logger.info(dao.read(code).toString());
+		logger.info(dao.read("88-88").toString());
 	}
 	
 	@Test
 	public void test_04_Delete() throws Exception{
-		dao.delete(code);
+		dao.delete("99-99");
 	}
 	
 	@Test

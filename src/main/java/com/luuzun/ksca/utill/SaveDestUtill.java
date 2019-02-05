@@ -9,7 +9,7 @@ public class SaveDestUtill {
 		return instance;
 	}
 	
-	//로그인 화면으로 이동하기 전 커맨드와 쿼리를 기억해 둔다.
+	//로그인 화면으로 이동하기 전 커맨드와 쿼리를 기억
 	public void saveDest(HttpServletRequest request){
 		String uri = request.getRequestURI();
 		String query = request.getQueryString();
