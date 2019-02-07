@@ -26,38 +26,34 @@ $(document).on("click",".save",function() {
 		type : "post",
 		data : query,
 		success : function(data){
-			if(data.code=="DUPLICATED"){
-				alert("이미 존재하는 경로당입니다.");
-			} else {
-				$(".scc_list_table").append("<tr class='scc_list_tr'>"
-					+"<td class='list code'>"
-					+	"<span class='list area_code'>"	 +data.areaCode+"</span>- "
-					+	"<span class='list branch_code'>"+data.branchCode+"</span>- "
-					+	"<span class='list scc_code'>"	 +data.sccCode+"</span></td>"
-					+"<td class='list dong'>"	 +data.dong+"</td>"
-					+"<td class='list name'>"	 +data.name+"</td>"
-					+"<td class='list address'>" +data.address+"</td>"
-					+"<td class='list reg_date'>"+data.simpleRegDate+"</td>"
-					+"<td class='list site'>"	 +data.site+"</td>"
-					+"<td class='list building'>"+data.building+"</td>"
-					+"<td class='list member'>"	 +data.member+"</td>"
-					+"<td class='list male'>"	 +data.male+"</td>"
-					+"<td class='list female'>"	 +data.female+"</td>"
-					+"<td class='list own'>"	 +data.own+"</td>"
-					+"<td class='list tel'>"	 +data.tel+"</td>"
-					+"<td class='list president'>"+data.president+"</td>"
-					+"<td class='list phone'>"	 +data.phone+"</td>"
-					+"<td><button class='btn_modify'>수정</button></td>"
-					+"<td><button class='btn_delete'>삭제</button></td>"
-					+"</tr>"
-				);
-				alert("등록되었습니다.");
-				clear();
+			$(".scc_list_table").append("<tr class='scc_list_tr'>"
+				+"<td class='list code'>"
+				+	"<span class='list area_code'>"	 +data.areaCode+"</span>- "
+				+	"<span class='list branch_code'>"+data.branchCode+"</span>- "
+				+	"<span class='list scc_code'>"	 +data.sccCode+"</span></td>"
+				+"<td class='list dong'>"	 +data.dong+"</td>"
+				+"<td class='list name'>"	 +data.name+"</td>"
+				+"<td class='list address'>" +data.address+"</td>"
+				+"<td class='list reg_date'>"+data.simpleRegDate+"</td>"
+				+"<td class='list site'>"	 +data.site+"</td>"
+				+"<td class='list building'>"+data.building+"</td>"
+				+"<td class='list member'>"	 +data.member+"</td>"
+				+"<td class='list male'>"	 +data.male+"</td>"
+				+"<td class='list female'>"	 +data.female+"</td>"
+				+"<td class='list own'>"	 +data.own+"</td>"
+				+"<td class='list tel'>"	 +data.tel+"</td>"
+				+"<td class='list president'>"+data.president+"</td>"
+				+"<td class='list phone'>"	 +data.phone+"</td>"
+				+"<td><button class='btn_modify'>수정</button></td>"
+				+"<td><button class='btn_delete'>삭제</button></td>"
+				+"</tr>"
+			);
+			alert("등록되었습니다.");
+			clear();
 
-				$("body").animate({
-					scrollTop: $(document).height()
-				}, 1000);
-			}
+			$("body").animate({
+				scrollTop: $(document).height()
+			}, 1000);
 		}
 	})
 });
@@ -147,7 +143,6 @@ $(document).on("click",".modify",function() {
 		type : "post",
 		data : query,
 		success : function(data){
-			//중복 체크 추가
 			var modifyingTr=$(".modifying");
 			
 			modifyingTr.children(".list.area").text(data.areaCode);
