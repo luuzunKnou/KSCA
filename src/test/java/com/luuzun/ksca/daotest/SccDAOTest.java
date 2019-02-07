@@ -1,7 +1,5 @@
 package com.luuzun.ksca.daotest;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import org.junit.FixMethodOrder;
