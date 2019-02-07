@@ -22,6 +22,24 @@ public class Manager {
 		}
 	}
 
+	public Manager() {
+		super();
+	}
+
+	public Manager(String id, String password, String name, String tel, String mail, boolean isApprove, boolean isExist,
+			Permission permission, String area) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.tel = tel;
+		this.mail = mail;
+		this.isApprove = isApprove;
+		this.isExist = isExist;
+		this.permission = permission;
+		this.area = area;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(

@@ -65,7 +65,7 @@
 		 		</tr>
 			</table>
 		</form>
-		
+		<span id="p_checkCode"></span>
 		<button class="close">취소</button>
 		<button class="save">저장</button>
 	</div>

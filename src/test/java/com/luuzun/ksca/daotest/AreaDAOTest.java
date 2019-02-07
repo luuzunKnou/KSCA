@@ -25,7 +25,6 @@ public class AreaDAOTest {
 	@Test
 	public void test_01_Create() throws Exception{
 		Area area = new Area();
-		area.setManager("mcmoto");
 		area.setCity("Test");
 		area.setCityCode("99");
 		area.setGu("Test");
@@ -38,7 +37,6 @@ public class AreaDAOTest {
 	@Test
 	public void test_02_Update() throws Exception{
 		Area area = new Area();
-		area.setManager("mcmoto");
 		area.setCity("Up Test");
 		area.setCityCode("88");
 		area.setGu("Up Test");
@@ -61,10 +59,5 @@ public class AreaDAOTest {
 	@Test
 	public void test_05_ListAll() throws Exception{
 		logger.info(dao.listAll().toString());
-	}
-	
-	@Test
-	public void test_06_readByManager() throws Exception{
-		logger.info(dao.readByManager("mcmoto").toString());
 	}
 }

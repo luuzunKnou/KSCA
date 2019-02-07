@@ -21,30 +21,6 @@
 			</div>
 		</div>
 		
-		<!-- Check ID AJAX -->
-		<script>
-			$("#inputID").keyup(function() {
-				var query = {id : $("#inputID").val()};
-				$.ajax({
-					url  : "/manager/checkID",
-					type : "post",
-					data : query,
-					success : function(data){
-						if(data == 0){ //아이디 중복
-							$("#p_checkID").text("사용할 수 없는 아이디입니다.");
-							$("#p_checkID").css("color","red");
-							$(".btn_submit").prop("disabled",true);
-						} else { //사용가능
-							$("#p_checkID").text("사용가능한 아이디입니다.");
-							$("#p_checkID").css("color","#2EB74E");
-							$(".btn_submit").prop("disabled",false);
-						}
-					}
-				});
-			});
-		</script>
-		
-
 		<!-- 이메일 -->
 		<div class="form_group">
 			<label class="sign_up_label" for="inputEmail">이메일</label>
@@ -112,6 +88,29 @@
 			</div>
 			<p id='p_checkCode'></p>
 		</div>
+		
+		<!-- Check ID AJAX -->
+		<script>
+			$("#inputID").keyup(function() {
+				var query = {id : $("#inputID").val()};
+				$.ajax({
+					url  : "/manager/checkID",
+					type : "post",
+					data : query,
+					success : function(data){
+						if(data == 0){ //아이디 중복
+							$("#p_checkID").text("사용할 수 없는 아이디입니다.");
+							$("#p_checkID").css("color","red");
+							$(".btn_submit").prop("disabled",true);
+						} else { //사용가능
+							$("#p_checkID").text("사용가능한 아이디입니다.");
+							$("#p_checkID").css("color","#2EB74E");
+							$(".btn_submit").prop("disabled",false);
+						}
+					}
+				});
+			});
+		</script>
 		
 		<!-- Check Code AJAX -->
 		<script>

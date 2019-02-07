@@ -120,4 +120,19 @@ public class BranchController {
 		service.delete(manager.getArea(), branchCode);
 		return branchCode;
 	}
+	
+	
+	//Branch Duplecation Check
+	@ResponseBody
+	@RequestMapping(value="/checkBranch", method=RequestMethod.POST)
+	public int checkBranch(HttpServletRequest req, String areaCode, String branchCode) throws Exception{
+		logger.info("Check duplication Branch");
+		 
+		 Branch branch =  service.read(areaCode, branchCode);
+		 
+		 if(branch != null) { //아이디 중복시 0 반환
+			 return 0;
+		 } 
+		 return 1;
+	}
 }

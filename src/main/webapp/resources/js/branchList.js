@@ -106,7 +106,32 @@ $(document).ready(function(){
 		}
 	});
 	
-	//토글 함수
+	//Check Branch Code AJAX
+	$(".branch_code").keyup(function() {
+		var query = {
+			areaCode   : $(".city_code").val()+"-"+$(".gu_code").val(),
+			branchCode : $(".branch_code").val()
+		};
+		
+		$.ajax({
+			url  : "/branch/checkBranch",
+			type : "post",
+			data : query,
+			success : function(data){
+				if(data == 0){ //아이디 중복
+					$("#p_checkCode").text("이미 존재하는 코드입니다.");
+					$("#p_checkCode").css("color","red");
+					$(".save").prop("disabled",true);
+				} else { //사용가능
+					$("#p_checkCode").text("등록 가능한 코드입니다.");
+					$("#p_checkCode").css("color","#2EB74E");
+					$(".save").prop("disabled",false);
+				}
+			}
+		});
+	});
+	
+	//Modal Toggle
     $(function(){
     	$(".btn_create, .btn_modify, #modal_background, .close").click(function () {
     		$("#myModal,#modal_background").toggle();

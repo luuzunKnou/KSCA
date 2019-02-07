@@ -27,13 +27,13 @@ public class ManagerDAOTest {
 	String password = "1234";
 			
 	Manager manager = new Manager("Tester", "1234", "Tester", "1234-1234", 
-			"Tester@test.com", true, Permission.MANAGER);
+			"Tester@test.com", true, true, Permission.MANAGER, "03-01");
 	
 	Manager updateManager = new Manager("Tester", "4321", "Update", "1111-1234", 
-			"Update@test.com", true, Permission.MANAGER); 
+			"Update@test.com", true, true, Permission.MANAGER, "03-01"); 
 	
 	Manager newManager = new Manager("Tester2", "4321", "Update", "1111-1234", 
-			"Update@test.com", false, Permission.MANAGER);
+			"Update@test.com", true, true, Permission.MANAGER, "03-01");
 	
 	@Test
 	public void test_01_Create() throws Exception{
