@@ -44,13 +44,8 @@ public class SccDAOImpl implements SccDAO{
 		update.put("destAreaCode", destAreaCode);
 		update.put("destBranchCode", destBranchCode);
 		update.put("destSccCode", destSccCode);
+		update.put("simpleRegDate",scc.getSimpleRegDate()); //for update SQL formatting
 		update = FieldToMapUtill.getInstance().putAllField(update, scc);
-		
-		System.out.println();
-		System.out.println();
-		System.out.println(update);
-		System.out.println();
-		System.out.println();
 		
 		sqlSession.update(namespace+"update", update);
 	}

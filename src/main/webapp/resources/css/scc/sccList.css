@@ -61,8 +61,8 @@ td{
 .president	{ width : 65px;}
 .phone		{ width : 120px;}
 
-.input.code  { width : 33px;}
-.input.tel 	 { width : 100px;}
-.input.phone { width : 100px;}
-.input.branch{ width : 85px;}
+.input.scc_code { width : 33px;}
+.input.tel 	 	{ width : 100px;}
+.input.phone 	{ width : 100px;}
+.input.branch	{ width : 85px;}
 

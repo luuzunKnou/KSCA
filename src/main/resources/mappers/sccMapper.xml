@@ -40,7 +40,7 @@
 				<if test="dong 		!=null">dong		= #{dong},		</if> 
 				<if test="name 		!=null">name		= #{name}, 		</if>
 				<if test="address 	!=null">address		= #{address}, 	</if>
-				<if test="regDate 	!=null">reg_date	= #{regDate}, 	</if> 
+				<if test="simpleRegDate	!=null">reg_date	= #{simpleRegDate},	</if> 
 				<if test="site 		!=null">site		= #{site}, 		</if>
 				<if test="building 	!=null">building	= #{building},	</if>
 				<if test="member 	!=null">member		= #{member}, 	</if>

@@ -6,29 +6,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SCC {
-	public String areaCode; 
-	public String branchCode;
-	public String sccCode;
-	public String dong; 
-	public String name; 
-	public String address; 
-	public Date regDate; 
-	public float site; 
-	public float building; 
-	public int member; 
-	public int male; 
-	public int female; 
-	public String own; 
-	public String tel;
-	public String president; 
-	public String phone ;
+	private String areaCode; 
+	private String branchCode;
+	private String sccCode;
+	private String dong; 
+	private String name; 
+	private String address; 
+	private Date regDate; 
+	private float site; 
+	private float building; 
+	private int member; 
+	private int male; 
+	private int female; 
+	private String own; 
+	private String tel;
+	private String president; 
+	private String phone ;
 	
 	SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public String getSimpleRegDate() {
 		String simpleRegDate = "";
-		if(regDate!=null)
-			simpleRegDate=sd.format(regDate);
+		if(this.regDate!=null) {
+			simpleRegDate=sd.format(this.regDate);
+		}
 		return simpleRegDate;
 	}
 	

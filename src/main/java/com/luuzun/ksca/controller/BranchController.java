@@ -64,15 +64,6 @@ public class BranchController {
 		branch.setAreaCode(manager.getArea());
 		logger.info("Branch: "+branch);
 		
-		//비어있는 값 처리
-		
-		//중복 입력 처리
-		if(service.read(branch.getAreaCode(), branch.getBranchCode())!=null) {
-			Branch errorBranch = new Branch();
-			logger.info("Branch DUP: "+errorBranch);
-			return errorBranch;
-		}
-		
 		try {
 			service.create(branch);
 			model.addAttribute("newBranch",branch);
