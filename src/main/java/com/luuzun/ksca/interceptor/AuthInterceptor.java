@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.luuzun.ksca.controller.ManagerController;
+import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.utill.SaveDestUtill;
 
 //기능 실행 시 권한을 확인.
@@ -21,15 +22,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
-		String permission = (String) session.getAttribute("permission");
+		Manager manager = (Manager) session.getAttribute("login");
 
 		logger.info("Call preHandle:AuthInterceptor");
-		logger.info("Session userID : "+ id);
-		logger.info("Session Permission : "+ permission);
+		logger.info("Session userID : "+ manager);
 		 
 		//아이디가 null이면 로그인 페이지로 이동
-		if(id == null){
+		if(manager == null){
 			//로그인 화면으로 이동하기 전 주소 기억
 			SaveDestUtill.getInstance().saveDest(request); 
 			String url = request.getContextPath();

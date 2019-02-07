@@ -25,9 +25,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		logger.info("Call preHandler");
 
-		if(session.getAttribute("manager") != null) {
+		if(session.getAttribute("login") != null) {
 			logger.info("Clear login data before");
-			session.removeAttribute("manager");
+			session.removeAttribute("login");
 		}
 		return true;
 	}

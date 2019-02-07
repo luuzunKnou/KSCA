@@ -39,7 +39,8 @@
 		</interceptor>
 		 
 		<interceptor>
-			<mapping path=""/>
+			<mapping path="/branch/*"/>
+			<mapping path="/scc/*"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
