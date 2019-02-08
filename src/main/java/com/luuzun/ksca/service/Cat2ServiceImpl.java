@@ -39,4 +39,9 @@ public class Cat2ServiceImpl implements Cat2Service{
 	public void delete(String code, String cat1) throws Exception{
 		dao.delete(code, cat1);
 	}
+
+	@Override
+	public List<Cat2> readByCat1(String code) {
+		return dao.readByCat1(code);
+	}
 }

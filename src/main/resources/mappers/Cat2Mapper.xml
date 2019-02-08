@@ -14,6 +14,11 @@
 				AND cat1=#{cat1};
 	</select>
 	
+	<select id="readByCat1" resultType="Cat2">
+		SELECT * From cat2
+			WHERE cat1=#{cat1};
+	</select>
+	
 	<insert id="create">
 		INSERT INTO cat2(code, cat1, name) VALUES
 			(#{code}, #{cat1}, #{name});

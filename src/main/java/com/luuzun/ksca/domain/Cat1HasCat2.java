@@ -1,31 +1,37 @@
 package com.luuzun.ksca.domain;
 
-public class Cat2 {
+import java.util.List;
+
+public class Cat1HasCat2 {
 	private String code; 
 	private String name;
-	private String cat1;
-	
+	private List<Cat2> cat2List;
 	@Override
 	public String toString() {
-		return String.format("%nCat2 [code=%s, name=%s, cat1=%s]", code, name, cat1);
+		return String.format("%nCat1HasCat2 [code=%s, name=%s, cat2List=%s]", code, name, cat2List);
 	}
 	
 	public String getCode() {
 		return code;
 	}
+	
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCat1() {
-		return cat1;
+	
+	public List<Cat2> getCat2List() {
+		return cat2List;
 	}
-	public void setCat1(String cat1) {
-		this.cat1 = cat1;
+	
+	public void setCat2List(List<Cat2> cat2List) {
+		this.cat2List = cat2List;
 	}
 }

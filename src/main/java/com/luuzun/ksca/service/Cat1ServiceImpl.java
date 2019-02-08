@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.luuzun.ksca.domain.Cat1;
+import com.luuzun.ksca.domain.Cat1HasCat2;
 import com.luuzun.ksca.persistence.Cat1DAO;
 
 @Service
@@ -38,5 +39,10 @@ public class Cat1ServiceImpl implements Cat1Service{
 	@Override
 	public void delete(String code) throws Exception{
 		dao.delete(code);
+	}
+
+	@Override
+	public List<Cat1HasCat2> listCat1HasCat2() throws Exception {
+		return dao.listCat1HasCat2();
 	}
 }

@@ -1,0 +1,36 @@
+@charset "EUC-KR";
+
+
+/* The Modal (background) */
+#myModal {
+    display: none;
+    position: fixed;
+    left: calc( 50% - 400px ); top: calc( 50% - 125px );
+    width: 800px; height: 100px; 
+    background-color: #fefefe;
+    z-index: 11;
+    padding: 20px;
+    overflow: hidden;
+	border: 1px solid #888;
+    
+}
+
+/* The Modal background */
+#modal_background {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 10;
+}
+
+.save, .close, .modify_save{
+	width: 70px; margin: 10px 5px 0px 5px; border-radius:5px; padding:3px 0;
+	background-color: #e67e22; color: white; border:none; height:25px; float: right; 
+}
+
+/* Modal input */
+.input{
+	width: 100%; text-align: center;
+}

@@ -31,6 +31,8 @@
 					/introduce/introduce">스케줄 관리</a></li>
 				<c:if test="${login.permToString() eq 'Master'}">
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
+					/cat/catList">카테고리 관리</a></li>
+				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/manager/managerManagement">매니저 관리</a></li>
 				</c:if>
 			</ul> 

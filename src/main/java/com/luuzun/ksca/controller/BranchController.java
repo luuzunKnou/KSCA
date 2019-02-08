@@ -66,7 +66,6 @@ public class BranchController {
 		
 		try {
 			service.create(branch);
-			model.addAttribute("newBranch",branch);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

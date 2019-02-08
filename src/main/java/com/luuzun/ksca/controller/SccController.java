@@ -96,7 +96,6 @@ public class SccController {
 		
 		try {
 			service.create(scc);
-			model.addAttribute("newScc",scc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,6 +134,7 @@ public class SccController {
 	
 	
 	//remove SCC
+	//return entity·Î º¯°æ
 	@ResponseBody
 	@RequestMapping(value="/removeScc", method=RequestMethod.POST)
 	public SCC removeScc(Model model, HttpServletRequest req, SCC scc) throws Exception {

@@ -56,4 +56,9 @@ public class Cat2DAOTest {
 	public void test_05_ListAll() throws Exception{
 		logger.info(dao.listAll().toString());
 	}
+	
+	@Test
+	public void test_06_readByCat1() throws Exception{
+		logger.info(dao.readByCat1("3001").toString());
+	}
 }

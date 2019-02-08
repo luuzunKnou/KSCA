@@ -54,4 +54,9 @@ public class Cat1DAOTest {
 	public void test_05_ListAll() throws Exception{
 		logger.info(dao.listAll().toString());
 	}
+	
+	@Test
+	public void test_06_listCat1HasCat2() throws Exception{
+		logger.info(dao.listCat1HasCat2().toString());
+	}
 }

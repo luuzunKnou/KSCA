@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Cat1;
+import com.luuzun.ksca.domain.Cat1HasCat2;
 import com.luuzun.ksca.utill.FieldToMapUtill;
 
 @Repository
@@ -46,5 +47,10 @@ public class Cat1DAOImpl implements Cat1DAO{
 	@Override
 	public void delete(String code) throws Exception {
 		sqlSession.delete(namespace+"delete", code);
+	}
+
+	@Override
+	public List<Cat1HasCat2> listCat1HasCat2() throws Exception {
+		return sqlSession.selectList(namespace+"listCat1HasCat2");
 	}
 }

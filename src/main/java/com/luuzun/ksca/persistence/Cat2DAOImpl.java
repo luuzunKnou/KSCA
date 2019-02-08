@@ -56,4 +56,9 @@ public class Cat2DAOImpl implements Cat2DAO{
 		
 		sqlSession.delete(namespace+"delete", codeMap);
 	}
+
+	@Override
+	public List<Cat2> readByCat1(String code) {
+		return sqlSession.selectList(namespace+"readByCat1", code);
+	}
 }

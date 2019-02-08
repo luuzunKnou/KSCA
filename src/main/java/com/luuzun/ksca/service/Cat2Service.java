@@ -10,4 +10,5 @@ public interface Cat2Service {
 	public void create(Cat2 cat2) throws Exception;
 	public void update(String destCode, String destCat1, Cat2 cat2) throws Exception;
 	public void delete(String code, String cat1) throws Exception;
+	public List<Cat2> readByCat1(String code);
 }
