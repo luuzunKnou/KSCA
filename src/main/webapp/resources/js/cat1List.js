@@ -1,9 +1,3 @@
-//
-//
-// 추가시 select에 함꼐 추가 구현
-//
-//
-
 /* Create Cat1 AJAX */
 $(document).on("click",".m1.save",function() {
 	var query = {
@@ -23,14 +17,20 @@ $(document).on("click",".m1.save",function() {
 					'<tr class="cat2_list_tr">'+
 						'<td class="list name2">-</td>'+
 						'<td class="list code2">'+
-							'<span class="code2_cat1">'+data.code+'</span>'+
-							'<span class="code2_code"> -</span>'+
+							'<span class="code2_cat1">'+data.code+'</span> '+
+							'<span class="code2_code">-</span>'+
 						'</td>'+
 					'</tr>'+
 				'</tr>'
 			);
+			
+			var optName = new Option(data.name, data.name);
+			var optCode = new Option(data.code, data.code);
+			$(".m2.input.cat1.name").append(optName);
+			$(".m2.input.cat1.code").append(optCode);
+			
 			alert("등록되었습니다.");
-			clear();
+			clearAll();
 		}
 	})
 });
@@ -73,7 +73,7 @@ $(document).on("click",".m1.modify_save",function() {
 			modifyingTr.children(".list.code1").text(data.code);
 			
 			alert("수정되었습니다.");
-			clear();
+			clearAll();
 		}
 	})
 });
@@ -103,7 +103,7 @@ $(document).on("click",".m1.delete",function() {
 			}
 		})
 	}
-	clear();
+	clearAll();
 });
 
 //Check Duplication Cat1 Code AJAX
@@ -135,8 +135,8 @@ $(document).on("keyup",".m1.input.code",function() {
 
 //Modal Toggle
 $(function(){
-	$(document).on("click",".btn_create, .modal_background, .close",function() {
-		clear();
+	$(document).on("click",".m1.btn_create, .m1.modal_background, .m1.close",function() {
+		clearAll()
 	});
 	
 	$(document).on("click",".m1.save, .m1.modify_save, .list.name1, .list.code1," +
@@ -146,7 +146,8 @@ $(function(){
 });
 
 //Close, Save시 Cat1 input clear
-function clear() {
+function clearAll() {
+	console.log("ccc"); 
 	$(".input.code").val("");
 	$(".input.name").val("");
 	$(".p_checkCode").text("");

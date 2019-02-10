@@ -178,7 +178,7 @@ function setCodeOption(){
 
 //Modal Toggle
 $(function(){
-	$(document).on("click",".btn_create, .modal_background, .close",function() {
+	$(document).on("click",".m2.btn_create, .m2.modal_background, .m2.close",function() {
 		clear();
 	});
 	
