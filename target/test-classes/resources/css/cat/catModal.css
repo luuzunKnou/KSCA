@@ -13,8 +13,8 @@
 }
 
 .modal.m1{
-	left: calc( 50% - 165px ); top: calc( 50% - 125px );
-	width: 230px; height: 100px; 
+	left: calc( 50% - 150px ); top: calc( 50% - 125px );
+	width: 300px; height: 120px; 
 }
 
 
@@ -40,12 +40,25 @@
 
 form table{border: none; background-color: #fefefe;}
 
+.modal th{
+	padding: 7px; text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #e67e22;
+}
+
+.modal.m1 table {margin-left: 20px;}
+
 /* Modal input */
 .input{
-	width: 100%; text-align: center;
+	width: 100%; text-align-last: center;
 }
+
+option {text-align: center;}
 
 .input.cat1.name {width: 130px;}
 .input.cat1.code {width: 70px;}
 .input.cat2.name {width: 180px;}
 .input.cat2.code {width: 70px;}
+.m1.input.cat1.code {width: 100px;}
+
+.m1.p_checkCode {text-align: right; height:20px; line-height: 20px; padding-right: 25px;}

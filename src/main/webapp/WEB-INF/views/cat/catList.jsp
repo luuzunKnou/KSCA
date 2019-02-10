@@ -6,7 +6,8 @@
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/cat/catList.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/cat/catModal.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/catList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/cat1List.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/cat2List.js"></script>
 
 <section>
 <div class="catList">
@@ -45,15 +46,12 @@
 					<th>대분류</th> <th>대분류 코드</th>
 		 		</tr>
 		 		<tr>
-		 			<td><input type="text" class="m1 input cat1 name" 
-		 					value=""></td>
-
-		 			<td><input type="text" class="m1 input cat1 code" 
-		 					value=""></td>
+		 			<td><input type="text" class="m1 input cat1 name"></td>
+		 			<td><input type="text" class="m1 input cat1 code"></td>
 		 		</tr>
 			</table>
 		</form>
-		<span class="m1 p_checkCode"></span>
+		<p class="m1 p_checkCode"> </p>
 		<button class="m1 close">취소</button>
 		<button class="m1 save">등록</button>
 	</div>
@@ -70,18 +68,24 @@
 					<th>대분류</th> <th>대분류 코드</th> <th>소분류</th> <th>소분류 코드</th>
 		 		</tr>
 		 		<tr>
-		 			
-		 			<td><input type="text" class="m2 input cat1 name" 
-		 					value=""></td>
-
-		 			<td><input type="text" class="m2 input cat1 code" 
-		 					value=""></td>
-
-		 			<td><input type="text" class="m2 input cat2 name" 
-		 					value=""></td>
-
-		 			<td><input type="text" class="m2 input cat2 code" 
-		 					value=""></td>
+		 			<td>
+		 				<select class="m2 input cat1 name">
+		 					<option selected="selected" value="">- 선택 -</option>
+							<c:forEach var="cat1" items="${categoryList}">
+								<option value="${cat1.name}">${cat1.name}</option>
+							</c:forEach>
+		 				</select>
+		 			</td>
+		 			<td>
+		 				<select class="m2 input cat1 code">
+		 					<option selected="selected" value="">- 선택 -</option>
+							<c:forEach var="cat1" items="${categoryList}">
+								<option value="${cat1.code}">${cat1.code}</option>
+							</c:forEach>
+		 				</select>
+		 			</td>
+		 			<td><input type="text" class="m2 input cat2 name"></td>
+		 			<td><input type="text" class="m2 input cat2 code"></td>
 		 		</tr>
 			</table>
 		</form>

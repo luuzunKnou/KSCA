@@ -1,4 +1,10 @@
-/* Create Branch AJAX */
+//
+//
+// 추가시 select에 함꼐 추가 구현
+//
+//
+
+/* Create Cat1 AJAX */
 $(document).on("click",".m1.save",function() {
 	var query = {
 		code  : $(".m1.name").val(),
@@ -49,7 +55,7 @@ $(document).on("click",".list.name1, .list.code1",function() {
 	$(".modal.m1").append('<button class="m1 delete">삭제</button>');
 });
 
-/* Update Branch AJAX */
+/* Update Cat1 AJAX */
 $(document).on("click",".m1.modify_save",function() {
 	var query = {
 		destCode : $(".m1.dest_cat1_code").val(),
@@ -67,12 +73,11 @@ $(document).on("click",".m1.modify_save",function() {
 			modifyingTr.children(".list.name1").text(data.name);
 			modifyingTr.children(".list.code1").text(data.code);
 			
-			modifyingTr.removeClass("modifying");
-			
 			alert("수정되었습니다.");
 			clear();
 		}
 	})
+	modifyingTr.removeClass("modifying");
 });
 
 /* Delete Button AJAX*/ 
@@ -90,45 +95,41 @@ $(document).on("click",".m1.delete",function() {
 			success : function(data){
 				if(data=="ERROR:cascade"){
 					alert("하위 항목이 존재하므로 삭제할 수 없습니다.");
-					clear();
-
 				} else {
 					//rowspan 사용 시 하위 tr이 child가 아닌 sibiling형태로 추가됨..
 					$(".list.code1:contains("+data+")").parent().next().remove();
 					$(".list.code1:contains("+data+")").parent().remove();
 					
 					alert("삭제되었습니다.");
-					clear();
 				}
 			}
 		})
 	}
+	clear();
 });
 
-//Check Duplication Branch Code AJAX
-$(document).on("keyup",".branch_code",function() {
+//Check Duplication Cat1 Code AJAX
+$(document).on("keyup",".m1.input.code",function() {
 	var query = {
-		areaCode   : $(".city_code").val()+"-"+$(".gu_code").val(),
-		branchCode : $(".branch_code").val()
+		code : $(".m1.input.code").val() 
 	};
 	
 	$.ajax({
-		url  : "/branch/checkBranch",
+		url  : "/cat/checkCat1",
 		type : "post",
 		data : query,
 		success : function(data){
 			if(data == 0){ //중복
-				$(".p_checkCode").text("이미 존재하는 코드입니다.");
-				$(".p_checkCode").css("color","red");
-				$(".save").prop("disabled",true);
-				$(".modify_save").prop("disabled",true);
+				$(".m1.p_checkCode").text("이미 존재하는 코드입니다.");
+				$(".m1.p_checkCode").css("color","red");
+				$(".m1.save").prop("disabled",true);
+				$(".m1.modify_save").prop("disabled",true);
 				
 			} else { //사용가능
-				$(".p_checkCode").text("등록 가능한 코드입니다.");
-				$(".p_checkCode").css("color","#2EB74E");
-				$(".save").prop("disabled",false);
-				$(".modify_save").prop("disabled",false);
-
+				$(".m1.p_checkCode").text("등록 가능한 코드입니다.");
+				$(".m1.p_checkCode").css("color","#2EB74E");
+				$(".m1.save").prop("disabled",false);
+				$(".m1.modify_save").prop("disabled",false);
 			}
 		}
 	});
@@ -146,19 +147,13 @@ $(function(){
 	});
 });
 
-//Close, Save시 Branch input clear
+//Close, Save시 Cat1 input clear
 function clear() {
 	$(".input.code").val("");
 	$(".input.name").val("");
 	$(".p_checkCode").text("");
 	$(".m1.modify_save").text("등록").attr("class","m1 save");
 	$(".m1.delete").remove();
-}
-
-//n에 width 자리수에 맞게 0 추가
-function pad(n, width) {
-	n = n + '';
-	return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
 }
 
 //On Mouse Over

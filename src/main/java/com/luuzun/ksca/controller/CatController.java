@@ -114,6 +114,7 @@ public class CatController {
 	@RequestMapping(value="/updateCat2", method=RequestMethod.POST)
 	public Cat2 updateCat2(Model model, String destCode, String destCat1, Cat2 cat2) throws Exception {
 		logger.info("Update Category 2..........");
+		logger.info("DestCode : " + destCode + "---DestCa1 : " + destCat1 + "Cat2 : " + cat2);
 		cat2Service.update(destCode, destCat1, cat2);
 		return cat2;
 	}
@@ -152,17 +153,32 @@ public class CatController {
 	}
 		
 		
-	//Branch Duplecation Check
-//	@ResponseBody
-//	@RequestMapping(value="/checkBranch", method=RequestMethod.POST)
-//	public int checkBranch(HttpServletRequest req, String areaCode, String branchCode) throws Exception{
-//		logger.info("Check duplication Branch");
-//		 
-//		 Branch branch =  service.read(areaCode, branchCode);
-//		 
-//		 if(branch != null) { //아이디 중복시 0 반환
-//			 return 0;
-//		 } 
-//		 return 1;
-//	}
+	//Cat1 Duplecation Check
+	@ResponseBody
+	@RequestMapping(value="/checkCat1", method=RequestMethod.POST)
+	public int checkCat1(String code) throws Exception{
+		logger.info("Check duplication Branch");
+		 
+		 Cat1 cat1 =  cat1Service.read(code);
+		 
+		 if(cat1 != null) { //아이디 중복시 0 반환
+			 return 0;
+		 } 
+		 return 1;
+	}
+	
+	
+	//Cat2 Duplecation Check
+	@ResponseBody
+	@RequestMapping(value="/checkCat2", method=RequestMethod.POST)
+	public int checkCat2(String code, String cat1) throws Exception{
+		logger.info("Check duplication Branch");
+		 
+		 Cat2 cat2 =  cat2Service.read(code, cat1);
+		 
+		 if(cat2 != null) { //아이디 중복시 0 반환
+			 return 0;
+		 } 
+		 return 1;
+	}
 }
