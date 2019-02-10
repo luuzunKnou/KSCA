@@ -1,32 +1,27 @@
 /* Create Branch AJAX */
-$(document).on("click",".save",function() {
+$(document).on("click",".m1.save",function() {
 	var query = {
-		branch 		: $(".branch").val(),
-		branchCode	: $(".branch_code").val()
+		code  : $(".m1.name").val(),
+		name  : $(".m1.code").val()
 	};
-	console.log($(".branch").val());
-	console.log(query);
-	var city 	 = $(".city").val();
-	var cityCode = $(".city_code").val();
-	var gu 		 = $(".gu").val();
-	var guCode 	 = $(".gu_code").val();
-	
+
 	$.ajax({
-		url  : "/branch/createBranch",
+		url  : "/cat/createCat1",
 		type : "post",
 		data : query,
 		success : function(data){
-			$(".branch_list_table").append("<tr class='branch_list_tr'>"
-				+"<td>"+data.areaCode+"-"+data.branchCode+"</td>"
-				+"<td>"+city+"</td>"
-				+"<td>"+cityCode+"</td>"
-				+"<td>"+gu+"</td>"
-				+"<td>"+guCode+"</td>"
-				+"<td class='list_branch'>"+data.branch+"</td>"
-				+"<td class='list_branch_code'>"+data.branchCode+"</td>"
-				+"<td><button class='btn_modify'>수정</button></td>"
-				+"<td><button class='btn_delete'>삭제</button></td>"
-				+"</tr>"
+			$(".cat_list_table").append(
+				'<tr class="cat1_list_tr">'+
+					'<td rowspan="2" class="list name1">'+data.name+'</td>'+
+					'<td rowspan="2" class="list code1">'+data.code+'</td>'+
+					'<tr class="cat2_list_tr">'+
+						'<td class="list name2">-</td>'+
+						'<td class="list code2">'+
+							'<span class="code2_cat1">'+data.code+'</span>'+
+							'<span class="code2_code"> -</span>'+
+						'</td>'+
+					'</tr>'+
+				'</tr>'
 			);
 			alert("등록되었습니다.");
 			clear();
@@ -35,35 +30,45 @@ $(document).on("click",".save",function() {
 });
 
 /* Click modify Button*/
-$(document).on("click",".btn_modify",function() {
-	//분회/분회코드 가져오기
-	var branch = $(this).parent().siblings(".list_branch").text();
-	var branchCode = $(this).parent().siblings(".list_branch_code").text();
+$(document).on("click",".list.name1, .list.code1",function() {
+	//Cat1 name, code 가져오기
+	var modifyingTr = $(this).parent();
+	modifyingTr.addClass("modifying");
 	
-	$(".dest_branch_code").val(branchCode);
-	$(".branch").val(branch);
-	$(".branch_code").val(branchCode);
+	var cat1Name = $(this).parent().children(".list.name1").text();
+	var cat1Code = $(this).parent().children(".list.code1").text();
+	
+	$(".m1.input.name").val(cat1Name);
+	$(".m1.input.code").val(cat1Code);
+	$(".m1.dest_cat1_code").val(cat1Code);
 	
 	//save 버튼 변경
-	$(".save").text("수정").attr("class","modify_save");
+	$(".m1.save").text("수정").attr("class","m1 modify_save");
+	
+	//삭제 버튼 추가
+	$(".modal.m1").append('<button class="m1 delete">삭제</button>');
 });
 
 /* Update Branch AJAX */
-$(document).on("click",".modify_save",function() {
+$(document).on("click",".m1.modify_save",function() {
 	var query = {
-		destBranchCode : $(".dest_branch_code").val(),
-		branch 		: $(".branch").val(),
-		branchCode	: $(".branch_code").val()
+		destCode : $(".m1.dest_cat1_code").val(),
+		code 	 : $(".m1.input.code").val(),
+		name	 : $(".m1.input.name").val()
 	};
-	var modifyingTr=$(".list_branch_code:contains("+$(".dest_branch_code").val()+")").parent();
+	
+	var modifyingTr=$(".modifying");
 	
 	$.ajax({
-		url  : "/branch/updateBranch",
+		url  : "/cat/updateCat1",
 		type : "post",
 		data : query,
 		success : function(data){
-			modifyingTr.children(".list_branch").text(data.branch);
-			modifyingTr.children(".list_branch_code").text(data.branchCode);
+			modifyingTr.children(".list.name1").text(data.name);
+			modifyingTr.children(".list.code1").text(data.code);
+			
+			modifyingTr.removeClass("modifying");
+			
 			alert("수정되었습니다.");
 			clear();
 		}
@@ -71,24 +76,29 @@ $(document).on("click",".modify_save",function() {
 });
 
 /* Delete Button AJAX*/ 
-$(document).on("click",".btn_delete",function() {
+$(document).on("click",".m1.delete",function() {
 	var result = confirm("정말 삭제하시겠습니까?");
 	if(result){
 		var query = {
-			branchCode : $(this).parent().siblings(".list_branch_code").text()
+			code : $(".m1.input.code").val()
 		};
 		
 		$.ajax({
-			url  : "/branch/removeBranch",
+			url  : "/cat/removeCat1",
 			type : "post",
 			data : query,
 			success : function(data){
-				if(data=="ERROR:def"){
-					alert("삭제할 수 없는 항목입니다.");
-				} else if(data=="ERROR:cascade"){
-					alert("분회에 소속된 경로당이 존재하므로 삭제할 수 없습니다.");
+				if(data=="ERROR:cascade"){
+					alert("하위 항목이 존재하므로 삭제할 수 없습니다.");
+					clear();
+
 				} else {
-					$(".list_branch_code:contains("+data+")").parent().remove();
+					//rowspan 사용 시 하위 tr이 child가 아닌 sibiling형태로 추가됨..
+					$(".list.code1:contains("+data+")").parent().next().remove();
+					$(".list.code1:contains("+data+")").parent().remove();
+					
+					alert("삭제되었습니다.");
+					clear();
 				}
 			}
 		})
@@ -108,14 +118,14 @@ $(document).on("keyup",".branch_code",function() {
 		data : query,
 		success : function(data){
 			if(data == 0){ //중복
-				$("#p_checkCode").text("이미 존재하는 코드입니다.");
-				$("#p_checkCode").css("color","red");
+				$(".p_checkCode").text("이미 존재하는 코드입니다.");
+				$(".p_checkCode").css("color","red");
 				$(".save").prop("disabled",true);
 				$(".modify_save").prop("disabled",true);
 				
 			} else { //사용가능
-				$("#p_checkCode").text("등록 가능한 코드입니다.");
-				$("#p_checkCode").css("color","#2EB74E");
+				$(".p_checkCode").text("등록 가능한 코드입니다.");
+				$(".p_checkCode").css("color","#2EB74E");
 				$(".save").prop("disabled",false);
 				$(".modify_save").prop("disabled",false);
 
@@ -126,28 +136,23 @@ $(document).on("keyup",".branch_code",function() {
 
 //Modal Toggle
 $(function(){
-	$(document).on("click",".btn_create, #modal_background, .close",function() {
+	$(document).on("click",".btn_create, .modal_background, .close",function() {
 		clear();
 	});
 	
-	$(document).on("click",".save, .btn_modify, .modify_save, " +
-			".btn_create, #modal_background, .close",function() {
-		$("#myModal,#modal_background").toggle();
+	$(document).on("click",".m1.save, .m1.modify_save, .list.name1, .list.code1," +
+			".btn_create.cat1, .m1.delete, .m1.modal_background, .m1.close",function() {
+		$(".modal.m1, .m1.modal_background").toggle();
 	});
 });
 
 //Close, Save시 Branch input clear
 function clear() {
-	var cityCode = $(".city_code").val();
-	var guCode 	 = $(".gu_code").val();
-	var defaultCode=pad(cityCode,2)+"-"+pad(guCode,2);
-	
-	$(".code").val(defaultCode);
-	$(".dest_branch_code").val("");
-	$(".branch").val("");
-	$(".branch_code").val("");
-	$(".modify_save").text("저장").attr("class","save");
-	$("#p_checkCode").text("");
+	$(".input.code").val("");
+	$(".input.name").val("");
+	$(".p_checkCode").text("");
+	$(".m1.modify_save").text("등록").attr("class","m1 save");
+	$(".m1.delete").remove();
 }
 
 //n에 width 자리수에 맞게 0 추가
@@ -156,10 +161,11 @@ function pad(n, width) {
 	return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
 }
 
-//Key up시 Code 생성
-$(".input").keyup(function(){
-	var code = $(".city_code").val()+"-"
-			  +$(".gu_code").val()	+"-"
-			  +$(".branch_code").val();
-	$(".code").val(code);
+//On Mouse Over
+$(document).on("mouseover",".cat_list_table td",function() {
+	$(this).css("background", "#FFE5D4");
+});
+
+$(document).on("mouseout",".cat_list_table td",function() {
+	$(this).css("background", "#FAFBFC");
 });

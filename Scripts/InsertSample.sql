@@ -41,7 +41,7 @@ INSERT INTO cat2(code, name, cat1) VALUES
 	
 -- code city city_code gu gu_code branch branch_code
 INSERT INTO area(code, city, city_code, gu, gu_code) VALUES
-	('00-00', '대구', '03', '중구', '01'),	
+	('01-01', '서울', '01', '중구', '01'),	
 	('03-01', '대구', '03', '중구', '01');
 
 -- code area name manager tel
@@ -52,7 +52,7 @@ INSERT INTO agency(area, name) VALUES
 
 -- id password name tel mail is_approve permission area
 INSERT INTO manager(id, password, name, tel, mail, is_approve, permission, area) VALUES
-	('luuzun','1234','이원준','010-4940-5498','luuzun@naver.com',true,'MASTER', '00-00'),
+	('luuzun','1234','이원준','010-4940-5498','luuzun@naver.com',true,'MASTER', '01-01'),
 	('mcmoto','1234','우금주','010-9004-0726','mcmoto@naver.com',true,'MANAGER','03-01');
 
 

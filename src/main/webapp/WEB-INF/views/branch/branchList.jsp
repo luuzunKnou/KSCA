@@ -11,8 +11,13 @@
 	<!-- Paging : 15 obj -->
 	<table class="branch_list_table">
 		<tr>
-			<th>코드</th> <th>연합회</th> <th>연합회 코드</th> <th>지회</th> <th>지회 코드</th>
-			<th>분회</th> <th> 분회 코드</th> <th></th><th></th>
+			<th class="th code">코드</th> 
+			<th class="th city">연합회</th> 
+			<th class="th city_code">연합회 코드</th> 
+			<th class="th gu">지회</th> 
+			<th class="th gu_code">지회 코드</th>
+			<th class="th branch">분회</th> 
+			<th class="th branch_code">분회 코드</th> <th></th><th></th>
 		</tr>
 		<c:forEach var="branch" items="${branchList}">
 			<tr class="branch_list_tr">
@@ -36,8 +41,13 @@
 		<form>
 			<table>
 				<tr>
-					<th>코드</th> <th>연합회</th> <th>연합회 코드</th> <th>지회</th> <th>지회 코드</th>
-		 			<th>분회</th> <th> 분회 코드</th>
+					<th>코드</th> 
+					<th>연합회</th> 
+					<th>연합회 코드</th> 
+					<th>지회</th> 
+					<th>지회 코드</th>
+		 			<th>분회</th> 
+		 			<th>분회 코드</th>
 		 		</tr>
 		 		<tr>
 		 			

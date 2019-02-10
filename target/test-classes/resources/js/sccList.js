@@ -52,7 +52,7 @@ $(document).on("click",".save",function() {
 			clear();
 
 			$("body").animate({
-				scrollTop: $(document).height()
+				scrollTop: $(document).height()-200
 			}, 1000);
 		}
 	})
@@ -161,6 +161,8 @@ $(document).on("click",".modify",function() {
 			modifyingTr.children(".list.tel").text(data.tel);
 			modifyingTr.children(".list.president").text(data.president);
 			modifyingTr.children(".list.phone").text(data.phone);
+			
+			modifyingTr.removeClass("modifying");
 			
 			alert("수정되었습니다.");
 			clear();

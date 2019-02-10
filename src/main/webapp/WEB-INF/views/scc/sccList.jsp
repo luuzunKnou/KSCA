@@ -10,10 +10,20 @@
 <div class="sccList">
 	<table class="scc_list_table">
 		<tr>
-			<th>코드</th> <th>동</th> <th>경로당 이름</th> <th>소재지</th> <th>등록일자</th>
-			<th>규모(대지)</th> <th>규모(건물)</th> <th>회원 수</th> <th>회원 수(남)</th>
-			<th>회원 수(여)</th> <th>소유</th> <th>전화번호</th> <th>회장 명</th> 
-			<th>회장 연락처</th><th></th><th></th>
+			<th class="th code">코드</th> 
+			<th class="th dong">동</th> 
+			<th class="th name">경로당 이름</th> 
+			<th class="th address">소재지</th> 
+			<th class="th reg_date">등록일자</th>
+			<th class="th site">규모(대지)</th> 
+			<th class="th building">규모(건물)</th> 
+			<th class="th member">회원 수</th> 
+			<th class="th male">회원 수(남)</th>
+			<th class="th female">회원 수(여)</th> 
+			<th class="th own">소유</th> 
+			<th class="th tel">전화번호</th> 
+			<th class="th president">회장 명</th> 
+			<th class="th phone">회장 연락처</th><th></th><th></th>
 		</tr> 
 		<c:forEach var="scc" items="${sccList}">
 			<tr class="scc_list_tr">
@@ -80,7 +90,7 @@
 				<td><input type="text" class="input phone"></td>
 	 		</tr>
 		</table>
-		<span id="p_checkCode">...</span>
+		<span id="p_checkCode"></span>
 		<button type="reset"  class="close">취소</button> 
 		<button type="button" class="save">추가</button>
 	</form>

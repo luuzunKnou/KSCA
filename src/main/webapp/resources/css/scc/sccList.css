@@ -45,24 +45,42 @@ td{
 	width: 70%; text-align: center;
 }
 
+#p_checkCode {margin-left: 5px;}
 /*********  Table Width *********/
-.code 		{ width : 110px;}
-.dong		{ width : 80px;}
-.name		{ width : 200px; text-align: left;}
-.address	{ width : 320px; text-align: left;}
-.reg_data	{ width : 85px;}
-.site		{ width : 60px;}
-.building	{ width : 60px;}
-.member		{ width : 45px;}
-.male		{ width : 65px;}
-.female		{ width : 65px;}
-.own		{ width : 55px;}
-.tel		{ width : 120px;}
-.president	{ width : 65px;}
-.phone		{ width : 120px;}
+.th.code 		{ width : 110px;}
+.th.dong		{ width : 80px;}
+.th.name		{ width : 200px;}
+.th.address		{ width : 320px;}
+.th.reg_data	{ width : 85px;}
+.th.site		{ width : 60px;}
+.th.building	{ width : 60px;}
+.th.member		{ width : 45px;}
+.th.male		{ width : 65px;}
+.th.female		{ width : 65px;}
+.th.own			{ width : 55px;}
+.th.tel			{ width : 120px;}
+.th.president	{ width : 65px;}
+.th.phone		{ width : 120px;}
 
-.input.scc_code { width : 33px;}
+.list.name 		{text-align: left;}
+.list.address	{text-align: left;}
+
+.input.branch		{ width : 85px;}
+.input.scc_code 	{ width : 33px;}
+.input.dong			{ width : 80px;}
+.input.name			{ width : 200px;}
+.input.address		{ width : 320px;}
+.input.reg_data		{ width : 85px;}
+.input.site			{ width : 60px;}
+.input.building		{ width : 60px;}
+.input.member		{ width : 45px;}
+.input.male			{ width : 65px;}
+.input.female		{ width : 65px;}
+.input.own			{ width : 55px;}
+.input.tel			{ width : 120px;}
+.input.president	{ width : 65px;}
+.input.phone		{ width : 120px;}
+
 .input.tel 	 	{ width : 100px;}
 .input.phone 	{ width : 100px;}
-.input.branch	{ width : 85px;}
 

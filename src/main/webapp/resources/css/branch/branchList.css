@@ -33,3 +33,11 @@ td{
 #p_checkCode{
 	line-height: 45px; padding-left: 7px;
 }
+
+.th.code		{ width: 70px;}
+.th.city		{ width: 40px;}
+.th.city_code	{ width: 70px;}
+.th.gu			{ width: 40px;}
+.th.gu_code		{ width: 70px;}
+.th.branch		{ width: 40px;} 
+.th.branch_code	{ width: 70px;}

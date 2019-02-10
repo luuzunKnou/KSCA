@@ -1,15 +1,14 @@
 /* Create Branch AJAX */
 $(document).on("click",".save",function() {
 	var query = {
-		branch 		: $(".branch").val(),
-		branchCode	: $(".branch_code").val()
+		branch 		: $(".input.branch").val(),
+		branchCode	: $(".input.branch_code").val()
 	};
-	console.log($(".branch").val());
-	console.log(query);
-	var city 	 = $(".city").val();
-	var cityCode = $(".city_code").val();
-	var gu 		 = $(".gu").val();
-	var guCode 	 = $(".gu_code").val();
+	
+	var city 	 = $(".input.city").val();
+	var cityCode = $(".input.city_code").val();
+	var gu 		 = $(".input.gu").val();
+	var guCode 	 = $(".input.gu_code").val();
 	
 	$.ajax({
 		url  : "/branch/createBranch",
@@ -52,8 +51,8 @@ $(document).on("click",".btn_modify",function() {
 $(document).on("click",".modify_save",function() {
 	var query = {
 		destBranchCode : $(".dest_branch_code").val(),
-		branch 		: $(".branch").val(),
-		branchCode	: $(".branch_code").val()
+		branch 		: $(".input.branch").val(),
+		branchCode	: $(".input.branch_code").val()
 	};
 	var modifyingTr=$(".list_branch_code:contains("+$(".dest_branch_code").val()+")").parent();
 	
@@ -96,10 +95,10 @@ $(document).on("click",".btn_delete",function() {
 });
 
 //Check Duplication Branch Code AJAX
-$(document).on("keyup",".branch_code",function() {
+$(document).on("keyup",".input.branch_code",function() {
 	var query = {
-		areaCode   : $(".city_code").val()+"-"+$(".gu_code").val(),
-		branchCode : $(".branch_code").val()
+		areaCode   : $(".input.city_code").val()+"-"+$(".input.gu_code").val(),
+		branchCode : $(".input.branch_code").val()
 	};
 	
 	$.ajax({
@@ -126,7 +125,7 @@ $(document).on("keyup",".branch_code",function() {
 
 //Modal Toggle
 $(function(){
-	$(document).on("click",".btn_create, #modal_background, .close",function() {
+	$(document).on("click","#modal_background, .close",function() {
 		clear();
 	});
 	
@@ -138,14 +137,14 @@ $(function(){
 
 //Close, Save시 Branch input clear
 function clear() {
-	var cityCode = $(".city_code").val();
-	var guCode 	 = $(".gu_code").val();
+	var cityCode = $(".input.city_code").val();
+	var guCode 	 = $(".input.gu_code").val();
 	var defaultCode=pad(cityCode,2)+"-"+pad(guCode,2);
 	
-	$(".code").val(defaultCode);
+	$(".input.code").val(defaultCode);
 	$(".dest_branch_code").val("");
-	$(".branch").val("");
-	$(".branch_code").val("");
+	$(".input.branch").val("");
+	$(".input.branch_code").val("");
 	$(".modify_save").text("저장").attr("class","save");
 	$("#p_checkCode").text("");
 }
@@ -157,9 +156,9 @@ function pad(n, width) {
 }
 
 //Key up시 Code 생성
-$(".input").keyup(function(){
-	var code = $(".city_code").val()+"-"
-			  +$(".gu_code").val()	+"-"
-			  +$(".branch_code").val();
-	$(".code").val(code);
+$(document).on("keyup",".input",function() {
+	var code = $(".input.city_code").val()+"-"
+			  +$(".input.gu_code").val()	+"-"
+			  +$(".input.branch_code").val();
+	$(".input.code").val(code);
 });

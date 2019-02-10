@@ -1,5 +1,6 @@
 package com.luuzun.ksca.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,6 +45,20 @@ public class CatController {
 		}
 		
 		List<Cat1HasCat2> categoryList = cat1Service.listCat1HasCat2();
+
+		//RowSpan을 위해 Cat2 List가 비어있는 List 처리
+		List<Cat2> cat2List = new ArrayList<Cat2>();
+		for (Cat1HasCat2 cat1HasCat2 : categoryList) {
+			cat2List = cat1HasCat2.getCat2List();
+			if(cat2List.size()==0) {
+				Cat2 tempCat2 = new Cat2();
+				tempCat2.setCat1(cat1HasCat2.getCode());
+				tempCat2.setCode("-");
+				tempCat2.setName("-");
+				cat2List.add(tempCat2);
+			}
+		}
+		
 		model.addAttribute("categoryList",categoryList);
 		
 		return "cat/catList";

@@ -2,21 +2,29 @@
 
 
 /* The Modal (background) */
-#myModal {
+.modal {
     display: none;
     position: fixed;
-    left: calc( 50% - 400px ); top: calc( 50% - 125px );
-    width: 800px; height: 100px; 
     background-color: #fefefe;
     z-index: 11;
     padding: 20px;
     overflow: hidden;
 	border: 1px solid #888;
-    
+}
+
+.modal.m1{
+	left: calc( 50% - 165px ); top: calc( 50% - 125px );
+	width: 230px; height: 100px; 
+}
+
+
+.modal.m2{
+	left: calc( 50% - 265px ); top: calc( 50% - 125px );
+	width: 530px; height: 100px; 
 }
 
 /* The Modal background */
-#modal_background {
+.modal_background{
     display: none;
     position: fixed;
     top: 0; left: 0;
@@ -25,12 +33,19 @@
     z-index: 10;
 }
 
-.save, .close, .modify_save{
-	width: 70px; margin: 10px 5px 0px 5px; border-radius:5px; padding:3px 0;
+.save, .close, .delete, .modify_save{
+	width: 60px; margin: 10px 5px 0px 5px; border-radius:5px; padding:3px 0;
 	background-color: #e67e22; color: white; border:none; height:25px; float: right; 
 }
+
+form table{border: none; background-color: #fefefe;}
 
 /* Modal input */
 .input{
 	width: 100%; text-align: center;
 }
+
+.input.cat1.name {width: 130px;}
+.input.cat1.code {width: 70px;}
+.input.cat2.name {width: 180px;}
+.input.cat2.code {width: 70px;}
