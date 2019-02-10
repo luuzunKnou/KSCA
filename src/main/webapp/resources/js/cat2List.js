@@ -12,7 +12,6 @@ $(document).on("click",".m2.save",function() {
 		data : query,
 		success : function(data){
 			var targetTd = $(".list.code1:contains("+data.cat1+")");
-			incRowSpan(targetTd);
 			addNewTr(targetTd, data);
 
 			alert("등록되었습니다.");
@@ -31,6 +30,13 @@ $(document).on("click",".list.name2, .list.code2",function() {
 	var cat2Code = $(this).parent().find(".code2_code").text();
 	var cat1Code = $(this).parent().find(".code2_cat1").text();
 	
+	if(cat2Code=="-"){
+		//alert("데이터가 없습니다.");
+		$(".modal.m2, .m2.modal_background").toggle();
+		clear();
+		return;
+	}
+	
 	//set Cat1 Option
 	$(".m2.input.cat1.code").val(cat1Code);
 	setNameOption();
@@ -47,7 +53,7 @@ $(document).on("click",".list.name2, .list.code2",function() {
 	$(".m2.save").text("수정").attr("class","m2 modify_save");
 	
 	//삭제 버튼 추가
-	$(".modal.m2").append('<button class="m2 delete">삭제</button>');
+	$(".m2.p_btn").append('<button class="m2 delete">삭제</button>');
 });
 
 /* Update Cat2 AJAX */
@@ -61,52 +67,57 @@ $(document).on("click",".m2.modify_save",function() {
 		name	 : $(".m2.input.cat2.name").val()
 	};
 	
-	var modifyingTr=$(".modifying");
-	
 	$.ajax({
 		url  : "/cat/updateCat2",
 		type : "post",
 		data : query,
 		success : function(data){
+			var modifyingTr=$(".modifying");
 			modifyingTr.children(".list.name2").text(data.name);
-			modifyingTr.children(".list.code2").text(data.cat1+" "+data.code);
+			modifyingTr.find(".code2_cat1").text(data.cat1);
+			modifyingTr.find(".code2_code").text(data.code);
 			
 			//Cat1 Code 변경 시
 			if(data.cat1 != destCat1){
 				var targetTd = $(".list.code1:contains("+data.cat1+")");
-				incRowSpan(targetTd);
+				var removeTd = $(".list.code1:contains("+destCat1+")");
 				addNewTr(targetTd, data);
-				//remove module 필요
+				
+				removeTr(removeTd, data, modifyingTr);
 			}
 			
 			alert("수정되었습니다.");
 			clear();
 		}
 	})
-	modifyingTr.removeClass("modifying");
 });
 
 /* Delete Button AJAX*/ 
 $(document).on("click",".m2.delete",function() {
+	var modifyingTr=$(".modifying");
+	
+	/*if($(".m2.input.cat2.code").val()=="-"){
+		alert("삭제할 데이터가 없습니다.");
+		clear();
+		return;
+	}*/
 	var result = confirm("정말 삭제하시겠습니까?");
+	
 	if(result){
 		var query = {
-			code : $(".m2.input.code").val()
-			
+			cat1 : $(".m2.input.cat1.code").val(),
+			code : $(".m2.input.cat2.code").val()
 		};
-		
 		$.ajax({
-			url  : "/cat/removeCat1",
+			url  : "/cat/removeCat2",
 			type : "post",
 			data : query,
 			success : function(data){
 				if(data=="ERROR:cascade"){
-					alert("하위 항목이 존재하므로 삭제할 수 없습니다.");
+					alert("카테고리에 등록된 프로그램이 존재하므로 삭제할 수 없습니다.");
 				} else {
-					//rowspan 사용 시 하위 tr이 child가 아닌 sibiling형태로 추가됨..
-					$(".list.code1:contains("+data+")").parent().next().remove();
-					$(".list.code1:contains("+data+")").parent().remove();
-					
+					var targetTd = $(".list.code1:contains("+data.cat1+")");
+					removeTr(targetTd, data, modifyingTr);
 					alert("삭제되었습니다.");
 				}
 			}
@@ -116,31 +127,32 @@ $(document).on("click",".m2.delete",function() {
 });
 
 //Check Duplication Cat2 Code AJAX
-//$(document).on("keyup",".m2.input.code",function() {
-//	var query = {
-//		code : $(".m2.input.code").val() 
-//	};
-//	
-//	$.ajax({
-//		url  : "/cat/checkCat1",
-//		type : "post",
-//		data : query,
-//		success : function(data){
-//			if(data == 0){ //중복
-//				$(".m2.p_checkCode").text("이미 존재하는 코드입니다.");
-//				$(".m2.p_checkCode").css("color","red");
-//				$(".m2.save").prop("disabled",true);
-//				$(".m2.modify_save").prop("disabled",true);
-//				
-//			} else { //사용가능
-//				$(".m2.p_checkCode").text("등록 가능한 코드입니다.");
-//				$(".m2.p_checkCode").css("color","#2EB74E");
-//				$(".m2.save").prop("disabled",false);
-//				$(".m2.modify_save").prop("disabled",false);
-//			}
-//		}
-//	});
-//});
+$(document).on("keyup change",".m2.input.code, .m2.input.cat1.code",function() {
+	var query = {
+		code : $(".m2.input.cat2.code").val(),
+		cat1 : $(".m2.input.cat1.code").val()
+	};
+	
+	$.ajax({
+		url  : "/cat/checkCat2",
+		type : "post",
+		data : query,
+		success : function(data){
+			if(data == 0){ //중복
+				$(".m2.p_checkCode").text("이미 존재하는 코드입니다.");
+				$(".m2.p_checkCode").css("color","red");
+				$(".m2.save").prop("disabled",true);
+				$(".m2.modify_save").prop("disabled",true);
+				
+			} else { //사용가능
+				$(".m2.p_checkCode").text("등록 가능한 코드입니다.");
+				$(".m2.p_checkCode").css("color","#2EB74E");
+				$(".m2.save").prop("disabled",false);
+				$(".m2.modify_save").prop("disabled",false);
+			}
+		}
+	});
+});
 
 
 
@@ -183,23 +195,52 @@ function clear() {
 	$(".p_checkCode").text("");
 	$(".m2.modify_save").text("등록").attr("class","m2 save");
 	$(".m2.delete").remove();
+	$(".m2.dest_cat1_code").val("");
+	$(".m2.dest_cat2_code").val("");
+	$(".modifying").removeClass("modifying");
 }
 
-//targetTd에 Rowspan +1
+//targetTd Rowspan +1
 function incRowSpan(targetTd) {
 	var rowspanVal = targetTd.attr("rowspan")*1+1; //*1 : parseInt
 	targetTd.attr("rowspan", rowspanVal);
 	targetTd.siblings("td").attr("rowspan", rowspanVal);
 }
 
+//add new tr from data
 function addNewTr(targetTd, data){
+	var nextTr = targetTd.parent().next(); //Category2 tr
+	if(nextTr.find(".code2_code").text()=="-"){
+		nextTr.remove();
+	} else {
+		incRowSpan(targetTd);
+	}
+	
 	targetTd.parent().after(
 		'<tr class="cat2_list_tr">'+
 			'<td class="list name2">'+data.name+'</td>'+
 			'<td class="list code2">'+
-				'<span class="code2_cat1">'+data.cat1+'</span>'+
-				'<span class="code2_code"> '+data.code+'</span>'+
+				'<span class="code2_cat1">'+data.cat1+'</span> '+
+				'<span class="code2_code">'+data.code+'</span>'+
 			'</td>'+
 		'</tr>'
 	);
 }
+
+//targetTd Remove and Rowspan -1
+function removeTr(targetTd, data, modifyingTr){
+	var rowspanVal = targetTd.attr("rowspan")*1-1; //*1 : parseInt
+
+	if(rowspanVal==1){ //마지막 항목 삭제
+		rowspanVal=2;
+		data.name="-";
+		data.code="-";
+		addNewTr(targetTd, data)
+	}
+	
+	modifyingTr.remove();
+	targetTd.attr("rowspan", rowspanVal);
+	targetTd.siblings("td").attr("rowspan", rowspanVal);
+}
+
+

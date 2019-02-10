@@ -20,7 +20,7 @@
 				<td rowspan="<c:out value='${fn:length(cat1.cat2List)+1}'/>" 
 					class="list name1">${cat1.name}</td>
 				<td rowspan="<c:out value='${fn:length(cat1.cat2List)+1}'/>" 
-					class="list code1">${cat1.code}</td>
+					class="list code1">${cat1.code}</td> <!--  -->
 				<c:forEach var="cat2" items="${cat1.cat2List}">
 					<tr class="cat2_list_tr">
 						<td class="list name2">${cat2.name}</td>
@@ -52,8 +52,10 @@
 			</table>
 		</form>
 		<p class="m1 p_checkCode"> </p>
-		<button class="m1 close">취소</button>
-		<button class="m1 save">등록</button>
+		<p class="m1 p_btn">
+			<button class="m1 save">등록</button>
+			<button class="m1 close">취소</button>
+		</p>
 	</div>
 	<div class="m1 modal_background"></div>
 	
@@ -89,9 +91,11 @@
 		 		</tr>
 			</table>
 		</form>
-		<span class="m2 p_checkCode"></span>
-		<button class="m2 close">취소</button>
-		<button class="m2 save">등록</button>
+		<p class="m2 p_checkCode"></p>
+		<p class="m2 p_btn">
+			<button class="m2 save">등록</button>
+			<button class="m2 close">취소</button>
+		</p>
 	</div>
 	<div class ="m2 modal_background"></div>
 </div>

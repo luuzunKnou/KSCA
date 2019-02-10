@@ -37,7 +37,7 @@
 	
 	<delete id="delete">
 		DELETE FROM cat2 
-			WHERE code=#{destCode}
+			WHERE code=#{code}
 				AND cat1=#{cat1};
 	</delete>
 </mapper>

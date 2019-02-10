@@ -35,7 +35,7 @@ public class CatController {
 	//Cat List
 	@RequestMapping(value="/catList")
 	public String catListGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
-		logger.info("Area List Page..........");
+		logger.info("Category List Page..........");
 		Manager manager = (Manager) session.getAttribute("login");
 		
 		//권한 확인
@@ -114,7 +114,7 @@ public class CatController {
 	@RequestMapping(value="/updateCat2", method=RequestMethod.POST)
 	public Cat2 updateCat2(Model model, String destCode, String destCat1, Cat2 cat2) throws Exception {
 		logger.info("Update Category 2..........");
-		logger.info("DestCode : " + destCode + "---DestCa1 : " + destCat1 + "Cat2 : " + cat2);
+		logger.info("DestCode : " + destCode + "DestCat1 : " + destCat1 + "Cat2 : " + cat2);
 		cat2Service.update(destCode, destCat1, cat2);
 		return cat2;
 	}
@@ -139,17 +139,14 @@ public class CatController {
 	//Category 2 삭제
 	@ResponseBody
 	@RequestMapping(value="/removeCat2", method=RequestMethod.POST)
-	public ResponseEntity<String> removeCat2(Model model, String cat1, String code) {
+	public Cat2 removeCat2(Model model, Cat2 cat2) throws Exception {
 		logger.info("Remove Category 2..........");
-		ResponseEntity<String> entity = null;
-		try {
-			cat2Service.delete(code, cat1);
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+		logger.info("DestCode : " + cat2.getCode() + "DestCat1 : " + cat2.getCat1());
+
+		//하위 프로그램이 존재하면 삭제 불가
+		
+		cat2Service.delete(cat2.getCode(), cat2.getCat1());
+		return cat2;
 	}
 		
 		
@@ -157,7 +154,7 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/checkCat1", method=RequestMethod.POST)
 	public int checkCat1(String code) throws Exception{
-		logger.info("Check duplication Branch");
+		logger.info("Check duplication Cat1");
 		 
 		 Cat1 cat1 =  cat1Service.read(code);
 		 
@@ -172,8 +169,8 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/checkCat2", method=RequestMethod.POST)
 	public int checkCat2(String code, String cat1) throws Exception{
-		logger.info("Check duplication Branch");
-		 
+		logger.info("Check duplication Cat2");
+
 		 Cat2 cat2 =  cat2Service.read(code, cat1);
 		 
 		 if(cat2 != null) { //아이디 중복시 0 반환

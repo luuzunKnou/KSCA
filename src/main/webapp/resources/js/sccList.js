@@ -162,8 +162,6 @@ $(document).on("click",".modify",function() {
 			modifyingTr.children(".list.president").text(data.president);
 			modifyingTr.children(".list.phone").text(data.phone);
 			
-			modifyingTr.removeClass("modifying");
-			
 			alert("수정되었습니다.");
 			clear();
 			
@@ -228,6 +226,7 @@ function clear(){
 	$(".input.tel").val("");
 	$(".input.president").val("");
 	$(".input.phone").val("");
+	$(".modifying").removeClass("modifying");
 }
 
 //n에 width 자리수에 맞게 0 추가

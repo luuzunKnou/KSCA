@@ -52,7 +52,7 @@ $(document).on("click",".list.name1, .list.code1",function() {
 	$(".m1.save").text("수정").attr("class","m1 modify_save");
 	
 	//삭제 버튼 추가
-	$(".modal.m1").append('<button class="m1 delete">삭제</button>');
+	$(".m1.p_btn").append('<button class="m1 delete">삭제</button>');
 });
 
 /* Update Cat1 AJAX */
@@ -63,13 +63,12 @@ $(document).on("click",".m1.modify_save",function() {
 		name	 : $(".m1.input.name").val()
 	};
 	
-	var modifyingTr=$(".modifying");
-	
 	$.ajax({
 		url  : "/cat/updateCat1",
 		type : "post",
 		data : query,
 		success : function(data){
+			var modifyingTr=$(".modifying");
 			modifyingTr.children(".list.name1").text(data.name);
 			modifyingTr.children(".list.code1").text(data.code);
 			
@@ -77,7 +76,6 @@ $(document).on("click",".m1.modify_save",function() {
 			clear();
 		}
 	})
-	modifyingTr.removeClass("modifying");
 });
 
 /* Delete Button AJAX*/ 
@@ -154,6 +152,8 @@ function clear() {
 	$(".p_checkCode").text("");
 	$(".m1.modify_save").text("등록").attr("class","m1 save");
 	$(".m1.delete").remove();
+	$(".m1.dest_cat1_code").val("");
+	$(".modifying").removeClass("modifying");
 }
 
 //On Mouse Over
