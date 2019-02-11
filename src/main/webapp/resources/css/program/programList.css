@@ -1,0 +1,61 @@
+@charset "EUC-KR";
+
+.agencyList{
+	width: 580px; margin:0 auto; margin-top: 80px; margin-bottom: 170px;
+	border: 1px solid #e67e22; padding: 20px;
+	background-color: #FAFBFC; 
+} 
+
+#form_div{
+	position: fixed; bottom: 33px; left:50%; margin-left:-311px;
+	width: 580px;; 
+	border: 1px solid #e67e22; padding: 20px;
+	background-color: #FAFBFC;
+} 
+
+#form_div table{
+	margin: 0 auto;
+}
+
+form{
+	 overflow: hidden;
+}
+
+.agency_list_tr{
+	padding:10px; border-bottom: 1px solid #B2B2B2;
+}
+
+th{
+	padding: 7px; text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #e67e22;
+}
+
+td{
+	padding: 7px; text-align: center;
+}
+
+.save, .close, .modify{
+	width: 50px; margin:7px 20px 0 -10px; border-radius:5px; padding:3px 0; font-weight:bold;
+	background-color: #e67e22; color: white; border:none; height:25px; float: right;
+}
+
+.btn_delete, .btn_modify{
+	width: 40px; border-radius:3px; padding:3px 0;
+	background-color: #e67e22; color: white; border:none;  
+}
+
+.input{
+	width: 70%; text-align: center;
+}
+
+/*********  Table Width *********/
+.th.name		{ width : 200px;}
+.th.manager		{ width : 80px;}
+.th.tel			{ width : 150px;}
+.list.name 		{text-align: center;}
+
+.input.name		{ width : 200px;}
+.input.manager	{ width : 80px;}
+.input.tel 	 	{ width : 150px;}
+

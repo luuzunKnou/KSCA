@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luuzun.ksca.persistence.ProgramDAO">
+	<select id="listAll" resultType="Program">
+		SELECT * From program
+	</select>
+	
+	
+	<select id="read" resultType="Program">
+		SELECT * From program 
+			WHERE code=#{code}; 
+	</select>
+	
+	<select id="readByAreaCode" resultType="program">
+		SELECT * FROM program 
+			WHERE area=#{area};
+	</select>
+	
+	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
+		INSERT INTO program(area, name, cat1, cat2, agency) VALUES
+			(#{area}, #{name}, #{cat1}, #{cat2}, #{agency});
+	</insert>
+	
+	<update id="update">
+		UPDATE program	
+			<set> 
+				<if test="name 	  != null"> name	=#{name}, </if>
+				<if test="cat1 	  != null"> cat1	=#{cat1}, </if>
+				<if test="cat2    != null"> cat2	=#{cat2}, </if>
+				<if test="agency  != null"> agency	=#{agency}, </if>
+			</set>
+			WHERE code=#{code}; 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM program 
+			WHERE code=#{code} 
+	</delete>
+</mapper>
