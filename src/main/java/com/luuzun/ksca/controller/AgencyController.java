@@ -86,20 +86,4 @@ public class AgencyController {
 		service.delete(agency.getCode());
 		return agency;
 	}
-	
-	
-	//Agency Duplecation Check
-	@ResponseBody
-	@RequestMapping(value="/checkAgency", method=RequestMethod.POST)
-	public int checkAgency(HttpServletRequest req, String code) throws Exception{
-		
-		logger.info("Check duplication Agency");
-		 
-		Agency agency =  service.read(code);
-		 
-		 if(agency != null) { //아이디 중복시 0 반환
-			 return 0;
-		 } 
-		 return 1;
-	}
 }

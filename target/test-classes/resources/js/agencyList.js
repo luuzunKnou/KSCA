@@ -60,54 +60,23 @@ $(document).on("click",".btn_modify",function() {
 	modifyingTr.addClass("modifying");
 	
 	//Set input value
-	$(".input.dest_area_code").val(		modifyingTr.find(".list.area_code").text());;
-	$(".input.dest_branch_code").val(	modifyingTr.find(".list.branch_code").text());;
-	$(".input.dest_scc_code").val(		modifyingTr.find(".list.scc_code").text());
-	
-	$(".input.branch").val(		modifyingTr.find(".list.branch_code").html());;
-	$(".input.scc_code").val(	modifyingTr.find(".list.scc_code").html());
-	$(".input.dong").val(		modifyingTr.children(".list.dong").text());
-	$(".input.name").val(		modifyingTr.children(".list.name").text());		
-	$(".input.address").val(	modifyingTr.children(".list.address").text());
-	$(".input.reg_date").val(	modifyingTr.children(".list.reg_date").text());
-	$(".input.site").val(		modifyingTr.children(".list.site").text());
-	$(".input.building").val(	modifyingTr.children(".list.building").text());
-	$(".input.member").val(		modifyingTr.children(".list.member").text());
-	$(".input.male").val(		modifyingTr.children(".list.male").text());
-	$(".input.female").val(		modifyingTr.children(".list.female").text());
-	$(".input.own").val(		modifyingTr.children(".list.own").text());
+	$(".input.code").val(		modifyingTr.children(".list.code").text());
+	$(".input.name").val(		modifyingTr.children(".list.name").text());
+	$(".input.manager").val(	modifyingTr.children(".list.manager").text());
 	$(".input.tel").val(		modifyingTr.children(".list.tel").text());
-	$(".input.president").val(	modifyingTr.children(".list.president").text());
-	$(".input.phone").val(		modifyingTr.children(".list.phone").text());
 	
 	//change button and opacity
 	$(".save").text("수정").attr("class","modify");
-	$(".sccList").css("opacity",0.2);
+	$(".agencyList").css("opacity",0.2);
 });
 
 //Modify Ajax
 $(document).on("click",".modify",function() {
 	var query = {
-		destAreaCode	: $(".input.dest_area_code").val(),
-		destBranchCode	: $(".input.dest_branch_code").val(), 
-		destSccCode		: $(".input.dest_scc_code").val(),
-		
-		areaCode 	: $(".input.area_code").text(), 
-		branchCode	: $(".input.branch").val(), 
-		sccCode   	: $(".input.scc_code").val(),
-		dong 		: $(".input.dong").val(),
-		name 		: $(".input.name").val(),
-		address		: $(".input.address").val(),
-		regDateStr	: $(".input.reg_date").val(),
-		site 		: $(".input.site").val(),
-		building 	: $(".input.building").val(),
-		member 		: $(".input.member").val(),
-		male 		: $(".input.male").val(),
-		female		: $(".input.female").val(),
-		own 		: $(".input.own").val(),
-		tel	 		: $(".input.tel").val(),
-		president 	: $(".input.president").val(),
-		phone 		: $(".input.phone").val()
+		code	: $(".input.code").val(), 
+		name	: $(".input.name").val(),
+		manager : $(".input.manager").val(),
+		tel		: $(".input.tel").val()
 	};
 	
 	$.ajax({
@@ -117,29 +86,17 @@ $(document).on("click",".modify",function() {
 		success : function(data){
 			var modifyingTr=$(".modifying");
 			
-			modifyingTr.children(".list.area").text(data.areaCode);
-			modifyingTr.children(".list.branch").text(data.branchCode);
-			modifyingTr.children(".list.scc_code").text(data.sccCode);
-			modifyingTr.children(".list.dong").text(data.dong);
-			modifyingTr.children(".list.name").text(data.name);		
-			modifyingTr.children(".list.address").text(data.address);
-			modifyingTr.children(".list.reg_date").text(data.simpleRegDate);
-			modifyingTr.children(".list.site").text(data.site);
-			modifyingTr.children(".list.building").text(data.building);
-			modifyingTr.children(".list.member").text(data.member);
-			modifyingTr.children(".list.male").text(data.male);
-			modifyingTr.children(".list.female").text(data.female);
-			modifyingTr.children(".list.own").text(data.own);
+			modifyingTr.children(".list.code").text(data.code);
+			modifyingTr.children(".list.name").text(data.name);
+			modifyingTr.children(".list.manager").text(data.manager);
 			modifyingTr.children(".list.tel").text(data.tel);
-			modifyingTr.children(".list.president").text(data.president);
-			modifyingTr.children(".list.phone").text(data.phone);
 			
 			alert("수정되었습니다.");
 			clear();
 			
 			//change button and opacity
 			$(".modify").text("추가").attr("class","save");
-			$(".sccList").css("opacity",1.0);
+			$(".agencyList").css("opacity",1.0);
 		}
 	});
 });
@@ -147,24 +104,14 @@ $(document).on("click",".modify",function() {
 //Modify - Reset button
 $(document).on("click",".close",function() {
 	$(".modify").text("추가").attr("class","save");
-	$(".sccList").css("opacity",1.0);
+	$(".agencyList").css("opacity",1.0);
 });
 
 function clear(){
-	$(".input.branch").val("default"); 
-	$(".input.scc_code").val("");
-	$(".input.dong").val("");
+	$(".input.code").val("");
 	$(".input.name").val("");
-	$(".input.address").val("");
-	$(".input.reg_date").val("");
-	$(".input.site").val("0");
-	$(".input.building").val("0");
-	$(".input.member").val("0");
-	$(".input.male").val("0");
-	$(".input.female").val("0");
-	$(".input.own").val("공설");
+	$(".input.manager").val("");
 	$(".input.tel").val("");
-	$(".input.president").val("");
-	$(".input.phone").val("");
+	
 	$(".modifying").removeClass("modifying");
 }

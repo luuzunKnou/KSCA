@@ -31,7 +31,6 @@
 	<update id="update">
 		UPDATE agency	
 			<set> 
-				<if test="area 	  != null"> area	=#{area}, </if>
 				<if test="name 	  != null"> name	=#{name}, </if>
 				<if test="tel     != null"> tel		=#{tel}, </if>
 				<if test="manager != null"> manager	=#{manager}, </if>
