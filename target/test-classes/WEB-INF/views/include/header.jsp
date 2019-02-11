@@ -28,6 +28,8 @@
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/scc/sccList">경로당 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
+					/agency/agencyList">기관 관리</a></li>
+				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/introduce/introduce">스케줄 관리</a></li>
 				<c:if test="${login.permToString() eq 'Master'}">
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}

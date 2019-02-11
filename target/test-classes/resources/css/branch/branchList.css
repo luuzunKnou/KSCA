@@ -1,7 +1,7 @@
 @charset "EUC-KR";
 
 .branchList{
-	width: 530px; margin:0 auto; margin-top: 100px; margin-bottom: 100px;
+	width: 800px; margin:0 auto; margin-top: 100px; margin-bottom: 100px;
 	border: 1px solid #e67e22; padding: 20px;
 	background-color: #FAFBFC;
 } 
@@ -20,8 +20,8 @@ td{
 	padding: 7px; text-align: center;
 }
 
-.btn_create{
-	width: 520px; margin: 20px 5px 0px 5px; border-radius:5px; padding:3px 0; font-weight:bold;
+.btn_create{/* -10 */
+	width: 790px; margin: 20px 5px 0px 5px; border-radius:5px; padding:3px 0; font-weight:bold;
 	background-color: #e67e22; color: white; border:none; height:30px; 
 }
 
@@ -34,10 +34,11 @@ td{
 	line-height: 45px; padding-left: 7px;
 }
 
-.th.code		{ width: 70px;}
-.th.city		{ width: 40px;}
-.th.city_code	{ width: 70px;}
-.th.gu			{ width: 40px;}
-.th.gu_code		{ width: 70px;}
-.th.branch		{ width: 40px;} 
-.th.branch_code	{ width: 70px;}
+.th.code		{ width: 80px;}
+.th.city		{ width: 80px;}
+.th.city_code	{ width: 80px;}
+.th.gu			{ width: 80px;}
+.th.gu_code		{ width: 80px;}
+.th.branch		{ width: 120px;} 
+.th.branch_code	{ width: 80px;}
+.td_btn			{ width: 40px;}

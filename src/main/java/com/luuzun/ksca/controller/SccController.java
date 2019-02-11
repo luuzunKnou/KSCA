@@ -86,19 +86,7 @@ public class SccController {
 		logger.info("SCC: "+scc);
 		logger.info("regDateStr: "+regDateStr);
 		
-		//중복 입력 처리
-		if(service.read(scc.getAreaCode(),scc.getBranchCode(), scc.getSccCode())
-				!=null) {
-			SCC errorScc = new SCC();
-			errorScc.setSccCode("DUPLICATED");
-			return errorScc;
-		}
-		
-		try {
-			service.create(scc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		service.create(scc);
 
 		return scc;
 	}
@@ -121,12 +109,8 @@ public class SccController {
 		
 		logger.info("SCC: "+scc);
 		
-		try {
-			service.update(destAreaCode, destBranchCode, destSccCode, scc);
-			model.addAttribute("updateScc",scc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		service.update(destAreaCode, destBranchCode, destSccCode, scc);
+		model.addAttribute("updateScc",scc);
 
 		return scc;
 	}
@@ -134,7 +118,6 @@ public class SccController {
 	
 	
 	//remove SCC
-	//return entity로 변경
 	@ResponseBody
 	@RequestMapping(value="/removeScc", method=RequestMethod.POST)
 	public SCC removeScc(Model model, HttpServletRequest req, SCC scc) throws Exception {
@@ -143,6 +126,7 @@ public class SccController {
 		service.delete(scc.getAreaCode(), scc.getBranchCode(), scc.getSccCode());
 		return scc;
 	}
+	
 	
 	
 	//SCC Duplecation Check

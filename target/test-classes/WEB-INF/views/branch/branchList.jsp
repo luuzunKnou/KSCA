@@ -17,7 +17,7 @@
 			<th class="th gu">지회</th> 
 			<th class="th gu_code">지회 코드</th>
 			<th class="th branch">분회</th> 
-			<th class="th branch_code">분회 코드</th> <th></th><th></th>
+			<th class="th branch_code">분회 코드</th> <th class="td_btn"></th> <th class="td_btn"></th>
 		</tr>
 		<c:forEach var="branch" items="${branchList}">
 			<tr class="branch_list_tr">

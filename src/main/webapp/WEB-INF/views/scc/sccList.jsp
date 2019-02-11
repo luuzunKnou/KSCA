@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/scc/sccList.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/scc/sccModal.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/sccList.js"></script>
 
 <section>

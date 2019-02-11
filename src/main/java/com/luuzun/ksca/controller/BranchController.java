@@ -63,12 +63,8 @@ public class BranchController {
 		Manager manager = (Manager) session.getAttribute("login");
 		branch.setAreaCode(manager.getArea());
 		logger.info("Branch: "+branch);
-		
-		try {
-			service.create(branch);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		service.create(branch);
 
 		return branch;
 	}

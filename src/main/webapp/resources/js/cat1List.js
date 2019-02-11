@@ -31,6 +31,10 @@ $(document).on("click",".m1.save",function() {
 			
 			alert("등록되었습니다.");
 			clearAll();
+			
+			$("body").animate({
+				scrollTop: $(document).height()-200
+			}, 1000);
 		}
 	})
 });
