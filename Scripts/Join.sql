@@ -20,3 +20,15 @@ SELECT
 	c2. cat1 AS cat1
   	FROM cat1 c1 LEFT join cat2 c2  
   		ON c1.code = c2.cat1;
+  		
+  	
+SELECT program.code, program.name, 
+		program.cat1, cat1.name, 
+		program.cat2, cat2.name, 
+		program.agency, agency.name, agency.manager, agency.tel
+	FROM program
+		JOIN cat1 ON program.cat1=cat1.code
+		JOIN cat2 ON program.cat2=cat2.code AND program.cat1=cat2.cat1
+		JOIN agency ON program.agency=agency.code
+	WHERE program.area='03-01';
+	

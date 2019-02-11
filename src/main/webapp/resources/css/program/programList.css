@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-.agencyList{
+.programList{
 	width: 580px; margin:0 auto; margin-top: 80px; margin-bottom: 170px;
 	border: 1px solid #e67e22; padding: 20px;
 	background-color: #FAFBFC; 
@@ -21,7 +21,7 @@ form{
 	 overflow: hidden;
 }
 
-.agency_list_tr{
+.program_list_tr{
 	padding:10px; border-bottom: 1px solid #B2B2B2;
 }
 
@@ -51,8 +51,8 @@ td{
 
 /*********  Table Width *********/
 .th.name		{ width : 200px;}
-.th.manager		{ width : 80px;}
-.th.tel			{ width : 150px;}
+.th.cat1		{ width : 80px;}
+.th.cat2		{ width : 150px;}
 .list.name 		{text-align: center;}
 
 .input.name		{ width : 200px;}

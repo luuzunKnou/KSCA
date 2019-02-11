@@ -16,20 +16,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Agency;
+import com.luuzun.ksca.domain.Cat1;
 import com.luuzun.ksca.domain.Manager;
+import com.luuzun.ksca.domain.Program;
 import com.luuzun.ksca.service.AgencyService;
+import com.luuzun.ksca.service.Cat1Service;
+import com.luuzun.ksca.service.Cat2Service;
+import com.luuzun.ksca.service.ProgramService;
 
 @Controller
-@RequestMapping("/agency/*")
+@RequestMapping("/program/*")
 public class ProgramController {
 	private static final Logger logger = LoggerFactory.getLogger(ProgramController.class);
 	
-	@Inject	private AgencyService service;
+	@Inject	private ProgramService service;
+	@Inject	private Cat1Service cat1Service;
+	@Inject	private Cat2Service cat2Service;
+	@Inject	private AgencyService agencyService;
 	
-	//Agency List
-	@RequestMapping(value="/agencyList")
-	public String agencyList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
-		logger.info("Agency List Page..........");
+	//Program List
+	@RequestMapping(value="/programList")
+	public String programList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
+		logger.info("Program List Page..........");
 		Manager manager = (Manager) session.getAttribute("login");
 
 		//Permission Check
@@ -40,50 +48,54 @@ public class ProgramController {
 		
 		String areaCode = manager.getArea();
 		
-		//Get Agency List
-		List<Agency> agencyList = service.readByAreaCode(areaCode);
+		//Get Program, Category, Agency List
+		List<Program> programList = service.readByAreaCode(areaCode);
+		List<Cat1> catList = cat1Service.listAll();
+		List<Agency> agencyList = agencyService.readByAreaCode(areaCode);
+		
+		model.addAttribute("programList",programList);
+		model.addAttribute("catList",catList);
 		model.addAttribute("agencyList",agencyList);
-
-		return "agency/agencyList";
+		return "program/programList";
 	}
 	
-	//Create Agency
+	//Create Program
 	@ResponseBody
-	@RequestMapping(value="/createAgency", method=RequestMethod.POST)
-	public Agency createAgency(Agency agency, HttpSession session) throws Exception  {
-		logger.info("Create Agency..........");
+	@RequestMapping(value="/createProgram", method=RequestMethod.POST)
+	public Program createProgram(Program program, HttpSession session) throws Exception  {
+		logger.info("Create Program..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		String areaCode = manager.getArea();
 
-		//Set insert Agency
-		agency.setArea(areaCode);
-		int lastIdx = service.create(agency);
-		agency.setCode(String.valueOf(lastIdx));
+		//Set insert Program
+		program.setArea(areaCode);
+		int lastIdx = service.create(program);
+		program.setCode(String.valueOf(lastIdx));
 
-		return agency;
+		return program;
 	}
 	
 	
 	
-	//Modify Agency
+	//Modify Program
 	@ResponseBody
-	@RequestMapping(value="/modifyAgency", method=RequestMethod.POST)
-	public Agency modifyAgency(Agency agency, Model model) throws Exception  {
-		logger.info("Modify Agency..........:");
-		service.update(agency);
-		return agency;
+	@RequestMapping(value="/modifyProgram", method=RequestMethod.POST)
+	public Program modifyProgram(Program program, Model model) throws Exception  {
+		logger.info("Modify Program..........:");
+		service.update(program);
+		return program;
 	}
 	
 	
 	
-	//Remove Agency
+	//Remove Program
 	@ResponseBody
-	@RequestMapping(value="/removeAgency", method=RequestMethod.POST)
-	public Agency removeAgency(Model model, HttpServletRequest req, Agency agency) throws Exception {
-		logger.info("Remove SCC..........");
+	@RequestMapping(value="/removeProgram", method=RequestMethod.POST)
+	public Program removeProgram(Model model, HttpServletRequest req, Program program) throws Exception {
+		logger.info("Remove Program..........");
 		
-		service.delete(agency.getCode());
-		return agency;
+		service.delete(program.getCode());
+		return program;
 	}
 }
