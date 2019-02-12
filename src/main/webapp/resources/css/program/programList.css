@@ -7,8 +7,8 @@
 } 
 
 #form_div{
-	position: fixed; bottom: 33px; left:50%; margin-left:-391px;
-	width: 740px;; 
+	position: fixed; bottom: 32px; left:50%; margin-left:-441px;
+	width: 840px;; 
 	border: 1px solid #e67e22; padding: 20px;
 	background-color: #FAFBFC;
 } 
@@ -59,6 +59,6 @@ td{
 .list.name, .list.cat1, .list.cat2, .list.agency { text-align: left;}
 
 .input.name		{ width : 200px;}
-.input.cat1		{ width : 150px;}
-.input.cat2 	{ width : 150px;}
+.input.cat1		{ width : 200px;}
+.input.cat2 	{ width : 200px;}
 .input.agency 	{ width : 150px;}

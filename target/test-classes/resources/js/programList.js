@@ -14,10 +14,15 @@ $(document).on("click",".save",function() {
 		success : function(data){
 			$(".program_list_table").append(
 				'<tr class="program_list_tr">'+
+					'<td class="list a_code" style="display:none;">'+data.agency.code+'</td>'+
 					'<td class="list code" style="display:none;">'+data.program.code+'</td>'+
 					'<td class="list name">'+data.program.name+'</td>'+
-					'<td class="list cat1">'+data.cat1.name +' ('+ data.cat1.code+')'+'</td>'+
-					'<td class="list cat2">'+data.cat2.name +' ('+ data.cat2.code+')'+'</td>'+
+					'<td class="list cat1">'+
+						'<span class="list cat1 name">'+data.cat1.name+'</span> ('+
+						'<span class="list cat1 code">'+data.cat1.code+'</span>)</td>'+
+					'<td class="list cat2">'+
+						'<span class="list cat2 name">'+data.cat2.name+'</span> ('+
+						'<span class="list cat2 code">'+data.cat2.code+'</span>)</td>'+
 					'<td class="list a_name">'+data.agency.name+'</td>'+
 					'<td class="list a_manager">'+data.agency.manager+'</td>'+
 					'<td class="list a_tel">'+data.agency.tel+'</td>'+
@@ -67,8 +72,14 @@ $(document).on("click",".btn_modify",function() {
 	$(".input.code").val(	modifyingTr.children(".list.code").text());
 	$(".input.name").val(	modifyingTr.children(".list.name").text());
 	$(".input.cat1").val(	modifyingTr.find(".list.cat1.code").text());
-	$(".input.cat2").val(	modifyingTr.find(".list.cat2.code").text());
-	$(".input.agency").val(	modifyingTr.children(".list.agency").text());
+	setCat2Option();
+	
+	setTimeout(function() {
+		$(".input.cat2").val(	modifyingTr.find(".list.cat2.code").text());
+	}, 500);
+	clearTimeout()
+
+	$(".input.agency").val(	modifyingTr.children(".list.a_code").text());
 	
 	//change button and opacity
 	$(".save").text("수정").attr("class","modify");
@@ -93,9 +104,12 @@ $(document).on("click",".modify",function() {
 			var modifyingTr=$(".modifying");
 			
 			modifyingTr.children(".list.code").text(data.program.code);
+			modifyingTr.children(".list.a_code").text(data.agency.code);
 			modifyingTr.children(".list.name").text(data.program.name);
-			modifyingTr.children(".list.cat1").text(data.cat1.name +' ('+ data.cat1.code+')');
-			modifyingTr.children(".list.cat2").text(data.cat2.name +' ('+ data.cat2.code+')');
+			modifyingTr.find(".list.cat1.name").text(data.cat1.name);
+			modifyingTr.find(".list.cat1.code").text(data.cat1.code);
+			modifyingTr.find(".list.cat2.name").text(data.cat2.name);
+			modifyingTr.find(".list.cat2.code").text(data.cat2.code);
 			modifyingTr.children(".list.a_name").text(data.agency.name);
 			modifyingTr.children(".list.a_manager").text(data.agency.manager);
 			modifyingTr.children(".list.a_tel").text(data.agency.tel);
@@ -112,6 +126,11 @@ $(document).on("click",".modify",function() {
 
 //Get Category2 List
 $(document).on("change",".input.cat1",function() {
+	setCat2Option();
+});
+
+//Set Category 2
+function setCat2Option(){
 	var query = {
 			code : $(".input.cat1").val()
 		};
@@ -129,7 +148,7 @@ $(document).on("change",".input.cat1",function() {
 			$(".input.cat2").html(option);
 		}
 	});
-});
+}
 
 //Modify - Reset button
 $(document).on("click",".close",function() {

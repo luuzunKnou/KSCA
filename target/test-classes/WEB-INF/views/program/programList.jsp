@@ -20,6 +20,7 @@
 		<c:forEach var="program" items="${programList}">
 			<tr class="program_list_tr">
 				<td class="list code" style="display:none;">${program.program.code}</td>
+				<td class="list a_code" style="display:none;">${program.agency.code}</td>
 				<td class="list name">${program.program.name}</td>
 				<td class="list cat1">
 					<span class="list cat1 name">${program.cat1.name}</span> (
