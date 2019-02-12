@@ -4,10 +4,33 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.luuzun.ksca.persistence.ProgramDAO">
+	<resultMap id="programJoinForList" type="ProgramJoinForList">
+		<association property="program" javaType="Program">
+			<id property="code" 	column="pcode"/>
+			<result property="name" column="pname"/>
+		</association>
+		
+		<association property="cat1" javaType="Cat1">
+			<id property="code" 	column="c1code"/>
+			<result property="name" column="c1name"/>
+		</association>
+		
+		<association property="cat2" javaType="Cat2">
+			<id property="code" 	column="c2code"/>
+			<result property="name" column="c2name"/>
+		</association>
+
+		<association property="agency" javaType="Agency">
+			<id property="code" 		column="acode"/>
+			<result property="name" 	column="aname"/>
+			<result property="manager" 	column="manager"/>
+			<result property="tel" 		column="tel"/>
+		</association>
+	</resultMap>
+	
 	<select id="listAll" resultType="Program">
 		SELECT * From program
 	</select>
-	
 	
 	<select id="read" resultType="Program">
 		SELECT * From program 
@@ -18,6 +41,46 @@
 		SELECT * FROM program 
 			WHERE area=#{area};
 	</select>
+	
+	
+	<select id="readProgramJoinByCode" resultMap="programJoinForList">
+		SELECT  program.code 	AS pcode, 
+				program.name 	AS pname, 
+				program.cat1 	AS c1code, 
+				cat1.name 		AS c1name, 
+				program.cat2 	AS c2code, 
+				cat2.name 		AS c2name, 
+				program.agency 	AS acode, 
+				agency.name 	AS aname, 
+				ifnull(agency.manager,'') AS manager, 
+				ifnull(agency.tel,'') 	  AS tel
+			FROM program
+				JOIN cat1 ON program.cat1=cat1.code
+				JOIN cat2 ON program.cat2=cat2.code AND program.cat1=cat2.cat1
+				JOIN agency ON program.agency=agency.code
+			WHERE program.code=#{code};
+	</select>
+	
+	
+	<select id="readProgramJoinForList" resultMap="programJoinForList">
+		SELECT  program.code 	AS pcode, 
+				program.name 	AS pname, 
+				program.cat1 	AS c1code, 
+				cat1.name 		AS c1name, 
+				program.cat2 	AS c2code, 
+				cat2.name 		AS c2name, 
+				program.agency 	AS acode, 
+				agency.name 	AS aname, 
+				ifnull(agency.manager,'') AS manager, 
+				ifnull(agency.tel,'') 	  AS tel
+			FROM program
+				JOIN cat1 ON program.cat1=cat1.code
+				JOIN cat2 ON program.cat2=cat2.code AND program.cat1=cat2.cat1
+				JOIN agency ON program.agency=agency.code
+			WHERE program.area=#{area};
+	</select>
+	
+	
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO program(area, name, cat1, cat2, agency) VALUES

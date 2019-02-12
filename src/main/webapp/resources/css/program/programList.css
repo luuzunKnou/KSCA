@@ -1,14 +1,14 @@
 @charset "EUC-KR";
 
 .programList{
-	width: 580px; margin:0 auto; margin-top: 80px; margin-bottom: 170px;
+	width: 1200px; margin:0 auto; margin-top: 80px; margin-bottom: 170px;
 	border: 1px solid #e67e22; padding: 20px;
 	background-color: #FAFBFC; 
 } 
 
 #form_div{
-	position: fixed; bottom: 33px; left:50%; margin-left:-311px;
-	width: 580px;; 
+	position: fixed; bottom: 33px; left:50%; margin-left:-391px;
+	width: 740px;; 
 	border: 1px solid #e67e22; padding: 20px;
 	background-color: #FAFBFC;
 } 
@@ -51,11 +51,14 @@ td{
 
 /*********  Table Width *********/
 .th.name		{ width : 200px;}
-.th.cat1		{ width : 80px;}
-.th.cat2		{ width : 150px;}
-.list.name 		{text-align: center;}
+.th.cat1		{ width : 200px;}
+.th.cat2		{ width : 200px;}
+.th.a_name		{ width : 200px;}
+.th.a_manager	{ width : 80px;}
+.th.a_tel		{ width : 150px;}
+.list.name, .list.cat1, .list.cat2, .list.agency { text-align: left;}
 
 .input.name		{ width : 200px;}
-.input.manager	{ width : 80px;}
-.input.tel 	 	{ width : 150px;}
-
+.input.cat1		{ width : 150px;}
+.input.cat2 	{ width : 150px;}
+.input.agency 	{ width : 150px;}

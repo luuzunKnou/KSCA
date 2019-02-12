@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Agency;
 import com.luuzun.ksca.domain.Cat1;
+import com.luuzun.ksca.domain.Cat2;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.Program;
+import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.service.AgencyService;
 import com.luuzun.ksca.service.Cat1Service;
 import com.luuzun.ksca.service.Cat2Service;
@@ -49,7 +51,7 @@ public class ProgramController {
 		String areaCode = manager.getArea();
 		
 		//Get Program, Category, Agency List
-		List<Program> programList = service.readByAreaCode(areaCode);
+		List<ProgramJoinForList> programList = service.readProgramJoinForList(areaCode);
 		List<Cat1> catList = cat1Service.listAll();
 		List<Agency> agencyList = agencyService.readByAreaCode(areaCode);
 		
@@ -62,7 +64,7 @@ public class ProgramController {
 	//Create Program
 	@ResponseBody
 	@RequestMapping(value="/createProgram", method=RequestMethod.POST)
-	public Program createProgram(Program program, HttpSession session) throws Exception  {
+	public ProgramJoinForList createProgram(Program program, HttpSession session) throws Exception  {
 		logger.info("Create Program..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
@@ -70,10 +72,14 @@ public class ProgramController {
 
 		//Set insert Program
 		program.setArea(areaCode);
-		int lastIdx = service.create(program);
-		program.setCode(String.valueOf(lastIdx));
 
-		return program;
+		//Get Last Index
+		int lastIdx = service.create(program);
+		
+		//Get Program Information
+		ProgramJoinForList newProgram = service.readProgramJoinByCode(String.valueOf(lastIdx));
+		
+		return newProgram;
 	}
 	
 	
@@ -81,12 +87,26 @@ public class ProgramController {
 	//Modify Program
 	@ResponseBody
 	@RequestMapping(value="/modifyProgram", method=RequestMethod.POST)
-	public Program modifyProgram(Program program, Model model) throws Exception  {
+	public ProgramJoinForList modifyProgram(Program program, Model model) throws Exception  {
 		logger.info("Modify Program..........:");
+
 		service.update(program);
-		return program;
+		
+		//Get Program Information
+		ProgramJoinForList newProgram = service.readProgramJoinByCode(program.getCode());
+		
+		return newProgram;
 	}
 	
+	
+	//Get Category2 List
+	@ResponseBody
+	@RequestMapping(value="/getCat2List", method=RequestMethod.POST)
+	public List<Cat2> getCat2List(String code) throws Exception  {
+		logger.info("Get Category2 List..........:");
+		List<Cat2> cat2List = cat2Service.readByCat1(code);
+		return cat2List;
+	}
 	
 	
 	//Remove Program

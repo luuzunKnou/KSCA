@@ -9,18 +9,27 @@
 <div class="programList">
 	<table class="program_list_table">
 		<tr>
-			<th class="th name">프로그램</th> 
+			<th class="th name">프로그램 이름</th> 
 			<th class="th cat1">카테고리1</th>
 			<th class="th cat2">카테고리2</th>
-			<th class="th agency">기관</th><th></th><th></th>
-		</tr> 
+			<th class="th a_name">기관</th>
+			<th class="th a_manager">담당자</th>
+			<th class="th a_tel">연락처</th>
+			<th></th><th></th>
+		</tr>
 		<c:forEach var="program" items="${programList}">
 			<tr class="program_list_tr">
-				<td class="list code" style="display:none;">${program.code}</td>
-				<td class="list name">${program.name}</td>
-				<td class="list cat1">${program.cat1}</td>
-				<td class="list cat2">${program.cat2}</td>
-				<td class="list agency">${program.agency}</td>
+				<td class="list code" style="display:none;">${program.program.code}</td>
+				<td class="list name">${program.program.name}</td>
+				<td class="list cat1">
+					<span class="list cat1 name">${program.cat1.name}</span> (
+					<span class="list cat1 code">${program.cat1.code}</span>)</td> 
+				<td class="list cat2">
+					<span class="list cat2 name">${program.cat2.name}</span> (
+					<span class="list cat2 code">${program.cat2.code}</span>)</td>
+				<td class="list a_name">${program.agency.name}</td>
+				<td class="list a_manager">${program.agency.manager}</td>
+				<td class="list a_tel">${program.agency.tel}</td>
 				<td><button class="btn_modify">수정</button></td>
 				<td><button class="btn_delete">삭제</button></td>
 			</tr>
@@ -33,7 +42,7 @@
 		<input type="hidden" class="input code"> 
 		<table>
 			<tr>
-				<th>프로그램</th> 
+				<th>프로그램 이름</th> 
 				<th>카테고리1</th>
 				<th>카테고리2</th>
 				<th>기관</th><th>
@@ -51,10 +60,17 @@
 				
 				<td>
 					<select class="input cat2">
-	 					<option selected="selected" value="">- 선택 -</option>
+	 					<option selected="selected" value=""> - </option>
 	 				</select>
 				</td>
-	 			<td><input type="text" class="input agency"></td>
+				<td>
+					<select class="input agency">
+	 					<option selected="selected" value="">- 선택 -</option>
+						<c:forEach var="agency" items="${agencyList}">
+							<option value="${agency.code}">${agency.name}</option>
+						</c:forEach>
+	 				</select>
+ 				</td>
 	 		</tr>
 		</table>
 		<button type="reset"  class="close">취소</button> 

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.luuzun.ksca.domain.Program;
+import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.persistence.ProgramDAO;
 
 @Service
@@ -43,5 +44,15 @@ public class ProgramServiceImpl implements ProgramService{
 	@Override
 	public List<Program> readByAreaCode(String areaCode) {
 		return dao.readByAreaCode(areaCode);
+	}
+
+	@Override
+	public List<ProgramJoinForList> readProgramJoinForList(String areaCode) {
+		return dao.readProgramJoinForList(areaCode);
+	}
+
+	@Override
+	public ProgramJoinForList readProgramJoinByCode(String code) {
+		return dao.readProgramJoinByCode(code);
 	}
 }

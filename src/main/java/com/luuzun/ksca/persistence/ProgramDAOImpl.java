@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Program;
+import com.luuzun.ksca.domain.ProgramJoinForList;
 
 @Repository
 public class ProgramDAOImpl implements ProgramDAO{
@@ -45,5 +46,15 @@ public class ProgramDAOImpl implements ProgramDAO{
 	@Override
 	public List<Program> readByAreaCode(String areaCode) {
 		return sqlSession.selectList(namespace+"readByAreaCode",areaCode);
+	}
+
+	@Override
+	public List<ProgramJoinForList> readProgramJoinForList(String areaCode) {
+		return sqlSession.selectList(namespace+"readProgramJoinForList",areaCode);
+	}
+
+	@Override
+	public ProgramJoinForList readProgramJoinByCode(String code) {
+		return sqlSession.selectOne(namespace+"readProgramJoinByCode",code);
 	}
 }

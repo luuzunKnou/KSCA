@@ -81,7 +81,7 @@ public class AgencyController {
 	@ResponseBody
 	@RequestMapping(value="/removeAgency", method=RequestMethod.POST)
 	public Agency removeAgency(Model model, HttpServletRequest req, Agency agency) throws Exception {
-		logger.info("Remove SCC..........");
+		logger.info("Remove Agency..........");
 		
 		service.delete(agency.getCode());
 		return agency;

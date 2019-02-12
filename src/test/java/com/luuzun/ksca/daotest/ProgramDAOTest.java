@@ -68,4 +68,14 @@ public class ProgramDAOTest {
 	public void test_06_readByAreaCode() throws Exception{
 		logger.info(dao.readByAreaCode("03-01").toString());
 	}
+	
+	@Test
+	public void test_07_readProgramJoinForList() throws Exception{
+		logger.info(dao.readProgramJoinForList("03-01").toString());
+	}
+	
+	@Test
+	public void test_08_readProgramJoinByCode() throws Exception{
+		logger.info(dao.readProgramJoinByCode("1").toString());
+	}
 }
