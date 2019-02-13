@@ -1,0 +1,38 @@
+@charset "EUC-KR";
+
+#scheduler{
+	width: 95%; height:80%; margin:0 auto; margin-top: 80px; margin-bottom: 32px; 
+	border: 1px solid #e67e22; padding: 10px; background-color: #FAFBFC; 
+} 
+
+.cal_table{
+	width: 100%; height: 100%;
+}
+
+.t_header {
+	height : 40px; 
+}
+
+.cal.day.th {
+	height : 40px;
+}
+
+.cal.div {
+	border: solid 1px gray;	
+}
+
+.cal.wrap.div{
+	height: 100%; 
+}
+
+.cal.date.div {
+	height: 14px; text-align: center; display: inline;
+}
+
+.cal.schedule.div {
+	height: auto; display: inline;
+}
+
+.cal.title{ 
+/* 	width: calc(100/7)%; */
+}

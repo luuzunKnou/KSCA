@@ -32,7 +32,8 @@
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/program/programList">프로그램 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/introduce/introduce">스케줄 관리</a></li>
+					/schedule/scheduler">스케줄 관리</a></li>
+					
 				<c:if test="${login.permToString() eq 'Master'}">
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/cat/catList">카테고리 관리</a></li>
