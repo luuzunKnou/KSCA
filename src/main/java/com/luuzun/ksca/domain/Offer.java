@@ -8,7 +8,7 @@ public class Offer {
 	private String code; 
 	private String areaCode; 
 	private String branchCode;
-	private String sscCode;
+	private String sccCode;
 	private String program;
 	private Date beginDate;
 	private Date endDate;
@@ -55,8 +55,8 @@ public class Offer {
 	@Override
 	public String toString() {
 		return String.format(
-				"Offer [code=%s, areaCode=%s, branchCode=%s, sscCode=%s, program=%s, beginDate=%s, endDate=%s, monthlyOper=%s, activeUser=%s, color=%s]",
-				code, areaCode, branchCode, sscCode, program, beginDate, endDate, monthlyOper, activeUser, color);
+				"Offer [code=%s, areaCode=%s, branchCode=%s, sccCode=%s, program=%s, beginDate=%s, endDate=%s, monthlyOper=%s, activeUser=%s, color=%s]",
+				code, areaCode, branchCode, sccCode, program, beginDate, endDate, monthlyOper, activeUser, color);
 	}
 	
 	public String getCode() {
@@ -77,11 +77,11 @@ public class Offer {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getSscCode() {
-		return sscCode;
+	public String getSccCode() {
+		return sccCode;
 	}
-	public void setSscCode(String sscCode) {
-		this.sscCode = sscCode;
+	public void setSccCode(String sccCode) {
+		this.sccCode = sccCode;
 	}
 	public String getProgram() {
 		return program;

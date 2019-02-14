@@ -27,7 +27,7 @@ public class OfferDAOTest {
 		Offer offer = new Offer();
 		offer.setAreaCode("03-01");
 		offer.setBranchCode("99");
-		offer.setSscCode("001");
+		offer.setSccCode("001");
 		offer.setProgram("1");
 		offer.setSimpleBeginDate("2019-02-01");
 		offer.setSimpleEndDate("2019-02-28");
@@ -42,7 +42,7 @@ public class OfferDAOTest {
 		Offer offer = new Offer();
 		offer.setAreaCode("03-01");
 		offer.setBranchCode("99");
-		offer.setSscCode("002");
+		offer.setSccCode("002");
 		offer.setProgram("2");
 		offer.setSimpleBeginDate("2019-02-01");
 		offer.setSimpleEndDate("2019-02-28");

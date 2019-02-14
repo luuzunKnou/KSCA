@@ -126,6 +126,11 @@ function setSchedule(){
 		thisYear : $(".cal.year").text()
 	};
 	
+	$.each($(".cal.schedule.div"), function(i, elt) { 
+		$(this).empty(); 
+	}) //기존에 append된 정보는 삭제
+	
+	
 	$.ajax({
 		url  : "/schedule/getSchedule",
 		type : "post",
@@ -135,21 +140,42 @@ function setSchedule(){
 			var destDiv;
 			var addCode;
 			$.each(data, function(idx, schedule) {
-				var fullDate = schedule.schedule.simpleDate;
-					console.log(fullDate);
-				destDate=parseInt(fullDate.split('-')[2])+""; //0 제거 후 다시 string으로.
-					console.log(destDate);	
-				destDiv = $(".cal.date.div."+destDate).siblings(".schedule");
-				addCode = '<p class="p_schdule" style="color:#'
+				var fullDate = schedule.schedule.simpleDate; //controller에서 받은 날짜
+				destDate=parseInt(fullDate.split('-')[2])+""; //0 제거
+				destDiv = $(".cal.date.div."+destDate).siblings(".schedule"); //SCC name을 입력할 Div
+				addCode = '<p class="p_schedule" style="color:#'
 					+schedule.offer.color+';">'
-					+schedule.scc.name+'</p>';
+					+schedule.scc.name+'</p>'; //추가될 코드
 				
-				destDiv.append(addCode);
-					console.log(schedule.offer.color);
+				destDiv.append(addCode); //코드 추가
 			})
 		}
 	})
 }
+
+$(document).on("click",".btn_create",function() {
+	var query = {
+			branchCode : "99",
+			sccCode:"001",
+			program:"1",
+			beginDateStr:"2019-02-01",
+			endDateStr:"2019-02-28",
+			monthlyOper:10,
+			activeUser:10,
+			color:"FFC740",
+			offer:"1",
+			dateStr:"2019-02-13"
+	};
+	
+	$.ajax({
+		url  : "/schedule/createSchedule",
+		type : "post",
+		data : query,
+		success : function(data){
+			setSchedule();
+		}
+	})
+});
 
 
 

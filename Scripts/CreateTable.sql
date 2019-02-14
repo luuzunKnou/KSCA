@@ -103,7 +103,7 @@ CREATE TABLE offer (
 	code         INTEGER     NOT NULL AUTO_INCREMENT, 
 	area_code    VARCHAR(20) NOT NULL,
 	branch_code	 VARCHAR(10) NOT NULL,	
-	ssc_code	 VARCHAR(10) NOT NULL,
+	scc_code	 VARCHAR(10) NOT NULL,
 	program      INTEGER     NOT NULL, 
 	begin_date   DATE        NOT NULL, 
 	end_date     DATE        NOT NULL, 
@@ -111,7 +111,7 @@ CREATE TABLE offer (
 	active_user  INTEGER     NULL,
 	color		 VARCHAR(20) NOT NULL,
 	PRIMARY KEY (code),
-	FOREIGN KEY (area_code, branch_code, ssc_code)
+	FOREIGN KEY (area_code, branch_code, scc_code)
 		REFERENCES scc (area_code, branch_code, scc_code) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (program)
 		REFERENCES program (code) ON DELETE CASCADE ON UPDATE CASCADE

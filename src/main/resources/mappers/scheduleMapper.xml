@@ -17,7 +17,7 @@
 		</association>
 		
 		<association property="scc" javaType="Scc">
-			<id property="code" 	column="scc_code"/>
+			<id property="sccCode" 	column="scc_code"/>
 			<result property="name" column="scc_name"/>
 		</association>
 		
@@ -45,7 +45,7 @@
 		SELECT offer.code			AS code,
 			   offer.area_code		AS area_code,
 			   offer.branch_code	AS branch_code,
-			   offer.ssc_code		AS ssc_code,
+			   offer.scc_code		AS scc_code,
 			   offer.program		AS program,
 			   offer.begin_date		AS begin_date,
 			   offer.end_date		AS end_date,	   
@@ -59,7 +59,7 @@
 			FROM offer 
 				JOIN scc ON scc.area_code=offer.area_code 
 							AND scc.branch_code=offer.branch_code
-							AND scc.scc_code=offer.ssc_code
+							AND scc.scc_code=offer.scc_code
 				JOIN schedule ON schedule.offer=offer.code
 				JOIN program ON offer.program=program.code
 			WHERE offer.area_code=#{areaCode}

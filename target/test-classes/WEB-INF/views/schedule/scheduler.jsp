@@ -17,6 +17,7 @@
 				</th>
 			</tr>
 		</table>
+		<button class="btn_create">TestBtn</button>
 	</div>
 </section>
 <%@ include file="../include/footer.jsp"%> 

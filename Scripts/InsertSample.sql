@@ -112,8 +112,8 @@ INSERT INTO program(name, area, cat1, cat2, agency) VALUES
 	('백세건강운동교실'	, '03-01', '3001','101',3); -- 3
 
 
--- code area_code branch_code ssc_code program begin_date end_date monthly_oper active_user color
-INSERT INTO offer(area_code, branch_code, ssc_code, program, begin_date, end_date, monthly_oper, active_user, color) VALUES 
+-- code area_code branch_code scc_code program begin_date end_date monthly_oper active_user color
+INSERT INTO offer(area_code, branch_code, scc_code, program, begin_date, end_date, monthly_oper, active_user, color) VALUES 
 	('03-01','99','001', 1, '2019-02-01', '2019-02-28', 8, 31, 'ED1C24'),
 	('03-01','99','002', 1, '2019-01-01', '2019-01-31', 4, 20, '3F48CC');
 
