@@ -28,9 +28,9 @@ public class ProgramDAOImpl implements ProgramDAO{
 	}
 
 	@Override
-	public int create(Program program) throws Exception {
+	public String create(Program program) throws Exception {
 		sqlSession.insert(namespace+"create", program);
-		return Integer.parseInt(program.getCode());
+		return program.getCode();
 	}
 
 	@Override

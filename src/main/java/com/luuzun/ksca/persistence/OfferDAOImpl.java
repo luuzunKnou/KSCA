@@ -7,34 +7,34 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.luuzun.ksca.domain.Agency;
+import com.luuzun.ksca.domain.Offer;
 
 @Repository
-public class AgencyDAOImpl implements AgencyDAO{
+public class OfferDAOImpl implements OfferDAO{
 	
 	@Inject //자동 주입
 	private SqlSession sqlSession;
-	private static final String namespace = "com.luuzun.ksca.persistence.AgencyDAO.";
+	private static final String namespace = "com.luuzun.ksca.persistence.OfferDAO.";
 	
 	@Override
-	public List<Agency> listAll() throws Exception {
+	public List<Offer> listAll() throws Exception {
 		return sqlSession.selectList(namespace+"listAll");
 	}
 
 	@Override
-	public Agency read(String code) throws Exception {
+	public Offer read(String code) throws Exception {
 		return sqlSession.selectOne(namespace+"read",code);
 	}
 
 	@Override
-	public String create(Agency agency) throws Exception {
-		sqlSession.insert(namespace+"create", agency);
-		return agency.getCode();
+	public String create(Offer offer) throws Exception {
+		sqlSession.insert(namespace+"create", offer);
+		return offer.getCode();
 	}
 
 	@Override
-	public void update(Agency agency) throws Exception {
-		sqlSession.update(namespace+"update", agency);
+	public void update(Offer offer) throws Exception {
+		sqlSession.update(namespace+"update", offer);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class AgencyDAOImpl implements AgencyDAO{
 	}
 
 	@Override
-	public List<Agency> readByAreaCode(String areaCode) {
+	public List<Offer> readByAreaCode(String areaCode) {
 		return sqlSession.selectList(namespace+"readByAreaCode",areaCode);
 	}
 }

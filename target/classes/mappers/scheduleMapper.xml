@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luuzun.ksca.persistence.ScheduleDAO">
+	
+	<select id="listAll" resultType="Schedule">
+		SELECT * From schedule
+	</select>
+	
+	<select id="read" resultType="Schedule">
+		SELECT * From schedule 
+			WHERE code=#{code}; 
+	</select>
+	
+	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
+		INSERT INTO schedule(offer, date) VALUES
+			(#{offer}, #{date});
+	</insert>
+	
+	<update id="update">
+		UPDATE schedule	
+			<set> 
+				<if test="offer != null"> offer	=#{offer}, </if>
+				<if test="date  != null"> date	=#{date} </if>
+			</set>
+			WHERE code=#{code}; 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM schedule 
+			WHERE code=#{code} 
+	</delete>
+</mapper>

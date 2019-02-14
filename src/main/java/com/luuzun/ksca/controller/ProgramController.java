@@ -74,10 +74,10 @@ public class ProgramController {
 		program.setArea(areaCode);
 
 		//Get Last Index
-		int lastIdx = service.create(program);
+		String lastIdx = service.create(program);
 		
 		//Get Program Information
-		ProgramJoinForList newProgram = service.readProgramJoinByCode(String.valueOf(lastIdx));
+		ProgramJoinForList newProgram = service.readProgramJoinByCode(lastIdx);
 		
 		return newProgram;
 	}

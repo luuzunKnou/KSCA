@@ -8,7 +8,7 @@ import com.luuzun.ksca.domain.ProgramJoinForList;
 public interface ProgramService {
 	public List<Program> listAll() throws Exception;
 	public Program read(String code) throws Exception;
-	public int create(Program program) throws Exception;
+	public String create(Program program) throws Exception;
 	public void update(Program program) throws Exception;
 	public void delete(String code) throws Exception;
 	public List<Program> readByAreaCode(String areaCode);

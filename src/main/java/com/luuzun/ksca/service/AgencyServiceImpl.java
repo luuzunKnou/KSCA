@@ -26,7 +26,7 @@ public class AgencyServiceImpl implements AgencyService{
 	}
 
 	@Override
-	public int create(Agency agency) throws Exception{
+	public String create(Agency agency) throws Exception{
 		return dao.create(agency);
 	}
 

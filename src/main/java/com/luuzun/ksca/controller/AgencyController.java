@@ -58,8 +58,8 @@ public class AgencyController {
 
 		//Set insert Agency
 		agency.setArea(areaCode);
-		int lastIdx = service.create(agency);
-		agency.setCode(String.valueOf(lastIdx));
+		String lastIdx = service.create(agency);
+		agency.setCode(lastIdx);
 
 		return agency;
 	}

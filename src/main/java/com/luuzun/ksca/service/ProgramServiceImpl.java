@@ -27,7 +27,7 @@ public class ProgramServiceImpl implements ProgramService{
 	}
 
 	@Override
-	public int create(Program program) throws Exception{
+	public String create(Program program) throws Exception{
 		return dao.create(program);
 	}
 

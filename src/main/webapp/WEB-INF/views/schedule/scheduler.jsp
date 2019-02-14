@@ -7,7 +7,7 @@
 
 <section>
 	<div id="scheduler">
-		<table class="cal_table" border="1">
+		<table class="cal_table">
 			<tr class="t_header">
 				<th class="cal title" colspan="7">
 					<span class="cal left">&lt;&lt;</span>

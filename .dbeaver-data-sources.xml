@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="mysql5-1684dd81ea4-32f23f0453afd6c8" provider="mysql" driver="mysql5" name="MySQL - ksca" save-password="true" show-system-objects="true" read-only="false">
+	<data-source id="mysql5-168ea6f9ca4-5f817ec491a8e9cd" provider="mysql" driver="mysql5" name="MySQL - ksca" save-password="true" show-system-objects="true" read-only="false">
 		<connection host="localhost" port="3306" server="" database="ksca" url="jdbc:mysql://localhost:3306/ksca" user="root" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.7" type="dev"/>
-		<custom-property name="sql.format.break.before.close.bracket" value="false"/>
-		<custom-property name="sql.format.keywordCase" value="UPPER"/>
 	</data-source>
 	<filters/>
 </data-sources>

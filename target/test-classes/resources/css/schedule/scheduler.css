@@ -1,24 +1,33 @@
 @charset "EUC-KR";
+*{border: 0px;}
 
 #scheduler{
-	width: 95%; height:80%; margin:0 auto; margin-top: 80px; margin-bottom: 32px; 
-	border: 1px solid #e67e22; padding: 10px; background-color: #FAFBFC; 
+	width: 95%; margin:0 auto; margin-top: 50px; margin-bottom: 32px; 
+	padding: 10px;
 } 
 
 .cal_table{
-	width: 100%; height: 100%;
+	width: 100%;
+}
+.t_header span{
+	font-family: 'Cabin'; font-weight: bold; font-size: 20px;
+	line-height: 50px;
 }
 
+.cal.date.td {
+	padding: 0px; border: 1px solid #FFC740;
+}
 .t_header {
 	height : 40px; 
 }
 
-.cal.day.th {
-	height : 40px;
+.cal.day.tr {
+	border-top: 2px solid #FFC740; border-bottom: 2px solid #FFC740;
 }
 
-.cal.div {
-	border: solid 1px gray;	
+.cal.day.th {
+	height : 40px; text-align: center; font-weight: bold;
+	font-family: 'Cabin'; border: none;
 }
 
 .cal.wrap.div{
@@ -26,13 +35,11 @@
 }
 
 .cal.date.div {
-	height: 14px; text-align: center; display: inline;
+	line-height: 25px; padding-left:6px; text-align: left;
+	font-weight: bold; font-family: 'Cabin';
 }
 
 .cal.schedule.div {
-	height: auto; display: inline;
+	height: 100px;
 }
 
-.cal.title{ 
-/* 	width: calc(100/7)%; */
-}

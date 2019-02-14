@@ -69,7 +69,7 @@ CREATE TABLE scc (
 	phone    	VARCHAR(30)  NULL,
 	PRIMARY KEY (area_code, branch_code, scc_code),
 	FOREIGN KEY (area_code, branch_code)
-		REFERENCES branch (area_code, branch_code) ON DELETE CASCADE
+		REFERENCES branch (area_code, branch_code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE agency (
@@ -92,14 +92,14 @@ CREATE TABLE program (
 	agency INTEGER     NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (agency)
-		REFERENCES agency (code) ON DELETE CASCADE,
+		REFERENCES agency (code) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (cat1, cat2)
-		REFERENCES cat2 (cat1, code) ON DELETE CASCADE,
+		REFERENCES cat2 (cat1, code) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (area)
-		REFERENCES area (code) ON DELETE CASCADE
+		REFERENCES area (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE schedule (
+CREATE TABLE offer (
 	code         INTEGER     NOT NULL AUTO_INCREMENT, 
 	area_code    VARCHAR(20) NOT NULL,
 	branch_code	 VARCHAR(10) NOT NULL,	
@@ -107,12 +107,21 @@ CREATE TABLE schedule (
 	program      INTEGER     NOT NULL, 
 	begin_date   DATE        NOT NULL, 
 	end_date     DATE        NOT NULL, 
-	time		 DATETIME    NOT NULL,
 	monthly_oper INTEGER     NOT NULL, 
 	active_user  INTEGER     NULL,
+	color		 VARCHAR(20) NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (area_code, branch_code, ssc_code)
-		REFERENCES scc (area_code, branch_code, scc_code) ON DELETE CASCADE,
+		REFERENCES scc (area_code, branch_code, scc_code) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (program)
-		REFERENCES program (code) ON DELETE CASCADE
+		REFERENCES program (code) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE schedule (
+	code         INTEGER     NOT NULL AUTO_INCREMENT,
+	offer		 INTEGER	 NOT NULL,
+	date		 DATE	     NOT NULL,
+	PRIMARY KEY (code),
+	FOREIGN KEY (offer)
+		REFERENCES offer (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
