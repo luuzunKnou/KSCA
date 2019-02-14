@@ -52,4 +52,9 @@ public class ScheduleDAOTest {
 	public void test_05_ListAll() throws Exception{
 		logger.info(dao.listAll().toString());
 	}
+	
+	@Test
+	public void test_06_ScheduleJoinforList() throws Exception{
+		logger.info(dao.scheduleJoinforList("03-01","2","2019").toString());
+	}
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.luuzun.ksca.domain.Schedule;
+import com.luuzun.ksca.domain.ScheduleJoinforList;
 import com.luuzun.ksca.persistence.ScheduleDAO;
 
 @Service
@@ -38,5 +39,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Override
 	public void delete(String code) throws Exception{
 		dao.delete(code);
+	}
+
+	@Override
+	public List<ScheduleJoinforList> scheduleJoinforList(String areaCode, String thisMonth, String thisYear) {
+		return dao.scheduleJoinforList(areaCode, thisMonth, thisYear);
 	}
 }

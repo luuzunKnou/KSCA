@@ -1,6 +1,8 @@
 package com.luuzun.ksca.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Schedule;
+import com.luuzun.ksca.domain.ScheduleJoinforList;
 
 @Repository
 public class ScheduleDAOImpl implements ScheduleDAO{
@@ -40,5 +43,15 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	@Override
 	public void delete(String code) throws Exception {
 		sqlSession.delete(namespace+"delete", code);
+	}
+
+	@Override
+	public List<ScheduleJoinforList> scheduleJoinforList(String areaCode, String thisMonth, String thisYear) {
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("thisMonth", thisMonth);
+		param.put("thisYear", thisYear);
+		
+		return sqlSession.selectList(namespace+"scheduleJoinforList", param);
 	}
 }

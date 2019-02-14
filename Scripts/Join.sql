@@ -48,4 +48,29 @@ SELECT  program.code 	AS pcode,
 		JOIN agency ON program.agency=agency.code
 	WHERE program.code='1';
 
-SELECT ifnull(tel,1) FROM agency;
+SELECT * FROM offer;
+SELECT offer.code			 AS code,
+	   offer.area_code		 AS area_code,
+	   offer.branch_code	 AS branch_code,
+	   offer.ssc_code		 AS ssc_code,
+	   offer.program		 AS program,
+	   offer.begin_date		 AS begin_date,
+	   offer.end_date		 AS end_date,	   
+	   offer.monthly_oper	 AS monthly_oper,
+	   offer.active_user	 AS active_user,
+	   offer.color			 AS color,
+	   scc.name				 AS scc_name,
+	   schedule.code		 AS sc_code,
+	   schedule.date		 AS sc_date,
+	   program.name			 AS program_name
+	FROM offer 
+		JOIN scc ON scc.area_code=offer.area_code 
+					AND scc.branch_code=offer.branch_code
+					AND scc.scc_code=offer.ssc_code
+		JOIN schedule ON schedule.offer=offer.code
+		JOIN program ON offer.program=program.code
+	WHERE offer.area_code='03-01'
+		AND MONTH(schedule.date)='2' 
+		AND YEAR(schedule.date)='2019';
+		-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28');
+

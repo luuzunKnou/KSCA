@@ -24,7 +24,7 @@ public class Schedule {
 			this.date = sd.parse(strDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	@Override

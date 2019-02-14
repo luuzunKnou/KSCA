@@ -7,6 +7,7 @@ $(document).ready(function() {
 	var date  = date.getDate();	
 	
 	drawCal(year, month, date, "5");
+	setSchedule();
 });
 
 //달력 생성 함수
@@ -112,13 +113,43 @@ function createTdCode(calDate) {
 	
 	code += '<td class="cal date td">';
 	code +=		'<div class="cal wrap div">'
-	code += 		'<div class="cal date div">'+calDate+'</div>';
+	code += 		'<div class="cal date div '+calDate+'">'+calDate+'</div>';
 	code += 		'<div class="cal schedule div">'+'</div>';
 	code +=		'</div>'
 	code += '</td>';
 	return code;
 }
 
+function setSchedule(){
+	var query = {
+		thisMonth : $(".cal.month").text(),
+		thisYear : $(".cal.year").text()
+	};
+	
+	$.ajax({
+		url  : "/schedule/getSchedule",
+		type : "post",
+		data : query,
+		success : function(data){
+			var srcDate;
+			var destDiv;
+			var addCode;
+			$.each(data, function(idx, schedule) {
+				var fullDate = schedule.schedule.simpleDate;
+					console.log(fullDate);
+				destDate=parseInt(fullDate.split('-')[2])+""; //0 제거 후 다시 string으로.
+					console.log(destDate);	
+				destDiv = $(".cal.date.div."+destDate).siblings(".schedule");
+				addCode = '<p class="p_schdule" style="color:#'
+					+schedule.offer.color+';">'
+					+schedule.scc.name+'</p>';
+				
+				destDiv.append(addCode);
+					console.log(schedule.offer.color);
+			})
+		}
+	})
+}
 
 
 

@@ -48,7 +48,7 @@ $(document).on("click",".btn_delete",function() {
 	if(result){
 		var deleteTr = $(this).parent().parent();
 		var query = {
-			code 	: deleteTr.children(".list.code").text(), 
+			code 	: deleteTr.children(".list.code").text() 
 		};
 		
 		$.ajax({

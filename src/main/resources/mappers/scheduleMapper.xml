@@ -4,6 +4,33 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.luuzun.ksca.persistence.ScheduleDAO">
+	<resultMap id="scheduleJoinforList" type="ScheduleJoinforList">
+		<association property="offer" javaType="Offer">
+			<id property="code" 			column="code"/>
+			<result property="areaCode"		column="area_code"/>
+			<result property="branchCode" 	column="branch_code"/>
+			<result property="beginDate" 	column="begin_date"/>
+			<result property="endDate" 		column="end_date"/>
+			<result property="monthlyOper"  column="monthly_oper"/>
+			<result property="activeUser" 	column="active_user"/>
+			<result property="color" 		column="color"/>
+		</association>
+		
+		<association property="scc" javaType="Scc">
+			<id property="code" 	column="scc_code"/>
+			<result property="name" column="scc_name"/>
+		</association>
+		
+		<association property="schedule" javaType="Schedule">
+			<id property="code" 	column="sc_code"/>
+			<result property="date" column="sc_date"/>
+		</association>
+
+		<association property="program" javaType="Program">
+			<id property="code" 	column="program"/>
+			<result property="name" column="program_name"/>
+		</association>
+	</resultMap>
 	
 	<select id="listAll" resultType="Schedule">
 		SELECT * From schedule
@@ -12,6 +39,33 @@
 	<select id="read" resultType="Schedule">
 		SELECT * From schedule 
 			WHERE code=#{code}; 
+	</select>
+	
+	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
+		SELECT offer.code			AS code,
+			   offer.area_code		AS area_code,
+			   offer.branch_code	AS branch_code,
+			   offer.ssc_code		AS ssc_code,
+			   offer.program		AS program,
+			   offer.begin_date		AS begin_date,
+			   offer.end_date		AS end_date,	   
+			   offer.monthly_oper	AS monthly_oper,
+			   offer.active_user	AS active_user,
+			   offer.color			AS color,
+			   scc.name				AS scc_name,
+			   schedule.code		AS sc_code,
+			   schedule.date		AS sc_date,
+			   program.name			AS program_name
+			FROM offer 
+				JOIN scc ON scc.area_code=offer.area_code 
+							AND scc.branch_code=offer.branch_code
+							AND scc.scc_code=offer.ssc_code
+				JOIN schedule ON schedule.offer=offer.code
+				JOIN program ON offer.program=program.code
+			WHERE offer.area_code=#{areaCode}
+					AND MONTH(schedule.date)=#{thisMonth}
+					AND YEAR(schedule.date)=#{thisYear};
+					<!-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28'); -->
 	</select>
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">

@@ -132,4 +132,3 @@ INSERT INTO schedule(offer, date) VALUES
 	(2, '2019-02-18'),
 	(2, '2019-02-25');
 	
-	

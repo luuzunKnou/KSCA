@@ -5,6 +5,7 @@
 
 <mapper namespace="com.luuzun.ksca.persistence.OfferDAO">
 	
+	
 	<select id="listAll" resultType="Offer">
 		SELECT * From offer
 	</select>
