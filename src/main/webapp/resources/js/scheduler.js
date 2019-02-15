@@ -178,6 +178,39 @@ $(document).on("click",".btn_create",function() {
 });
 
 
+//Modal Toggle
+$(function(){
+	$(document).on("click","btn_create, modal_background, btn_reset",function() {
+		clearAll()
+	});
+	
+	$(document).on("click",".btn_create, .btn_reset, .cal.wrap.div," +
+			".modal_background",function() {
+		$(".modal, .modal_background").toggle();
+	});
+});
+
+//Close, Save시 Cat1 input clear
+function clearAll() {
+	console.log("ccc"); 
+	$(".input.code").val("");
+	$(".input.name").val("");
+	$(".p_checkCode").text("");
+	$(".m1.modify_save").text("등록").attr("class","m1 save");
+	$(".m1.delete").remove();
+	$(".m1.dest_cat1_code").val("");
+	$(".modifying").removeClass("modifying");
+}
+
+//On Mouse Over
+$(document).on("mouseover",".cal.wrap.div",function() {
+	$(this).css("background", "#FFE5D4");
+});
+
+$(document).on("mouseout",".cal.wrap.div",function() {
+	$(this).css("background", "#FAFBFC");
+});
+
 
 
 
