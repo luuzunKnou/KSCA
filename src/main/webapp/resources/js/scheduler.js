@@ -1,4 +1,6 @@
 //On Save Button Click
+var lastDateList = [31,28,31,30,31,30,31,31,30,31,30,31];
+
 $(document).ready(function() {
 	//날짜, 년월일 변수 생성
 	var date  = new Date();
@@ -7,20 +9,18 @@ $(document).ready(function() {
 	var date  = date.getDate();	
 	
 	drawCal(year, month, date, "5");
-	setSchedule();
+	setSchedule(); //Set Schedule List
+	setDefaultValue(); //Set modal default value
 });
 
 //달력 생성 함수
 function drawCal(year, month, date, type) { //type: 휴일 표시 유무(5,7)
-	
-	
 	
 	//1일의 요일
 	var firstDate = new Date(year, month, 1);
 	var firstDay  = firstDate.getDay();
 	
 	//1~12월달의 마지막 날
-	var lastDateList = [31,28,31,30,31,30,31,31,30,31,30,31];
 	
 	//당월 마지막 날
 	var lastDate = lastDateList[month-1];
@@ -34,7 +34,7 @@ function drawCal(year, month, date, type) { //type: 휴일 표시 유무(5,7)
 	var rowCnt = Math.ceil( (firstDay+lastDate)/7 );
 	
 	$(".cal.year").text(year);
-	$(".cal.month").text(month);
+	$(".cal.month").text(pad(month,2));
 	
 	var cal=""; //Calender 코드
 	
@@ -104,7 +104,6 @@ function drawCal(year, month, date, type) { //type: 휴일 표시 유무(5,7)
 	var dateDivWidth = 1824/type;
 	$(".cal.wrap.div").css("height", dateDivHeight);
 	$(".cal.wrap.div").css("width", dateDivWidth);
-
 }
 
 //td 코드 생성
@@ -120,16 +119,16 @@ function createTdCode(calDate) {
 	return code;
 }
 
+//Set Schedule List
 function setSchedule(){
 	var query = {
-		thisMonth : $(".cal.month").text(),
+		thisMonth : $(".cal.month").text(), 
 		thisYear : $(".cal.year").text()
 	};
 	
 	$.each($(".cal.schedule.div"), function(i, elt) { 
 		$(this).empty(); 
 	}) //기존에 append된 정보는 삭제
-	
 	
 	$.ajax({
 		url  : "/schedule/getSchedule",
@@ -143,8 +142,9 @@ function setSchedule(){
 				var fullDate = schedule.schedule.simpleDate; //controller에서 받은 날짜
 				destDate=parseInt(fullDate.split('-')[2])+""; //0 제거
 				destDiv = $(".cal.date.div."+destDate).siblings(".schedule"); //SCC name을 입력할 Div
-				addCode = '<p class="p_schedule" style="color:#'
-					+schedule.offer.color+';">'
+				
+				addCode = '<p class="p_schedule" style="color:#'+schedule.offer.color+';"'
+					+'data-offer_code="'+schedule.offer.code+'">'
 					+schedule.scc.name+'</p>'; //추가될 코드
 				
 				destDiv.append(addCode); //코드 추가
@@ -153,53 +153,105 @@ function setSchedule(){
 	})
 }
 
+//On Call create
+$(document).on("click", ".cal.wrap.div",function(){
+	var thisYear  = $(".cal.year").text();
+	var	thisMonth = $(".cal.month").text();
+	var date = pad($(this).children(".cal.date.div").text(),2);
+	
+	$(".input_date").val(thisYear+"-"+thisMonth+"-"+date);
+});
+
+//Create
 $(document).on("click",".btn_create",function() {
-	var query = {
-			branchCode : "99",
-			sccCode:"001",
-			program:"1",
-			beginDateStr:"2019-02-01",
-			endDateStr:"2019-02-28",
-			monthlyOper:10,
-			activeUser:10,
-			color:"FFC740",
-			offer:"1",
-			dateStr:"2019-02-13"
+//	var date = ;
+	var thisYear  = $(".cal.year").text();
+	var	thisMonth = $(".cal.month").text();
+	
+	var dateStrList = new Array(); //ajax로 전송할 배열
+
+	var checkedDay = new Array(); //선택된 요일 배열
+	
+	if($(".week").is(":checked")){ //매주 항목이 선택
+		$(".day:checked").each(function() { //선택된 요일을 배열에 담음
+			checkedDay.push($(this).val());
+		});
 	};
+	
+	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
+  
+	var checkDate = new Date(); //요일을 체크할 날짜 세팅
+	checkDate.setFullYear(thisYear);
+	checkDate.setMonth(thisMonth);
+	
+	for(i=1; i<=lastDay; i++){
+		checkDate.setDate(i); //체크할 날짜 세팅
+		
+		for(j=0; j<=checkedDay.length; j++){ //체크할 날짜의 요일과 선택된 요일 배열 비교
+			if(checkedDay[j]==checkDate.getDay()){
+				dateStrList.push(checkDate.getFullYear()+"-"+	
+					pad(checkDate.getMonth(),2)+"-"+
+					pad(checkDate.getDate(),2)); //배열에 스케쥴을 입력할 날짜 push
+			} 
+		}
+	}
+	
+	var query = {
+			branchCode : 	$(".input.scc.select option:selected").data("branch_code"),
+			sccCode:		$(".input.scc.select option:selected").data("scc_code"),
+			program:		$(".input.program.select").val(),
+			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
+			beginDateStr:	$(".input_begin").val(),
+			endDateStr:		$(".input_end").val(),
+			monthlyOper:	0,
+			activeUser:		0,
+			color:			$(".input_color").val(),
+			offer:			$(".input_offer_code").val(),
+			dateStr:		$(".input_date").val(),
+			dateStrList:	dateStrList 
+	};
+	
+	console.log(query);
 	
 	$.ajax({
 		url  : "/schedule/createSchedule",
 		type : "post",
-		data : query,
-		success : function(data){
+		data :  query,
+		traditional : true,
+		success : function(data){ 
 			setSchedule();
 		}
 	})
+	
 });
+
+//Modify
+/*$(document).on("click", ".p_schedule",function(){
+	alert("Modify!");
+	return false;
+});*/
 
 
 //Modal Toggle
-$(function(){
-	$(document).on("click","btn_create, modal_background, btn_reset",function() {
-		clearAll()
-	});
-	
-	$(document).on("click",".btn_create, .btn_reset, .cal.wrap.div," +
-			".modal_background",function() {
-		$(".modal, .modal_background").toggle();
-	});
+$(document).on("click","btn_create, modal_background, btn_reset",function() {
+	clearAll();
+});
+
+$(document).on("click",".btn_create, .btn_reset, .cal.wrap.div," +
+		".modal_background",function() {
+	$(".modal, .modal_background").toggle();
 });
 
 //Close, Save시 Cat1 input clear
 function clearAll() {
-	console.log("ccc"); 
-	$(".input.code").val("");
-	$(".input.name").val("");
-	$(".p_checkCode").text("");
-	$(".m1.modify_save").text("등록").attr("class","m1 save");
-	$(".m1.delete").remove();
-	$(".m1.dest_cat1_code").val("");
-	$(".modifying").removeClass("modifying");
+//	$(".input.code").val("");
+//	$(".input.name").val("");
+//	$(".p_checkCode").text("");
+//	$(".m1.modify_save").text("등록").attr("class","m1 save");
+//	$(".m1.delete").remove();
+//	$(".m1.dest_cat1_code").val("");
+//	$(".modifying").removeClass("modifying");
+	setDefaultValue();
 }
 
 //On Mouse Over
@@ -212,9 +264,22 @@ $(document).on("mouseout",".cal.wrap.div",function() {
 });
 
 
+//Set modal default value
+function setDefaultValue(){
+	var thisYear  = $(".cal.year").text();
+	var	thisMonth = $(".cal.month").text();
+	var firstDate = $(".cal.date.div").first().text();
+	var lastDate  = $(".cal.date.div").last().text();
+	//begin and end date
+	$(".input_begin").val(thisYear+"-"+thisMonth+"-"+pad(firstDate,2));
+	$(".input_end").val(thisYear+"-"+thisMonth+"-"+pad(lastDate,2));
+}
 
-
-
+//n에 width 자리수에 맞게 0 추가
+function pad(n, width) {
+	n = n + '';
+	return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
+}
 
 
 

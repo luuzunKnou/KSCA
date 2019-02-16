@@ -1,5 +1,8 @@
 package com.luuzun.ksca.daotest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.FixMethodOrder;
@@ -57,4 +60,22 @@ public class ScheduleDAOTest {
 	public void test_06_ScheduleJoinforList() throws Exception{
 		logger.info(dao.scheduleJoinforList("03-01","2","2019").toString());
 	}
+	
+	@Test
+	public void test_07_CreateMany() throws Exception{
+		Schedule schedule1 = new Schedule();
+		schedule1.setSimpleDate("2010-01-01");
+		schedule1.setOffer("1");
+
+		Schedule schedule2 = new Schedule();
+		schedule2.setSimpleDate("2010-01-01");
+		schedule2.setOffer("1");
+		
+		List<Schedule> list = new ArrayList<Schedule>();
+		list.add(schedule1);
+		list.add(schedule2);
+		
+		dao.createMany(list);
+	}
+	
 }

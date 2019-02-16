@@ -54,4 +54,11 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 		
 		return sqlSession.selectList(namespace+"scheduleJoinforList", param);
 	}
+
+	@Override
+	public void createMany(List<Schedule> scheduleList) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("scheduleList", scheduleList);
+		sqlSession.insert(namespace+"createMany", param);
+	}
 }

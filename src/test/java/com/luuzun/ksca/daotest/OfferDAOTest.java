@@ -29,6 +29,7 @@ public class OfferDAOTest {
 		offer.setBranchCode("99");
 		offer.setSccCode("001");
 		offer.setProgram("1");
+		offer.setSimpleRegMonth("2019-02-01");
 		offer.setSimpleBeginDate("2019-02-01");
 		offer.setSimpleEndDate("2019-02-28");
 		offer.setMonthlyOper(8);
@@ -44,6 +45,7 @@ public class OfferDAOTest {
 		offer.setBranchCode("99");
 		offer.setSccCode("002");
 		offer.setProgram("2");
+		offer.setSimpleRegMonth("2019-02-01");
 		offer.setSimpleBeginDate("2019-02-01");
 		offer.setSimpleEndDate("2019-02-28");
 		offer.setMonthlyOper(8);

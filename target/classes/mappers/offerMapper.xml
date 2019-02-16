@@ -21,8 +21,8 @@
 	</select>
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
-		INSERT INTO offer(area_code, branch_code, scc_code, program, begin_date, end_date, monthly_oper, active_user, color) VALUES
-			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{beginDate}, #{endDate}, #{monthlyOper}, #{activeUser}, #{color});
+		INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES
+			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{regMonth}, #{beginDate}, #{endDate}, #{monthlyOper}, #{activeUser}, #{color});
 	</insert>
 	
 	<update id="update">
@@ -32,6 +32,7 @@
 				<if test="branchCode  != null"> branch_code	=#{branchCode}, </if>
 				<if test="sccCode     != null"> scc_code	=#{sccCode}, </if>
 				<if test="program  	  != null"> program		=#{program}, </if>
+				<if test="regMonth    != null"> reg_month	=#{regMonth}, </if>
 				<if test="beginDate   != null"> begin_date	=#{beginDate}, </if>
 				<if test="endDate  	  != null"> end_date	=#{endDate}, </if>
 				<if test="monthlyOper != null"> monthly_oper=#{monthlyOper}, </if>

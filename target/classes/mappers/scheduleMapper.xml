@@ -8,6 +8,7 @@
 		<association property="offer" javaType="Offer">
 			<id property="code" 			column="code"/>
 			<result property="areaCode"		column="area_code"/>
+			<result property="regMonth"		column="reg_month"/>
 			<result property="branchCode" 	column="branch_code"/>
 			<result property="beginDate" 	column="begin_date"/>
 			<result property="endDate" 		column="end_date"/>
@@ -45,6 +46,7 @@
 		SELECT offer.code			AS code,
 			   offer.area_code		AS area_code,
 			   offer.branch_code	AS branch_code,
+			   offer.reg_month		AS reg_month,
 			   offer.scc_code		AS scc_code,
 			   offer.program		AS program,
 			   offer.begin_date		AS begin_date,
@@ -68,9 +70,16 @@
 					<!-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28'); -->
 	</select>
 	
-	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
+	<insert id="create" useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO schedule(offer, date) VALUES
 			(#{offer}, #{date});
+	</insert>
+	
+	<insert id="createMany">
+		INSERT INTO schedule(offer, date) VALUES
+			<foreach collection="scheduleList" item="schedule" separator=" , ">
+            	(#{schedule.offer}, #{schedule.date})
+			</foreach>
 	</insert>
 	
 	<update id="update">

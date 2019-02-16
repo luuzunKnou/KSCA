@@ -13,4 +13,5 @@ public interface ScheduleDAO {
 	public void delete(String code) throws Exception;
 
 	public List<ScheduleJoinforList> scheduleJoinforList(String areaCode, String thisMonth, String thisYear);
+	public void createMany (List<Schedule> scheduleList) throws Exception;
 }

@@ -12,8 +12,8 @@
 			<tr class="t_header">
 				<th class="cal title" colspan="7">
 					<span class="cal left">&lt;&lt;</span>
-					<span class="cal year">2019</span>.
-					<span class="cal month">1</span>
+					<span class="cal year"></span>.
+					<span class="cal month"></span>
 					<span class="cal right">&gt;&gt;</span>
 				</th>
 			</tr>
@@ -25,52 +25,69 @@
 <div class="modal">
 	<!-- Modal content -->
 	<form>
-		<input type="hidden" class="dest_sch_code">
-		<input type="hidden" class="dest_offer_code">
+		<input type="hidden" class="input_offer_code">
+		
+		<div class="input wrap date div">
+			<label>날짜</label>
+			<div class="input inner date div">
+				<input type="text" class="input_date">
+			</div>
+		</div>
 		
 		<div class="input wrap scc div">
 			<label>경로당</label>
-			<div class="input inner div">
-				<input type="text" class="">
+			<div class="input inner scc div">
+				<select class="input scc select">
+ 					<option selected="selected" value="">- 선택 -</option>
+					<c:forEach var="scc" items="${sccList}">
+						<option data-branch_code="${scc.branchCode}" data-scc_code="${scc.sccCode}"
+							>${scc.name}</option>	
+					</c:forEach> 
+ 				</select>
 			</div>
 		</div>
 		
 		<div class="input wrap program div">
 			<label>프로그램</label>
-			<div class="input inner div">
-				<input type="text" class="">
+			<div class="input inner program div">
+				<select class="input program select">
+					<option selected="selected" value="">- 선택 -</option>
+					<c:forEach var="program" items="${programList}">
+						<option value="${program.program.code}">${program.program.name}&nbsp&nbsp(${program.agency.name})</option>
+					</c:forEach>
+				</select>
 			</div>
 		</div>
 		
 		<div class="input wrap color div">
 			<label>색상</label>
-			<div class="input inner div">
-			<input type="text" class="">
+			<div class="input inner color div">
+				<input type="text" class="input_color">
 			</div>
 		</div>
 		 
 		<div class="input wrap begin div">
 			<label>기간 시작</label>
-			<div class="input inner div">
-				<input type="text" class="">
+			<div class="input inner begin div">
+				<input type="text" class="input_begin">
 			</div>
 		</div>
 		
 		<div class="input wrap end div">
 			<label>기간 종료</label>
-			<div class="input inner div">
-				<input type="text" class="">
+			<div class="input inner end div">
+				<input type="text" class="input_end">
 			</div>
 		</div>
 		
 		<div class="input week div">
 			<label>주간 반복 </label><input type="checkbox" name="weekly" class="checkbox week">
 			<div class="input day div">
-				<input type="checkbox" name="day" class="checkbox day">월
-				<input type="checkbox" name="day" class="checkbox day">화
-				<input type="checkbox" name="day" class="checkbox day">수
-				<input type="checkbox" name="day" class="checkbox day">목
-				<input type="checkbox" name="day" class="checkbox day">금
+				<input type="checkbox" name="day" class="checkbox day" value="1">월
+				<input type="checkbox" name="day" class="checkbox day" value="2">화
+				<input type="checkbox" name="day" class="checkbox day" value="3">수
+				<input type="checkbox" name="day" class="checkbox day" value="4">목
+				<input type="checkbox" name="day" class="checkbox day" value="5">금
 			</div>
 		</div>
 		
