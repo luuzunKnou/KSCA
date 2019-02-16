@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -79,15 +77,10 @@ public class ScheduleController {
 	//Create Schedule
 	@ResponseBody
 	@RequestMapping(value="/createSchedule", method=RequestMethod.POST)
-	public ResponseEntity<String> createProgram(Offer offer, Schedule schedule, HttpSession session, 
-			String regMonthStr, String beginDateStr, String endDateStr, String dateStr,
-			String[] dateStrList, HttpServletRequest req) {
+	public ResponseEntity<String> createProgram(HttpSession session, Offer offer, 
+			String regMonthStr, String beginDateStr, String endDateStr,	String[] dateStrList) {
 
 		logger.info("Create Schedule..........");
-
-		for (String string : dateStrList) {
-			logger.info("Date Array: "+string);
-		}
 		
 		ResponseEntity<String> entity = null;
 		
@@ -99,12 +92,21 @@ public class ScheduleController {
 		offer.setSimpleRegMonth(regMonthStr);
 		offer.setSimpleBeginDate(beginDateStr);
 		offer.setSimpleEndDate(endDateStr);
-		schedule.setSimpleDate(dateStr);
 		
 		try {
 			String offerCode=offerService.create(offer);
-			schedule.setOffer(offerCode);
-			scheduleService.create(schedule);
+
+			List<Schedule> scheduleList = new ArrayList<>();
+			
+			for (String date: dateStrList) {
+				Schedule addSchedule = new Schedule();		
+				addSchedule.setSimpleDate(date);
+				addSchedule.setOffer(offerCode);
+				scheduleList.add(addSchedule);
+			}
+			logger.info("********: "+scheduleList);
+			scheduleService.createMany(scheduleList);
+			
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

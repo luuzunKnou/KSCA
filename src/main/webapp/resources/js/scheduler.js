@@ -206,8 +206,6 @@ $(document).on("click",".btn_create",function() {
 			monthlyOper:	0,
 			activeUser:		0,
 			color:			$(".input_color").val(),
-			offer:			$(".input_offer_code").val(),
-			dateStr:		$(".input_date").val(),
 			dateStrList:	dateStrList 
 	};
 	
@@ -260,7 +258,7 @@ $(document).on("mouseover",".cal.wrap.div",function() {
 });
 
 $(document).on("mouseout",".cal.wrap.div",function() {
-	$(this).css("background", "#FAFBFC");
+	$(this).css("background", "#FFFFFF");
 });
 
 

@@ -45,4 +45,9 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public List<ScheduleJoinforList> scheduleJoinforList(String areaCode, String thisMonth, String thisYear) {
 		return dao.scheduleJoinforList(areaCode, thisMonth, thisYear);
 	}
+
+	@Override
+	public void createMany(List<Schedule> scheduleList) throws Exception {
+		dao.createMany(scheduleList);
+	}
 }
