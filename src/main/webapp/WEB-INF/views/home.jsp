@@ -7,7 +7,7 @@
 		var result = '${msg}';
 		if(result.length!=0){
 			alert(result);
-		} 
+		}
 	</script>
 <%@ include file="include/footer.jsp"%>  
  

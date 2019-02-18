@@ -39,7 +39,14 @@
 	font-weight: bold; font-family: 'Cabin';
 }
 
-.cal.schedule.div {
-	height: 100px;
+.cal.schedule{
+	height: 100px auto; width: 33%; float: left;
 }
 
+.input_color{
+	padding: 0; background-color: white;
+}
+
+.p_schedule{
+	font-weight: bold; padding:1px;
+}

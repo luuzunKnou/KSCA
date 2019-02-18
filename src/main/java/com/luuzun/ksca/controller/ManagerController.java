@@ -217,7 +217,8 @@ public class ManagerController {
 		} else {
 			logger.info("Get readWaitingManager..........");
 			List<Manager> managers = service.readWaitingManager();
-			if(managers.isEmpty()){
+			logger.info("Waiting Manager List: "+managers.size());
+			if(managers.size()==0){
 				rttr.addFlashAttribute("msg","가입 대기중인 회원이 없습니다.");
 				return "redirect:/"; 
 			}

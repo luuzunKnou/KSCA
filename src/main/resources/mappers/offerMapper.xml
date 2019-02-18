@@ -20,10 +20,25 @@
 			WHERE area_code=#{areaCode};
 	</select>
 	
+	<select id="readForExistCheck" resultType="Offer">
+		SELECT * FROM offer 
+			WHERE area_code=#{areaCode}
+				AND branch_code	=#{branchCode}
+				AND scc_code	=#{sccCode}
+				AND program		=#{program}
+				AND reg_month	=#{regMonth};
+	</select>
+	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES
 			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{regMonth}, #{beginDate}, #{endDate}, #{monthlyOper}, #{activeUser}, #{color});
 	</insert>
+	
+	<update id="updateMonthlyOper">
+		UPDATE offer 
+			SET monthly_oper = monthly_oper+#{monthlyOper} 
+			WHERE code=#{offerCode}; 
+	</update>
 	
 	<update id="update">
 		UPDATE offer	

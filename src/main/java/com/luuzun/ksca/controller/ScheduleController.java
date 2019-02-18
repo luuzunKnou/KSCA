@@ -94,11 +94,21 @@ public class ScheduleController {
 		offer.setSimpleEndDate(endDateStr);
 		
 		try {
-			String offerCode=offerService.create(offer);
+			String offerCode;
+			Offer checkOffer;
+			//areaCode, branchCode, sccCode, programm, regMonth가 같으면 같은 offer임.
+			checkOffer = offerService.readForExistCheck(
+					areaCode, offer.getBranchCode(), offer.getSccCode(), 
+					offer.getProgram(), offer.getSimpleRegMonth());
+			if( checkOffer != null) {
+				offerCode = checkOffer.getCode(); //존재하는 offer code를 가져옴
+			} else {
+				offerCode = offerService.create(offer); //새로운 offer를 만듬
+			}
 
 			List<Schedule> scheduleList = new ArrayList<>();
 			
-			for (String date: dateStrList) {
+			for (String date: dateStrList) { //Schedule List Insert
 				Schedule addSchedule = new Schedule();		
 				addSchedule.setSimpleDate(date);
 				addSchedule.setOffer(offerCode);
@@ -107,6 +117,7 @@ public class ScheduleController {
 			logger.info("********: "+scheduleList);
 			scheduleService.createMany(scheduleList);
 			
+			offerService.updateMonthlyOper(offerCode, scheduleList.size());//Offer에 monthly_oper(월 운영 횟수) 업데이트
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -114,4 +125,6 @@ public class ScheduleController {
 
 		return entity;
 	}
+	
+	
 }

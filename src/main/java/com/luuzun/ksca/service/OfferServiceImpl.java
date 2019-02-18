@@ -44,4 +44,14 @@ public class OfferServiceImpl implements OfferService{
 	public List<Offer> readByAreaCode(String areaCode) {
 		return dao.readByAreaCode(areaCode);
 	}
+
+	@Override
+	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program, String regMonth) {
+		return dao.readForExistCheck(areaCode, branchCode, sccCode, program, regMonth);
+	}
+
+	@Override
+	public void updateMonthlyOper(String offerCode, int monthlyOper) {
+		dao.updateMonthlyOper(offerCode, monthlyOper);
+	}
 }

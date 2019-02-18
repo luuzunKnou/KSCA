@@ -1,6 +1,8 @@
 package com.luuzun.ksca.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -45,5 +47,27 @@ public class OfferDAOImpl implements OfferDAO{
 	@Override
 	public List<Offer> readByAreaCode(String areaCode) {
 		return sqlSession.selectList(namespace+"readByAreaCode",areaCode);
+	}
+
+	@Override
+	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, 
+			String program, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
+		param.put("sccCode", sccCode);
+		param.put("program", program);
+		param.put("regMonth", regMonth);
+		
+		return sqlSession.selectOne(namespace+"readForExistCheck",param);
+	}
+
+	@Override
+	public void updateMonthlyOper(String offerCode, int monthlyOper) {
+		Map<String, String> param = new HashMap<>();
+		param.put("offerCode", offerCode);
+		param.put("monthlyOper", String.valueOf(monthlyOper));
+		
+		sqlSession.update(namespace+"updateMonthlyOper", param);
 	}
 }

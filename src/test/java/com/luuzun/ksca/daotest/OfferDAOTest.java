@@ -73,4 +73,15 @@ public class OfferDAOTest {
 	public void test_06_readByAreaCode() throws Exception{
 		logger.info(dao.readByAreaCode("03-01").toString());
 	}
+	
+	@Test
+	public void test_07_readForExistCheck() throws Exception{
+		logger.info(dao.readForExistCheck("03-01","99","002","1","2019-02-01").toString());
+	}
+	
+	@Test
+	public void test_08_updateMonthlyOper() throws Exception{
+		dao.updateMonthlyOper("1",10);
+	}
+	
 }
