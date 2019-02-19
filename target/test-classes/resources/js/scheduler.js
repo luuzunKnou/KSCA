@@ -7,14 +7,12 @@ $(document).ready(function() {
 	var year  = date.getFullYear();
 	var month = date.getMonth()+1;
 	var date  = date.getDate();	
-	
-	drawCal(year, month, date, "5");
-	setSchedule(); //Set Schedule List
-	setDefaultValue(); //Set modal default value
+
+	drawCal(year, month, date);
 });
 
 //달력 생성 함수
-function drawCal(year, month, date, type) { //type: 휴일 표시 유무(5,7)
+function drawCal(year, month, date) { 
 	
 	//1일의 요일
 	var firstDate = new Date(year, month, 1);
@@ -40,70 +38,44 @@ function drawCal(year, month, date, type) { //type: 휴일 표시 유무(5,7)
 	
 	//요일 th 입력
 	cal +=	'<tr class="cal day tr">';
-	
-	if(type==7){ 
-		cal += 	'<td class="cal day th">SUNDAY</th>';}
-	
 	cal += 		'<td class="cal day th">MONDAY</th>';
 	cal += 		'<td class="cal day th">TUESDAY</th>';
 	cal += 		'<td class="cal day th">WEDNESDAY</th>';
 	cal += 		'<td class="cal day th">THURSDAY</th>';
 	cal += 		'<td class="cal day th">FRIDAY</th>';
-	
-	if(type==7){
-		cal += 	'<td class="cal day th">SATURDAY</th>';}
-	
 	cal +=	'</tr>';
 	
-	//월~일 달력
-	if(type=="7"){
-		var calDate=1;
-		for(var i=1; i<=rowCnt; i++){
-			cal += '<tr class="cal date tr">';
-			
-			for(var j=1; j<=7; j++){
-				if(i==1 && j<=firstDay || calDate>lastDate ){ //앞,뒤 공백
-					cal += '<td class="cal date td space"></td>';
-				} else { //날짜 입력
-					cal += createTdCode(calDate);
-					calDate++;
-				}
-			}
-			cal += '</tr>';
-		}
-		$(".cal_table").append(cal);
-	} 
-	
 	//월~금 달력
-	if(type=="5"){
-		var calDate=1;
-		for(var i=1; i<=rowCnt; i++){
-			cal += '<tr class="cal date tr">';
-			
-			for(var j=1; j<=7; j++){
-				if(i==1 && j<=firstDay || calDate>lastDate ){ //앞,뒤 공백
-					if(j%7==1 || j%7==0){ //토,일요일에 해당하는 날짜는 표시하지 않음
-						continue;
-					}
-					cal += '<td class="cal date td space"></td>';
-				} else { //날짜 입력
-					if(j%7==1 || j%7==0){ //토,일요일에 해당하는 날짜는 표시하지 않음
-						calDate++;
-						continue;
-					}
-					cal += createTdCode(calDate);
-					calDate++;
+	var calDate=1;
+	for(var i=1; i<=rowCnt; i++){
+		cal += '<tr class="cal date tr">';
+		
+		for(var j=1; j<=7; j++){
+			if(i==1 && j<=firstDay || calDate>lastDate ){ //앞,뒤 공백
+				if(j%7==1 || j%7==0){ //토,일요일에 해당하는 날짜는 표시하지 않음
+					continue;
 				}
+				cal += '<td class="cal date td space"></td>';
+			} else { //날짜 입력
+				if(j%7==1 || j%7==0){ //토,일요일에 해당하는 날짜는 표시하지 않음
+					calDate++;
+					continue;
+				}
+				cal += createTdCode(calDate);
+				calDate++;
 			}
-			cal += '</tr>';
 		}
-		$(".cal_table").append(cal);
+		cal += '</tr>';
 	}
+	$(".cal_table").append(cal);
 
 	var dateDivHeight = 700/rowCnt;
-	var dateDivWidth = 1824/type;
+	var dateDivWidth = 1824/5;
 	$(".cal.wrap.div").css("height", dateDivHeight);
 	$(".cal.wrap.div").css("width", dateDivWidth);
+	
+	setSchedule(); //Set Schedule List
+	setDefaultValue(); //Set modal default value
 }
 
 //td 코드 생성
@@ -169,16 +141,17 @@ function setSchedule(){
 				}
 				
 				//addCode
-				addCode = '<p class="p_schedule" style="color:#'+schedule.offer.color+';"'
+				addCode = '<p class="p_schedule" style="color:#'+schedule.offerProgram.color+';"'
 					+'data-offer_code="'+schedule.offer.code
 					+'"data-schedule_code="'+schedule.schedule.code
 					+'"data-date="'+schedule.schedule.simpleDate
 					+'"data-branch_code="'+schedule.scc.branchCode
 					+'"data-scc_code="'+schedule.scc.sccCode
 					+'"data-program="'+schedule.program.code
-					+'"data-color="'+schedule.offer.color
-					+'"data-begin_date="'+schedule.offer.simpleBeginDate
-					+'"data-end_date="'+schedule.offer.simpleEndDate
+					+'"data-offer_program_code="'+schedule.offerProgram.code
+					+'"data-color="'+schedule.offerProgram.color
+					+'"data-begin_date="'+schedule.offerProgram.simpleBeginDate
+					+'"data-end_date="'+schedule.offerProgram.simpleEndDate
 					+'">'
 					+schedule.scc.name+'</p>'; //추가될 코드
 				
@@ -194,11 +167,11 @@ $(document).on("click", ".cal.wrap.div",function(){
 	var	thisMonth = $(".cal.month").text();
 	var date = pad($(this).children(".cal.date.div").text(),2);
 	
-	$(".input_date").val(thisYear+"-"+thisMonth+"-"+date);
+	$(".m1.input_date").val(thisYear+"-"+thisMonth+"-"+date);
 });
 
 //Create
-$(document).on("click",".btn_create",function() {
+$(document).on("click",".m1.btn_create",function() {
 //	var date = ;
 	var thisYear  = $(".cal.year").text();
 	var	thisMonth = $(".cal.month").text();
@@ -207,12 +180,12 @@ $(document).on("click",".btn_create",function() {
 
 	var checkedDay = new Array(); //선택된 요일 배열
 	
-	if($(".checkbox.week").is(":checked")){ //매주 항목이 선택
-		$(".day:checked").each(function() { //선택된 요일을 배열에 담음
+	if($(".m1.checkbox.week").is(":checked")){ //매주 항목이 선택
+		$(".m1.day:checked").each(function() { //선택된 요일을 배열에 담음
 			checkedDay.push($(this).val());
 		});
 	} else{ //매주 항목이 선택되지 않음
-		dateStrList.push($(".input_date").val());
+		dateStrList.push($(".m1.input_date").val());
 	};
 	
 	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
@@ -234,14 +207,14 @@ $(document).on("click",".btn_create",function() {
 	}
 	
 	var query = {
-			branchCode : 	$(".input.scc.select option:selected").data("branch_code"),
-			sccCode:		$(".input.scc.select option:selected").data("scc_code"),
-			program:		$(".input.program.select").val(),
+			branchCode : 	$(".m1.input.scc.select option:selected").data("branch_code"),
+			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
+			program:		$(".m1.input.program.select").val(),
 			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
-			beginDateStr:	$(".input_begin").val(),
-			endDateStr:		$(".input_end").val(),
+			beginDateStr:	$(".m1.input_begin").val(),
+			endDateStr:		$(".m1.input_end").val(),
 			activeUser:		0,
-			color:			$(".input_color").val().substring(1),
+			color:			$(".m1.input_color").val().substring(1),
 			dateStrList:	dateStrList 
 	};
 	
@@ -261,19 +234,19 @@ $(document).on("click",".btn_create",function() {
 $(document).on("click", ".p_schedule",function(){
 	$(this).addClass("modifying");
 
-	$(".input_date").val($(this).data("date"));
-	//$(".input.scc.select").val($(this).data("date"));
-	$(".input.program.select").val($(this).data("program"));
-	$(".input_color").val("#"+$(this).data("color"));
-	$(".input_begin").val($(this).data("begin_date"));
-	$(".input_end").val($(this).data("end_date"));
+	$(".m1.input_date").val($(this).data("date"));
+	//$(".m1.input.scc.select").val($(this).data("date"));
+	$(".m1.input.program.select").val($(this).data("program"));
+	$(".m1.input_color").val("#"+$(this).data("color"));
+	$(".m1.input_begin").val($(this).data("begin_date"));
+	$(".m1.input_end").val($(this).data("end_date"));
 	
 	//save 버튼 변경
-	$(".btn_create").text("수정").attr("class","btn_modify_save");
+	$(".m1.btn_create").text("수정").attr("class","m1 btn_modify_save");
 	//삭제 버튼 추가
-	$(".p_btn").append('<button class="btn_delete">삭제</button>');
+	$(".m1.p_btn").append('<button class="m1 btn_delete">삭제</button>');
 	//Show mode select radio button 
-	$(".input.wrap.mode.div").css("display","block");
+	$(".m1.input.wrap.mode.div").css("display","block");
 	
 	return false;
 });
@@ -281,17 +254,15 @@ $(document).on("click", ".p_schedule",function(){
 //Disable my mode
 $(document).on("change", "input[type=radio][name=mod]",function(){
 	if($(this).val()==0){ //0: 전체 수정
-		$(".input_date").prop("disabled", true);
-		$(".input.scc.select").prop("disabled", false);
-		$(".input.program.select").prop("disabled", false);
-		$(".input_color").prop("disabled", false); 
-		$(".input_begin").prop("disabled", false);
-		$(".input_end").prop("disabled", false);
-		$(".").prop("disabled", false);
-		$(".").prop("disabled", false);
+		$(".m1.input_date").prop("disabled", true);
+		$(".m1.input.scc.select").prop("disabled", false);
+		$(".m1.input.program.select").prop("disabled", false);
+		$(".m1.input_color").prop("disabled", false); 
+		$(".m1.input_begin").prop("disabled", false);
+		$(".m1.input_end").prop("disabled", false);
 		
 	} else { // 1:선택날짜 수정
-		$(".input_date").prop("disabled", false);
+		$(".m1.input_date").prop("disabled", false);
 	}
 });
 
@@ -301,16 +272,16 @@ $(document).on("click", ".btn_modify_save",function(){
 	var query = {
 			code:			$(".modifying").data("offer_code"),
 			offer:			$(".modifying").data("offer_code"),
-			branchCode: 	$(".input.scc.select option:selected").data("branch_code"),
-			sccCode:		$(".input.scc.select option:selected").data("scc_code"),
-			program:		$(".input.program.select").val(),
+			branchCode: 	$(".m1.input.scc.select option:selected").data("branch_code"),
+			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
+			program:		$(".m1.input.program.select").val(),
 			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
-			beginDateStr:	$(".input_begin").val(),
-			endDateStr:		$(".input_end").val(),
+			beginDateStr:	$(".m1.input_begin").val(),
+			endDateStr:		$(".m1.input_end").val(),
 			activeUser:		0,
-			color:			$(".input_color").val().substring(1),
+			color:			$(".m1.input_color").val().substring(1),
 			schCode:		$(".modifying").data("schedule_code"),
-			schDate:		$(".input_date").val(),
+			schDate:		$(".m1.input_date").val(),
 			modeFlag:		$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
 		};
 		
@@ -330,28 +301,28 @@ $(document).on("click", ".p_schedule",function(){
 });
 
 //Modal Toggle
-$(document).on("click",".btn_create, .modal_background, .btn_modify_save, " +
-		".btn_delete, .btn_reset",function() {
+$(document).on("click",".m1.btn_create, .m1.modal_background, .m1.btn_modify_save, " +
+		".m1.btn_delete, .m1.btn_reset",function() {
 	clearAll();
 });
 
-$(document).on("click",".btn_create, .btn_reset, .btn_modify_save, .btn_delete, .modal_background, " +
+$(document).on("click",".m1.btn_create, .m1.btn_reset, .m1.btn_modify_save, .m1.btn_delete, .m1.modal_background, " +
 		".cal.date.td.usable, .p_schedule",function() {
-	$(".modal, .modal_background").toggle();
+	$(".m1.modal, .m1.modal_background").toggle();
 });
 
 
 
 
 //Set color by selected program
-$(document).on("change", ".input.program.select",function(){
+$(document).on("change", ".m1.input.program.select",function(){
 	var thisYear  = $(".cal.year").text();
 	var	thisMonth = $(".cal.month").text();
 	var regMonth  = thisYear + "-" + thisMonth + "-01";
 		
 	var query = {
 		regMonthStr  :	regMonth,
-		programCode  :	$(".input.program.select").val()
+		programCode  :	$(".m1.input.program.select").val()
 	};
 	
 	$.ajax({
@@ -360,26 +331,26 @@ $(document).on("change", ".input.program.select",function(){
 		data :  query,
 		traditional : true,
 		success : function(data){ 
-			$(".input_color").val("#"+data);
+			$(".m1.input_color").val("#"+data);
 		}
 	})
 });
 
 //Close, Save시 Cat1 input clear
 function clearAll() {
-	$(".input_date").val("");
-	$(".input.scc.select").val("");
-	$(".input.program.select").val("");
-	$(".checkbox.week").prop('checked', false);
-	$(".checkbox.day").prop('checked', false);
+	$(".m1.input_date").val("");
+	$(".m1.input.scc.select").val("");
+	$(".m1.input.program.select").val("");
+	$(".m1.checkbox.week").prop('checked', false);
+	$(".m1.checkbox.day").prop('checked', false);
 	
 	setDefaultValue(); //Set begin, end date 
 	$(".modifying").removeClass("modifying"); //Modifying class
-	$(".btn_delete").remove(); //Delete button
-	$(".btn_modify_save").text("추가").attr("class","btn_create"); //Modify button
-	$(".input.wrap.mode.div").css("display","none"); //Modify mode select button
-	$(".checkbox.day").prop("disabled", true); //checkbox disable
-	$(".input_date").prop("disabled", false); //input date disable
+	$(".m1.btn_delete").remove(); //Delete button
+	$(".m1.btn_modify_save").text("추가").attr("class","m1 btn_create"); //Modify button
+	$(".m1.input.wrap.mode.div").css("display","none"); //Modify mode select button
+	$(".m1.checkbox.day").prop("disabled", true); //checkbox disable
+	$(".m1.input_date").prop("disabled", false); //input date disable
 
 }
 
@@ -413,8 +384,8 @@ function setDefaultValue(){
 	var firstDate = $(".cal.date.div").first().text();
 	var lastDate  = $(".cal.date.div").last().text();
 	//begin and end date
-	$(".input_begin").val(thisYear+"-"+thisMonth+"-"+pad(firstDate,2));
-	$(".input_end").val(thisYear+"-"+thisMonth+"-"+pad(lastDate,2));
+	$(".m1.input_begin").val(thisYear+"-"+thisMonth+"-"+pad(firstDate,2));
+	$(".m1.input_end").val(thisYear+"-"+thisMonth+"-"+pad(lastDate,2));
 }
 
 
@@ -428,14 +399,14 @@ function pad(n, width) {
 
 
 //Weekly checkBox Control
-$(document).on("change",".checkbox.week",function() {
+$(document).on("change",".m1.checkbox.week",function() {
     if($(this).is(':checked')) {
-    	$(".checkbox.day").prop("disabled", false);
-    	$(".input_date").prop("disabled", true);
+    	$(".m1.checkbox.day").prop("disabled", false);
+    	$(".m1.input_date").prop("disabled", true);
     } else {
-    	$(".checkbox.day").prop("disabled", true);
-    	$(".checkbox.day").prop('checked', false);
-    	$(".input_date").prop("disabled", false);
+    	$(".m1.checkbox.day").prop("disabled", true);
+    	$(".m1.checkbox.day").prop('checked', false);
+    	$(".m1.input_date").prop("disabled", false);
     }
 });
 

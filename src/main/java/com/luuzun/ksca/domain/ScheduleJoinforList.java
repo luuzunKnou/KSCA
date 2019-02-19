@@ -4,14 +4,15 @@ public class ScheduleJoinforList {
 	private Offer offer;
 	private SCC scc;
 	private Schedule schedule;
+	private OfferProgram offerProgram;
 	private Program program;
 	
 	@Override
 	public String toString() {
-		return String.format("%nOfferJoinforList [%n**offer=%s, %n**scc=%s, %n**schedule=%s, %n**program=%s]", offer, scc, schedule,
-				program);
+		return String.format("ScheduleJoinforList [offer=%s, scc=%s, schedule=%s, offerProgram=%s, program=%s]", offer,
+				scc, schedule, offerProgram, program);
 	}
-	
+
 	public Offer getOffer() {
 		return offer;
 	}
@@ -29,6 +30,12 @@ public class ScheduleJoinforList {
 	}
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
+	}
+	public OfferProgram getOfferProgram() {
+		return offerProgram;
+	}
+	public void setOfferProgram(OfferProgram offerProgram) {
+		this.offerProgram = offerProgram;
 	}
 	public Program getProgram() {
 		return program;

@@ -51,13 +51,12 @@ public class OfferDAOImpl implements OfferDAO{
 
 	@Override
 	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, 
-			String program, String regMonth) {
+			String program) {
 		Map<String, String> param = new HashMap<>();
 		param.put("areaCode", areaCode);
 		param.put("branchCode", branchCode);
 		param.put("sccCode", sccCode);
 		param.put("program", program);
-		param.put("regMonth", regMonth);
 		
 		return sqlSession.selectOne(namespace+"readForExistCheck",param);
 	}
@@ -71,12 +70,4 @@ public class OfferDAOImpl implements OfferDAO{
 		sqlSession.update(namespace+"updateMonthlyOper", param);
 	}
 
-	@Override
-	public String readProgramColor(int programCode, String regMonth) {
-		Map<String, String> param = new HashMap<>();
-		param.put("programCode", String.valueOf(programCode));
-		param.put("regMonth", regMonth);
-		
-		return sqlSession.selectOne(namespace+"readProgramColor",param);
-	}
 }

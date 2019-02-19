@@ -46,17 +46,12 @@ public class OfferServiceImpl implements OfferService{
 	}
 
 	@Override
-	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program, String regMonth) {
-		return dao.readForExistCheck(areaCode, branchCode, sccCode, program, regMonth);
+	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program) {
+		return dao.readForExistCheck(areaCode, branchCode, sccCode, program);
 	}
 
 	@Override
 	public void updateMonthlyOper(String offerCode, int monthlyOper) {
 		dao.updateMonthlyOper(offerCode, monthlyOper);
-	}
-
-	@Override
-	public String readProgramColor(int programCode, String regMonth) {
-		return dao.readProgramColor(programCode, regMonth);
 	}
 }

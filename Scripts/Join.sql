@@ -48,29 +48,43 @@ SELECT  program.code 	AS pcode,
 		JOIN agency ON program.agency=agency.code
 	WHERE program.code='1';
 
-SELECT * FROM offer;
-SELECT offer.code			 AS code,
-	   offer.area_code		 AS area_code,
-	   offer.branch_code	 AS branch_code,
-	   offer.ssc_code		 AS ssc_code,
-	   offer.program		 AS program,
-	   offer.begin_date		 AS begin_date,
-	   offer.end_date		 AS end_date,	   
-	   offer.monthly_oper	 AS monthly_oper,
-	   offer.active_user	 AS active_user,
-	   offer.color			 AS color,
-	   scc.name				 AS scc_name,
-	   schedule.code		 AS sc_code,
-	   schedule.date		 AS sc_date,
-	   program.name			 AS program_name
+SELECT offer.code				AS code,
+	   offer.area_code			AS area_code,
+	   offer.branch_code		AS branch_code,
+	   offerprogram.reg_month	AS reg_month,
+	   offer.scc_code			AS scc_code,
+	   offer.program			AS program,
+	   offerprogram.begin_date	AS begin_date,
+	   offerprogram.end_date	AS end_date,	   
+	   offer.monthly_oper		AS monthly_oper,
+	   offer.active_user		AS active_user,
+	   offerprogram.color		AS color,
+	   scc.name					AS scc_name,
+	   schedule.code			AS sc_code,
+	   schedule.date			AS sc_date,
+	   program.name				AS program_name
 	FROM offer 
 		JOIN scc ON scc.area_code=offer.area_code 
 					AND scc.branch_code=offer.branch_code
-					AND scc.scc_code=offer.ssc_code
-		JOIN schedule ON schedule.offer=offer.code
-		JOIN program ON offer.program=program.code
+					AND scc.scc_code=offer.scc_code
+		JOIN schedule 	  ON schedule.offer=offer.code
+		JOIN offerprogram ON offer.program=offerprogram.code
+		JOIN program 	  ON offerprogram.program=program.code
 	WHERE offer.area_code='03-01'
-		AND MONTH(schedule.date)='2' 
-		AND YEAR(schedule.date)='2019';
+			AND MONTH(schedule.date)='02'
+			AND YEAR(schedule.date)='2019';
 		-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28');
 
+	
+	
+SELECT  offerprogram.code		AS code,
+		program.name			AS name,
+		offerprogram.reg_month	AS reg_month,
+		offerprogram.begin_date	AS begin_date,
+		offerprogram.end_date	AS end_date,
+		offerprogram.color		AS color,
+		program.code			AS program
+	FROM offerprogram
+		JOIN program ON offerprogram.program=program.code
+	WHERE program.area='03-01'
+		AND offerprogram.reg_month='2019-02-01';

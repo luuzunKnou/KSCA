@@ -19,11 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.Offer;
+import com.luuzun.ksca.domain.OfferProgramJoinForList;
 import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.domain.SCC;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
-import com.luuzun.ksca.persistence.OfferDAO;
+import com.luuzun.ksca.service.OfferProgramService;
 import com.luuzun.ksca.service.OfferService;
 import com.luuzun.ksca.service.ProgramService;
 import com.luuzun.ksca.service.SccService;
@@ -38,6 +39,7 @@ public class ScheduleController {
 	@Inject	private OfferService offerService;
 	@Inject	private SccService sccService;
 	@Inject	private ProgramService programService;
+	@Inject	private OfferProgramService offerProgramService;
 
 	//Schduler Page
 	@RequestMapping(value="/scheduler")
@@ -61,6 +63,22 @@ public class ScheduleController {
 		return "schedule/scheduler";
 	}
 	
+	//Get OfferProgram List
+	@RequestMapping(value="/getOfferProgram")
+	@ResponseBody
+	public List<OfferProgramJoinForList> getOfferProgram(HttpSession session, String regMonth){
+		logger.info("Get OfferProgram..........");
+
+		Manager manager = (Manager) session.getAttribute("login");
+		String areaCode = manager.getArea();
+		
+		List<OfferProgramJoinForList> offerProgramList 
+				= offerProgramService.readOfferProgramJoinForList(
+						areaCode, regMonth);
+	
+		return offerProgramList;
+	}
+	
 	//Get Schedule List
 	@RequestMapping(value="/getSchedule")
 	@ResponseBody
@@ -75,6 +93,7 @@ public class ScheduleController {
 		return scheduleList;
 	}
 	
+	/*
 	//Create Schedule
 	@ResponseBody
 	@RequestMapping(value="/createSchedule", method=RequestMethod.POST)
@@ -146,4 +165,5 @@ public class ScheduleController {
 			scheduleService.update(schedule);
 		}
 	}
+	*/
 }

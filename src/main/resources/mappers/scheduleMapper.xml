@@ -7,17 +7,13 @@
 	<resultMap id="scheduleJoinforList" type="ScheduleJoinforList">
 		<association property="offer" javaType="Offer">
 			<id property="code" 			column="code"/>
-			<result property="areaCode"		column="area_code"/>
-			<result property="regMonth"		column="reg_month"/>
-			<result property="beginDate" 	column="begin_date"/>
-			<result property="endDate" 		column="end_date"/>
 			<result property="monthlyOper"  column="monthly_oper"/>
 			<result property="activeUser" 	column="active_user"/>
-			<result property="color" 		column="color"/>
 		</association>
 		
 		<association property="scc" javaType="Scc">
 			<id property="sccCode" 		  column="scc_code"/>
+			<result property="areaCode"		column="area_code"/>
 			<result property="branchCode" column="branch_code"/>
 			<result property="name" 	  column="scc_name"/>
 		</association>
@@ -26,7 +22,15 @@
 			<id property="code" 	column="sc_code"/>
 			<result property="date" column="sc_date"/>
 		</association>
-
+		
+		<association property="offerProgram" javaType="OfferProgram">
+			<id property="code" 	column="offer_program"/>
+			<result property="regMonth"		column="reg_month"/>
+			<result property="beginDate" 	column="begin_date"/>
+			<result property="endDate" 		column="end_date"/>
+			<result property="color" 		column="color"/>
+		</association>
+		
 		<association property="program" javaType="Program">
 			<id property="code" 	column="program"/>
 			<result property="name" column="program_name"/>
@@ -43,28 +47,30 @@
 	</select>
 	
 	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
-		SELECT offer.code			AS code,
-			   offer.area_code		AS area_code,
-			   offer.branch_code	AS branch_code,
-			   offer.reg_month		AS reg_month,
-			   offer.scc_code		AS scc_code,
-			   offer.program		AS program,
-			   offer.begin_date		AS begin_date,
-			   offer.end_date		AS end_date,	   
-			   offer.monthly_oper	AS monthly_oper,
-			   offer.active_user	AS active_user,
-			   offer.color			AS color,
-			   scc.name				AS scc_name,
-			   schedule.code		AS sc_code,
-			   schedule.date		AS sc_date,
-			   program.name			AS program_name
+		SELECT offer.code				AS code,
+			   offer.area_code			AS area_code,
+			   offer.branch_code		AS branch_code,
+			   offer.scc_code			AS scc_code,
+			   offer.program			AS offer_program,
+			   offer.monthly_oper		AS monthly_oper,
+			   offer.active_user		AS active_user,
+			   offerprogram.program		AS program,
+			   offerprogram.reg_month	AS reg_month,
+			   offerprogram.begin_date	AS begin_date,
+			   offerprogram.end_date	AS end_date,	   
+			   offerprogram.color		AS color,
+			   scc.name					AS scc_name,
+			   schedule.code			AS sc_code,
+			   schedule.date			AS sc_date,
+			   program.name				AS program_name
 			FROM offer 
 				JOIN scc ON scc.area_code=offer.area_code 
 							AND scc.branch_code=offer.branch_code
 							AND scc.scc_code=offer.scc_code
-				JOIN schedule ON schedule.offer=offer.code
-				JOIN program ON offer.program=program.code
-			WHERE offer.area_code=#{areaCode}
+				JOIN schedule 	  ON schedule.offer=offer.code
+				JOIN offerprogram ON offer.program=offerprogram.code
+				JOIN program 	  ON offerprogram.program=program.code
+					WHERE offer.area_code=#{areaCode}
 					AND MONTH(schedule.date)=#{thisMonth}
 					AND YEAR(schedule.date)=#{thisYear};
 					<!-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28'); -->

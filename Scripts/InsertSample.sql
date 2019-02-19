@@ -107,16 +107,21 @@ INSERT INTO scc(area_code, branch_code, scc_code, dong, name, address, reg_date,
 
 -- code area name cat agency
 INSERT INTO program(name, area, cat1, cat2, agency) VALUES 	
-	('스트레칭 건강체조', '03-01', '3001','101',1), -- 1
-	('기초검진체력측정'	, '03-01', '3002','101',2), -- 2
-	('백세건강운동교실'	, '03-01', '3001','101',3); -- 3
+	('스트레칭 건강체조', '03-01', '3001','101',1),
+	('기초검진체력측정'	, '03-01', '3002','101',2),
+	('백세건강운동교실'	, '03-01', '3001','101',3);
 
-
+-- code program reg_month begin_date end_date color
+INSERT INTO offerprogram(program, reg_month, begin_date, end_date, color) VALUES 
+	(1, '2019-02-01', '2019-02-01', '2019-02-28', 'ED1C24'),
+	(2, '2019-02-01', '2019-02-01', '2019-02-28', 'FF7F27'),
+	(3, '2019-02-01', '2019-02-01', '2019-02-28', '22B14C');
+	
 -- code area_code branch_code scc_code program reg_month begin_date end_date monthly_oper active_user color
-INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES 
-	('03-01','99','001', 1, '2019-02-01', '2019-02-01', '2019-02-28', 8, 31, 'ED1C24'),
-	('03-01','99','002', 1, '2019-02-01', '2019-01-01', '2019-01-31', 4, 20, 'ED1C24'),
-	('03-01','99','001', 1, '2018-02-01', '2018-02-01', '2018-02-28', 1, 31, 'ED1C24');
+INSERT INTO offer(area_code, branch_code, scc_code, program, monthly_oper, active_user) VALUES 
+	('03-01','99','001', 1, 8, 31),
+	('03-01','99','002', 1, 4, 20),
+	('03-01','99','001', 1, 1, 31);
 
 -- code offer date
 INSERT INTO schedule(offer, date) VALUES 

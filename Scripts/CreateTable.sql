@@ -99,23 +99,32 @@ CREATE TABLE program (
 		REFERENCES area (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE offerprogram (
+	code         INTEGER     NOT NULL AUTO_INCREMENT, 
+	program      INTEGER     NOT NULL,
+	reg_month	 DATE        NOT NULL,
+	begin_date   DATE        NOT NULL, 
+	end_date     DATE        NOT NULL, 
+	color		 VARCHAR(20) NOT NULL,
+	PRIMARY KEY (code),
+	FOREIGN KEY (program)
+		REFERENCES program (code) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
 CREATE TABLE offer (
 	code         INTEGER     NOT NULL AUTO_INCREMENT, 
 	area_code    VARCHAR(20) NOT NULL,
 	branch_code	 VARCHAR(10) NOT NULL,	
 	scc_code	 VARCHAR(10) NOT NULL,
 	program      INTEGER     NOT NULL,
-	reg_month	 DATE        NOT NULL,
-	begin_date   DATE        NOT NULL, 
-	end_date     DATE        NOT NULL, 
 	monthly_oper INTEGER     NOT NULL, 
 	active_user  INTEGER     NULL,
-	color		 VARCHAR(20) NOT NULL,
 	PRIMARY KEY (code),
 	FOREIGN KEY (area_code, branch_code, scc_code)
 		REFERENCES scc (area_code, branch_code, scc_code) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (program)
-		REFERENCES program (code) ON DELETE CASCADE ON UPDATE CASCADE
+		REFERENCES offerprogram (code) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE schedule (

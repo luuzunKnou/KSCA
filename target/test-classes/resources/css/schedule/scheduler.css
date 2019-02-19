@@ -9,6 +9,7 @@
 .cal_table{
 	width: 100%;
 }
+
 .t_header span{
 	font-family: 'Cabin'; font-weight: bold; font-size: 20px;
 	line-height: 50px;
@@ -21,6 +22,7 @@
 	height : 40px; 
 }
 
+/*  */
 .cal.day.tr {
 	border-top: 2px solid #FFC740; border-bottom: 2px solid #FFC740;
 }
@@ -43,10 +45,22 @@
 	height: 100px auto; width: 33%; float: left;
 }
 
+.p_schedule{
+	font-weight: bold; padding:1px;
+}
+
+/*  */
 .input_color{
 	padding: 0; background-color: white;
 }
 
-.p_schedule{
-	font-weight: bold; padding:1px;
+
+.btn_pro_manager, .btn_load{
+	width: 100px; margin: 5px 5px 0px 5px; border-radius:5px; padding:3px 0;
+	background-color: #e67e22; color: white; border:none; height:25px;
+	float: right;
 }
+
+
+
+

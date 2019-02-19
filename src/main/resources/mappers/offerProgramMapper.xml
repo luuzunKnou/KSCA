@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luuzun.ksca.persistence.OfferProgramDAO">
+	<resultMap id="OfferProgramJoinForList" type="OfferProgramJoinForList">
+		<association property="offerProgram" javaType="OfferProgram">
+			<id property="code" 		 column="code"/>
+			<result property="regMonth"  column="reg_month"/>
+			<result property="beginDate" column="begin_date"/>
+			<result property="endDate" 	 column="end_date"/>
+			<result property="color" 	 column="color"/>
+		</association>
+		
+		<association property="program" javaType="Program">
+			<id property="code" 	column="program"/>
+			<result property="name" column="name"/>
+		</association>
+		
+		<association property="agency" javaType="Agency">
+			<id property="code" 		column="agc_code"/>
+			<result property="name" 	column="agc_name"/>
+		</association>
+	</resultMap>
+	
+	<select id="read" resultType="OfferProgram">
+		SELECT * From offerProgram 
+			WHERE code=#{code}; 
+	</select>
+	
+	
+	<select id="readOfferProgramJoinForList" resultMap="OfferProgramJoinForList">
+		SELECT  offerprogram.code		AS code,
+				program.name			AS name,
+				agency.code				AS agc_code,
+				agency.name				AS agc_name,
+				offerprogram.reg_month	AS reg_month,
+				offerprogram.begin_date	AS begin_date,
+				offerprogram.end_date	AS end_date,
+				offerprogram.color		AS color,
+				program.code			AS program
+			FROM offerprogram
+				JOIN program ON offerprogram.program=program.code
+				JOIN agency  ON program.agency=agency.code 
+			WHERE program.area=#{areaCode}
+				AND offerprogram.reg_month=#{regMonth};
+	</select>
+
+	
+	
+	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
+		INSERT INTO offerProgram(program, reg_month, begin_date, end_date, color) VALUES
+			(#{program}, #{regMonth}, #{beginDate}, #{endDate}, #{color});
+	</insert>
+	
+	<update id="update">
+		UPDATE offerProgram	
+			<set> 
+				<if test="program 	!= null"> program	 =#{program}, </if>
+				<if test="regMonth 	!= null"> reg_month	 =#{regMonth}, </if>
+				<if test="beginDate != null"> begin_date =#{beginDate}, </if>
+				<if test="endDate  	!= null"> end_date	 =#{endDate}, </if>
+				<if test="color  	!= null"> color		 =#{color} </if>
+			</set>
+			WHERE code=#{code}; 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM offerProgram 
+			WHERE code=#{code} 
+	</delete>
+</mapper>

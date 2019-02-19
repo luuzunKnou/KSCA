@@ -29,12 +29,8 @@ public class OfferDAOTest {
 		offer.setBranchCode("99");
 		offer.setSccCode("001");
 		offer.setProgram("1");
-		offer.setSimpleRegMonth("2019-02-01");
-		offer.setSimpleBeginDate("2019-02-01");
-		offer.setSimpleEndDate("2019-02-28");
 		offer.setMonthlyOper(8);
 		offer.setActiveUser(10);
-		offer.setColor("FFFFFF");
 		dao.create(offer);
 	}
 	
@@ -45,12 +41,8 @@ public class OfferDAOTest {
 		offer.setBranchCode("99");
 		offer.setSccCode("002");
 		offer.setProgram("2");
-		offer.setSimpleRegMonth("2019-02-01");
-		offer.setSimpleBeginDate("2019-02-01");
-		offer.setSimpleEndDate("2019-02-28");
 		offer.setMonthlyOper(8);
 		offer.setActiveUser(10);
-		offer.setColor("FFFFFF");
 		dao.update(offer);
 	}
 	
@@ -76,16 +68,11 @@ public class OfferDAOTest {
 	
 	@Test
 	public void test_07_readForExistCheck() throws Exception{
-		logger.info(dao.readForExistCheck("03-01","99","002","1","2019-02-01").toString());
+		logger.info(dao.readForExistCheck("03-01","99","002","1").toString());
 	}
 	
 	@Test
 	public void test_08_updateMonthlyOper() throws Exception{
 		dao.updateMonthlyOper("1",10);
-	}
-
-	@Test
-	public void test_09_readProgramColor() throws Exception{
-		logger.info(dao.readProgramColor(1,"2019-02-01"));
 	}
 }

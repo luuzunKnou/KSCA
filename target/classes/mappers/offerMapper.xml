@@ -7,11 +7,11 @@
 	
 	
 	<select id="listAll" resultType="Offer">
-		SELECT * From offer
+		SELECT * FROM offer
 	</select>
 	
 	<select id="read" resultType="Offer">
-		SELECT * From offer 
+		SELECT * FROM offer 
 			WHERE code=#{code}; 
 	</select>
 	
@@ -25,22 +25,12 @@
 			WHERE area_code=#{areaCode}
 				AND branch_code	=#{branchCode}
 				AND scc_code	=#{sccCode}
-				AND program		=#{program}
-				AND reg_month	=#{regMonth};
-	</select>
-	
-	<select id="readProgramColor" resultType="String">
-		SELECT color FROM offer 
-			WHERE program=#{programCode}
-				AND reg_month=#{regMonth} 
-			GROUP BY color 
-			ORDER BY 
-				count(*) DESC LIMIT 1;
+				AND program		=#{program};
 	</select>
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
-		INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES
-			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{regMonth}, #{beginDate}, #{endDate}, #{monthlyOper}, #{activeUser}, #{color});
+		INSERT INTO offer(area_code, branch_code, scc_code, program, monthly_oper, active_user) VALUES
+			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{monthlyOper}, #{activeUser});
 	</insert>
 	
 	<update id="updateMonthlyOper">
@@ -56,12 +46,8 @@
 				<if test="branchCode  != null"> branch_code	=#{branchCode}, </if>
 				<if test="sccCode     != null"> scc_code	=#{sccCode}, </if>
 				<if test="program  	  != null"> program		=#{program}, </if>
-				<if test="regMonth    != null"> reg_month	=#{regMonth}, </if>
-				<if test="beginDate   != null"> begin_date	=#{beginDate}, </if>
-				<if test="endDate  	  != null"> end_date	=#{endDate}, </if>
 				<if test="monthlyOper != null"> monthly_oper=#{monthlyOper}, </if>
 				<if test="activeUser  != null"> active_user	=#{activeUser}, </if>
-				<if test="color  	  != null"> color		=#{color} </if>
 			</set>
 			WHERE code=#{code}; 
 	</update>

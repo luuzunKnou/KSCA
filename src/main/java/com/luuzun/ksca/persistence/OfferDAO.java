@@ -11,7 +11,6 @@ public interface OfferDAO {
 	public void update(Offer offer) throws Exception;
 	public void delete(String code) throws Exception;
 	public List<Offer> readByAreaCode(String areaCode);
-	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program, String regMonth);
+	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program);
 	public void updateMonthlyOper(String offerCode, int monthlyOper);
-	public String readProgramColor(int programCode, String regMonth);
 }
