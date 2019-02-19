@@ -170,7 +170,16 @@ function setSchedule(){
 				
 				//addCode
 				addCode = '<p class="p_schedule" style="color:#'+schedule.offer.color+';"'
-					+'data-offer_code="'+schedule.offer.code+'">'
+					+'data-offer_code="'+schedule.offer.code
+					+'"data-schedule_code="'+schedule.schedule.code
+					+'"data-date="'+schedule.schedule.simpleDate
+					+'"data-branch_code="'+schedule.scc.branchCode
+					+'"data-scc_code="'+schedule.scc.sccCode
+					+'"data-program="'+schedule.program.code
+					+'"data-color="'+schedule.offer.color
+					+'"data-begin_date="'+schedule.offer.simpleBeginDate
+					+'"data-end_date="'+schedule.offer.simpleEndDate
+					+'">'
 					+schedule.scc.name+'</p>'; //추가될 코드
 				
 				destDiv.append(addCode); //코드 추가
@@ -231,13 +240,10 @@ $(document).on("click",".btn_create",function() {
 			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
 			beginDateStr:	$(".input_begin").val(),
 			endDateStr:		$(".input_end").val(),
-			monthlyOper:	0,
 			activeUser:		0,
 			color:			$(".input_color").val().substring(1),
 			dateStrList:	dateStrList 
 	};
-	
-	console.log(query);
 	
 	$.ajax({
 		url  : "/schedule/createSchedule",
@@ -251,16 +257,16 @@ $(document).on("click",".btn_create",function() {
 	
 });
 
-//Modify
+//Modify button clicked
 $(document).on("click", ".p_schedule",function(){
 	$(this).addClass("modifying");
 
-	$(".input_date").val();
-	$(".input.scc.select").val();
-	$(".input.program.select").val();
-	$(".input.color").val();
-	$(".input_begin").val();
-	$(".input_end").val();
+	$(".input_date").val($(this).data("date"));
+	//$(".input.scc.select").val($(this).data("date"));
+	$(".input.program.select").val($(this).data("program"));
+	$(".input_color").val("#"+$(this).data("color"));
+	$(".input_begin").val($(this).data("begin_date"));
+	$(".input_end").val($(this).data("end_date"));
 	
 	//save 버튼 변경
 	$(".btn_create").text("수정").attr("class","btn_modify_save");
@@ -272,8 +278,56 @@ $(document).on("click", ".p_schedule",function(){
 	return false;
 });
 
-//Delete
+//Disable my mode
+$(document).on("change", "input[type=radio][name=mod]",function(){
+	if($(this).val()==0){ //0: 전체 수정
+		$(".input_date").prop("disabled", true);
+		$(".input.scc.select").prop("disabled", false);
+		$(".input.program.select").prop("disabled", false);
+		$(".input_color").prop("disabled", false); 
+		$(".input_begin").prop("disabled", false);
+		$(".input_end").prop("disabled", false);
+		$(".").prop("disabled", false);
+		$(".").prop("disabled", false);
+		
+	} else { // 1:선택날짜 수정
+		$(".input_date").prop("disabled", false);
+	}
+});
 
+
+//Modify AJAX
+$(document).on("click", ".btn_modify_save",function(){
+	var query = {
+			code:			$(".modifying").data("offer_code"),
+			offer:			$(".modifying").data("offer_code"),
+			branchCode: 	$(".input.scc.select option:selected").data("branch_code"),
+			sccCode:		$(".input.scc.select option:selected").data("scc_code"),
+			program:		$(".input.program.select").val(),
+			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
+			beginDateStr:	$(".input_begin").val(),
+			endDateStr:		$(".input_end").val(),
+			activeUser:		0,
+			color:			$(".input_color").val().substring(1),
+			schCode:		$(".modifying").data("schedule_code"),
+			schDate:		$(".input_date").val(),
+			modeFlag:		$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
+		};
+		
+		$.ajax({
+			url  : "/schedule/modifySchedule",
+			type : "post",
+			data :  query,
+			traditional : true,
+			success : function(data){ 
+				$(".input_color").val("#"+data);
+			}
+		})
+});
+
+//Delete AJAX
+$(document).on("click", ".p_schedule",function(){
+});
 
 //Modal Toggle
 $(document).on("click",".btn_create, .modal_background, .btn_modify_save, " +
@@ -287,6 +341,29 @@ $(document).on("click",".btn_create, .btn_reset, .btn_modify_save, .btn_delete, 
 });
 
 
+
+
+//Set color by selected program
+$(document).on("change", ".input.program.select",function(){
+	var thisYear  = $(".cal.year").text();
+	var	thisMonth = $(".cal.month").text();
+	var regMonth  = thisYear + "-" + thisMonth + "-01";
+		
+	var query = {
+		regMonthStr  :	regMonth,
+		programCode  :	$(".input.program.select").val()
+	};
+	
+	$.ajax({
+		url  : "/schedule/setColor",
+		type : "post",
+		data :  query,
+		traditional : true,
+		success : function(data){ 
+			$(".input_color").val("#"+data);
+		}
+	})
+});
 
 //Close, Save시 Cat1 input clear
 function clearAll() {

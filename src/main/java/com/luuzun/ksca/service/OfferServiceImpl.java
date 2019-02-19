@@ -54,4 +54,9 @@ public class OfferServiceImpl implements OfferService{
 	public void updateMonthlyOper(String offerCode, int monthlyOper) {
 		dao.updateMonthlyOper(offerCode, monthlyOper);
 	}
+
+	@Override
+	public String readProgramColor(int programCode, String regMonth) {
+		return dao.readProgramColor(programCode, regMonth);
+	}
 }

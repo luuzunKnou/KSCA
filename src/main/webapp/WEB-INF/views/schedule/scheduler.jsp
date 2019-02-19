@@ -96,8 +96,8 @@
 		<div class="input wrap mode div">
 			<label>수정 방식 선택</label>
 			<div class="input inner mode div">
-				<input type="radio" name="mod" value="">전체 수정
-				<input type="radio" name="mod" value="">선택된 날짜만 수정
+				<input type="radio" name="mod" value="0" checked="checked">전체 수정
+				<input type="radio" name="mod" value="1" >선택된 날짜만 수정
 			</div>
 		</div> 
 	</form>

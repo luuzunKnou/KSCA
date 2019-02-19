@@ -23,6 +23,7 @@ import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.domain.SCC;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
+import com.luuzun.ksca.persistence.OfferDAO;
 import com.luuzun.ksca.service.OfferService;
 import com.luuzun.ksca.service.ProgramService;
 import com.luuzun.ksca.service.SccService;
@@ -77,7 +78,7 @@ public class ScheduleController {
 	//Create Schedule
 	@ResponseBody
 	@RequestMapping(value="/createSchedule", method=RequestMethod.POST)
-	public ResponseEntity<String> createProgram(HttpSession session, Offer offer, 
+	public ResponseEntity<String> createSchedule(HttpSession session, Offer offer, 
 			String regMonthStr, String beginDateStr, String endDateStr,	String[] dateStrList) {
 
 		logger.info("Create Schedule..........");
@@ -126,5 +127,23 @@ public class ScheduleController {
 		return entity;
 	}
 	
+	//Set Color when program selected
+	@ResponseBody
+	@RequestMapping(value="/setColor", method=RequestMethod.POST)
+	public String setColor(String regMonthStr, int programCode) {
+		return offerService.readProgramColor(programCode, regMonthStr);
+	}
 	
+	//Modify Schedule
+	@ResponseBody
+	@RequestMapping(value="/modifySchedule", method=RequestMethod.POST)
+	public void modifySchedule(Offer offer, Schedule schedule, String schCode, String schDate, 
+			String modeFlag) throws Exception {
+	
+		if(modeFlag=="0") { //전체 수정
+			offerService.update(offer);
+		} else { //선택 날짜 수정
+			scheduleService.update(schedule);
+		}
+	}
 }

@@ -9,7 +9,6 @@
 			<id property="code" 			column="code"/>
 			<result property="areaCode"		column="area_code"/>
 			<result property="regMonth"		column="reg_month"/>
-			<result property="branchCode" 	column="branch_code"/>
 			<result property="beginDate" 	column="begin_date"/>
 			<result property="endDate" 		column="end_date"/>
 			<result property="monthlyOper"  column="monthly_oper"/>
@@ -18,8 +17,9 @@
 		</association>
 		
 		<association property="scc" javaType="Scc">
-			<id property="sccCode" 	column="scc_code"/>
-			<result property="name" column="scc_name"/>
+			<id property="sccCode" 		  column="scc_code"/>
+			<result property="branchCode" column="branch_code"/>
+			<result property="name" 	  column="scc_name"/>
 		</association>
 		
 		<association property="schedule" javaType="Schedule">

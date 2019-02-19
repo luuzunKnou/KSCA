@@ -83,5 +83,9 @@ public class OfferDAOTest {
 	public void test_08_updateMonthlyOper() throws Exception{
 		dao.updateMonthlyOper("1",10);
 	}
-	
+
+	@Test
+	public void test_09_readProgramColor() throws Exception{
+		logger.info(dao.readProgramColor(1,"2019-02-01"));
+	}
 }

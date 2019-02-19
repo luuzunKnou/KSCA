@@ -70,4 +70,13 @@ public class OfferDAOImpl implements OfferDAO{
 		
 		sqlSession.update(namespace+"updateMonthlyOper", param);
 	}
+
+	@Override
+	public String readProgramColor(int programCode, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("programCode", String.valueOf(programCode));
+		param.put("regMonth", regMonth);
+		
+		return sqlSession.selectOne(namespace+"readProgramColor",param);
+	}
 }

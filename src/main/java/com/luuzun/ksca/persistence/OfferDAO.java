@@ -13,4 +13,5 @@ public interface OfferDAO {
 	public List<Offer> readByAreaCode(String areaCode);
 	public Offer readForExistCheck(String areaCode, String branchCode, String sccCode, String program, String regMonth);
 	public void updateMonthlyOper(String offerCode, int monthlyOper);
+	public String readProgramColor(int programCode, String regMonth);
 }

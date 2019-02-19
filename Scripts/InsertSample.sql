@@ -66,7 +66,7 @@ INSERT INTO branch(area_code, branch_code, branch) VALUES
 
 -- area_code branch_code scc_code dong name address reg_date site building member male female own tel president phone manager area      
 INSERT INTO scc(area_code, branch_code, scc_code, dong, name, address, reg_date, site, building, member, male, female, own, tel, president, phone) VALUES 
-	('03-01','99','001','남산동','반월당삼정그린코아12345678910','국채보상로 679-13','1997.04.29','224.80','220.4',28,10,18,'공설','053-421-5222','김혜수','010-5135-4777'),
+	('03-01','99','001','남산동','반월당삼정그린코아   ','국채보상로 679-13','1997.04.29','224.80','220.4',28,10,18,'공설','053-421-5222','김혜수','010-5135-4777'),
 	('03-01','99','002','남산동','남산그린빌'			,'봉산문화길1-43'   ,'1998.04.29','120.40','120.4',38,20,18,'사설','053-421-5222','박성광','010-5135-4777'),
 	('03-01','99','003','동인동','동인시티'  			,'달성로21길 44-133','1999.04.29','350.20','345.4',48,30,18,'공설','053-421-5222','장동건','010-5135-4777'),
 	('03-01','99','004','동인동','건들바위'  			,'달구벌대로 1975'  ,'2000.04.29','100.80','98.4' ,58,40,18,'사설','053-421-5222','김동현','010-5135-4777'),
@@ -115,7 +115,7 @@ INSERT INTO program(name, area, cat1, cat2, agency) VALUES
 -- code area_code branch_code scc_code program reg_month begin_date end_date monthly_oper active_user color
 INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES 
 	('03-01','99','001', 1, '2019-02-01', '2019-02-01', '2019-02-28', 8, 31, 'ED1C24'),
-	('03-01','99','002', 1, '2019-02-01', '2019-01-01', '2019-01-31', 4, 20, '3F48CC'),
+	('03-01','99','002', 1, '2019-02-01', '2019-01-01', '2019-01-31', 4, 20, 'ED1C24'),
 	('03-01','99','001', 1, '2018-02-01', '2018-02-01', '2018-02-28', 1, 31, 'ED1C24');
 
 -- code offer date

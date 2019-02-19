@@ -29,6 +29,15 @@
 				AND reg_month	=#{regMonth};
 	</select>
 	
+	<select id="readProgramColor" resultType="String">
+		SELECT color FROM offer 
+			WHERE program=#{programCode}
+				AND reg_month=#{regMonth} 
+			GROUP BY color 
+			ORDER BY 
+				count(*) DESC LIMIT 1;
+	</select>
+	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO offer(area_code, branch_code, scc_code, program, reg_month, begin_date, end_date, monthly_oper, active_user, color) VALUES
 			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{regMonth}, #{beginDate}, #{endDate}, #{monthlyOper}, #{activeUser}, #{color});
