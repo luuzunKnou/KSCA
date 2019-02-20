@@ -147,11 +147,7 @@ function setSchedule(){
 					+'"data-date="'+schedule.schedule.simpleDate
 					+'"data-branch_code="'+schedule.scc.branchCode
 					+'"data-scc_code="'+schedule.scc.sccCode
-					+'"data-program="'+schedule.program.code
 					+'"data-offer_program_code="'+schedule.offerProgram.code
-					+'"data-color="'+schedule.offerProgram.color
-					+'"data-begin_date="'+schedule.offerProgram.simpleBeginDate
-					+'"data-end_date="'+schedule.offerProgram.simpleEndDate
 					+'">'
 					+schedule.scc.name+'</p>'; //추가될 코드
 				
@@ -274,15 +270,10 @@ $(document).on("click", ".p_schedule",function(){
 	return false;
 });
 
-//Disable my mode
+//Disable mode
 $(document).on("change", "input[type=radio][name=mod]",function(){
 	if($(this).val()==0){ //0: 전체 수정
 		$(".m1.input_date").prop("disabled", true);
-		$(".m1.input.scc.select").prop("disabled", false);
-		$(".m1.input.program.select").prop("disabled", false);
-		$(".m1.input_color").prop("disabled", false); 
-		$(".m1.input_begin").prop("disabled", false);
-		$(".m1.input_end").prop("disabled", false);
 		
 	} else { // 1:선택날짜 수정
 		$(".m1.input_date").prop("disabled", false);
@@ -291,42 +282,40 @@ $(document).on("change", "input[type=radio][name=mod]",function(){
 
 
 //Modify AJAX
-//$(document).on("click", "",function(){
-//	var query = {
-//			code:			$(".modifying").data("offer_code"),
-//			offer:			$(".modifying").data("offer_code"),
-//			branchCode: 	$(".m1.input.scc.select option:selected").data("branch_code"),
-//			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
-//			program:		$(".m1.input.program.select").val(),
-//			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
-//			beginDateStr:	$(".m1.input_begin").val(),
-//			endDateStr:		$(".m1.input_end").val(),
-//			activeUser:		0,
-//			color:			$(".m1.input_color").val(),
-//			schCode:		$(".modifying").data("schedule_code"),
-//			schDate:		$(".m1.input_date").val(),
-//			modeFlag:		$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
-//		};
-//		
-//		$.ajax({
-//			url  : "/schedule/modifySchedule",
-//			type : "post",
-//			data :  query,
-//			traditional : true,
-//			success : function(data){ 
-//				$(".input_color").val("#"+data);
-//			}
-//		})
-//});
+$(document).on("click", ".m1.btn_modify_save",function(){
+	var query = {
+			code:			$(".modifying").data("offer_code"),
+			offer:			$(".modifying").data("offer_code"),
+			branchCode: 	$(".m1.input.scc.select option:selected").data("branch_code"),
+			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
+			program:		$(".m1.input.program.select").val(),
+			activeUser:		0,
+			schCode:		$(".modifying").data("schedule_code"),
+			dateStr:		$(".m1.input_date").val(),
+			modeFlag:		$("input[name=mod]:checked").val(), //0: 전체 수정, 1:선택날짜 수정
+			dateStrList:	dateStrList 
+		};
+		
+		$.ajax({
+			url  : "/schedule/modifySchedule",
+			type : "post",
+			data :  query,
+			traditional : true,
+			success : function(data){ 
+				$(".input_color").val("#"+data);
+			}
+		})
+});
 
 //Delete AJAX
-$(document).on("click", ".p_schedule",function(){
+$(document).on("click", ".m1.btn_delete",function(){
 });
 
 //Modal Toggle
 $(document).on("click",".m1.btn_create, .m1.modal_background, .m1.btn_modify_save, " +
 		".m1.btn_delete, .m1.btn_reset",function() {
-	clearAll();
+	clearM1All();
+	console.log("clear");
 });
 
 $(document).on("click",".m1.btn_create, .m1.btn_reset, .m1.btn_modify_save, .m1.btn_delete, .m1.modal_background, " +
@@ -335,32 +324,8 @@ $(document).on("click",".m1.btn_create, .m1.btn_reset, .m1.btn_modify_save, .m1.
 });
 
 
-
-
-//Set color by selected program
-$(document).on("change", ".m1.input.program.select",function(){
-	var thisYear  = $(".cal.year").text();
-	var	thisMonth = $(".cal.month").text();
-	var regMonth  = thisYear + "-" + thisMonth + "-01";
-		
-	var query = {
-		regMonthStr  :	regMonth,
-		programCode  :	$(".m1.input.program.select").val()
-	};
-	
-	$.ajax({
-		url  : "/schedule/setColor",
-		type : "post",
-		data :  query,
-		traditional : true,
-		success : function(data){ 
-			$(".m1.input_color").val("#"+data);
-		}
-	})
-});
-
 //Close, Save시 Cat1 input clear
-function clearAll() {
+function clearM1All() {
 	$(".m1.input_date").val("");
 	$(".m1.input.scc.select").val("");
 	$(".m1.input.program.select").val("");
@@ -374,7 +339,6 @@ function clearAll() {
 	$(".m1.input.wrap.mode.div").css("display","none"); //Modify mode select button
 	$(".m1.checkbox.day").prop("disabled", true); //checkbox disable
 	$(".m1.input_date").prop("disabled", false); //input date disable
-
 }
 
 

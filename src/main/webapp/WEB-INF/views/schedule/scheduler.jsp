@@ -80,8 +80,8 @@
 		<div class="m1 input wrap mode div">
 			<label>수정 방식 선택</label>
 			<div class="m1 input inner mode div">
-				<input type="radio" name="mod" value="0" checked="checked">전체 수정
-				<input type="radio" name="mod" value="1" >선택된 날짜만 수정
+				<input type="radio" name="mod" value="0" checked="checked">선택된 프로그램 수정/삭제
+				<input type="radio" name="mod" value="1" >선택된 날짜 수정/삭제
 			</div>
 		</div> 
 	</form>

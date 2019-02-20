@@ -241,14 +241,6 @@ public class ScheduleController {
 		return entity;
 	}
 	
-	/*
-	//Set Color when program selected
-	@ResponseBody
-	@RequestMapping(value="/setColor", method=RequestMethod.POST)
-	public String setColor(String regMonthStr, int programCode) {
-		return offerService.readProgramColor(programCode, regMonthStr);
-	}
-	
 	//Modify Schedule
 	@ResponseBody
 	@RequestMapping(value="/modifySchedule", method=RequestMethod.POST)
@@ -261,5 +253,4 @@ public class ScheduleController {
 			scheduleService.update(schedule);
 		}
 	}
-	*/
 }

@@ -122,7 +122,7 @@ $(document).on("click", ".m2.btn_delete",function(){
 
 //Modify Reset 
 $(document).on("click", ".m2.btn_modify_reset",function(){
-	clearAll();
+	clearM2All();
 	return false;
 });
 
@@ -157,18 +157,18 @@ $(document).on("change",".m2.input.pname",function() {
 
 
 //Modal Toggle
-$(document).on("click",".m2.modal_background, .btn_reset, .m2.btn_modify_save",function() {
-	clearAll();
+$(document).on("click",".m2.modal_background, .m2.btn_reset, .m2.btn_modify_save",function() {
+	clearM2All();
 	return false;
 });
 
-$(document).on("click",".btn_pro_manager, .m2.modal_background, .btn_reset",function() {
+$(document).on("click",".btn_pro_manager, .m2.modal_background, .m2.btn_reset",function() {
 	$(".m2.modal, .m2.modal_background").toggle(); 
 });
 
 
 //Close, Save시 Cat1 input clear
-function clearAll() {
+function clearM2All() {
 	$(".m2.input.color").val("#000000");
 	$(".m2.input.pname").val("");
 	setDefaultValue(); //Set begin, end date 
