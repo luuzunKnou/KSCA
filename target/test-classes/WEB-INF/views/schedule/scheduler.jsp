@@ -69,27 +69,6 @@
 			</div>
 		</div>
 		
-		<div class="m1 input wrap color div">
-			<label>색상</label>
-			<div class="m1 input inner color div">
-				<input type='color' name='color' class="m1 input_color"/>
-			</div>
-		</div>
-		 
-		<div class="m1 input wrap begin div">
-			<label>기간 시작</label>
-			<div class="m1 input inner begin div">
-				<input type="text" class="m1 input_begin">
-			</div>
-		</div>
-		
-		<div class="m1 input wrap end div">
-			<label>기간 종료</label>
-			<div class="m1 input inner end div">
-				<input type="text" class="m1 input_end">
-			</div>
-		</div>
-		
 		<div class="m1 input week div">
 			<label>주간 반복 </label><input type="checkbox" name="weekly" class="m1 checkbox week">
 			<div class="m1 input day div">
@@ -117,47 +96,51 @@
 </div>
 <div class="m1 modal_background"></div>
 
-<!-- The Modal-->
+<!-- The Modal 2 -->
 <div class="m2 modal">
 	<!-- Modal content -->
+	<div class="pro_list_div">
 	<table class="pro_list_table">
-		<tr>
-			<th>프로그램 이름</th>
-			<th>색상</th>
-			<th>시작 날짜</th>
-			<th>종료 날짜</th>
+		<tr> 
+			<th class="list color">색상</th>
+			<th class="list pname">프로그램 이름</th>
+			<th class="list begin">시작 날짜</th>
+			<th class="list end">종료 날짜</th> <th></th><th></th>
 		</tr>
 	</table>
-
-	<form>	
-		<input type="hidden" class="input_offer_code">
-		
+	</div>
+	
+	<form class="pro_form">	
+		<input type="hidden" class="input_offer_program_code">
 		<table class="pro_form_table">
 			<tr>
-				<th>프로그램 이름</th>
 				<th>색상</th>
+				<th>프로그램 이름</th>
 				<th>시작 날짜</th>
 				<th>종료 날짜</th>
 			</tr>
 			<tr>
+				<td class="input_color_td">
+					<input type='color' name='color' class="m2 input color"/>
+				</td>
 				<td>
-					<select class="input program select">
+					<select class="m2 input pname">
 						<option selected="selected" value="">- 선택 -</option>
 						<c:forEach var="program" items="${programList}">
 							<option value="${program.program.code}">${program.program.name}&nbsp&nbsp(${program.agency.name})</option>
 						</c:forEach>
 					</select>
 				</td>
-				<td><input type='color' name='color' class="input_color"/></td>
-				<td><input type="text" class="input_begin"></td>
-				<td><input type="text" class="input_end"></td>
+				<td><input type="text" class="input begin"></td>
+				<td><input type="text" class="input end"></td>
 			</tr>
 		</table>
+		<span id="checkCode">&nbsp</span>
+		<p class="m2 p_btn">
+			<button class="m2 btn_create" onclick='return false;'>추가</button>
+			<button class="m2 btn_reset">취소</button>
+		</p>
 	</form>
-	<p class="m2 p_btn">
-		<button class="m2 btn_create">추가</button>
-		<button class="m2 btn_reset">취소</button>
-	</p>
 </div>
 <div class="m2 modal_background"></div>
 <%@ include file="../include/footer.jsp"%> 

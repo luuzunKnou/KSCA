@@ -13,4 +13,5 @@ public interface OfferProgramDAO {
 	
 	public List<OfferProgramJoinForList> readOfferProgramJoinForList(
 			String areaCode, String regMonth);
+	public OfferProgram readForCheck(String program, String regMonth);
 }

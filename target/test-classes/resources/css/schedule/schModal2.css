@@ -3,14 +3,14 @@
 .m2.modal {
     display: none;
     position: fixed;
-    background-color: #FAFBFC;
+    background-color: white;
     z-index: 11;
     padding: 20px;
     overflow: hidden;
 	border: 1px solid #e67e22;
 
-	left: calc( 50% - 400px ); top: calc( 50% - 350px );
-	width: 800px; height: 600px; 
+	left: calc( 50% - 332px ); top: calc( 50% - 370px );
+	width: 634px; height: 700px; 
 }
  
 .m2.modal_background{
@@ -22,17 +22,46 @@
     z-index: 10;
 }
 
-.m2.btn_create, .m2.btn_reset, .m2.btn_modify_save, .m2.btn_delete{
+.m2.btn_create, .m2.btn_reset, .m2.btn_modify_save, .m2.btn_modify_reset{
 	width: 60px; margin: 5px 5px 0px 5px; border-radius:5px; padding:3px 0;
 	background-color: #e67e22; color: white; border:none; height:25px;
 }
 
-.pro_list_table, pro_form_table{
-	width: 100%;
-}
-
 .pro_list_table td, .pro_list_table th, .pro_form_table td, .pro_form_table th{
-	padding: 0px; border: 1px solid #FFC740;
+	padding: 5px; border: 1px solid #FFC740;
 }
-/* Modal input */
 
+.pro_list_div{
+	overflow-y: scroll; height: 600px;
+}
+
+.pro_form{
+	position: absolute; bottom: 15px;
+}
+.pro_list_table th, .pro_form_table th{
+	font-weight: bold;
+}
+.m2.btn_delete, .m2.btn_modify{
+	width: 40px; border-radius:3px; padding:3px 0; height: 20px;
+	background-color: #e67e22; color: white; border:none;  
+}
+
+/* Modal table */
+.list.pname {width: 350px;}
+.list.color {width: 30px;}
+.list.begin {width: 100px; text-align: center;}
+.list.end	{width: 100px; text-align: center;} 
+.color_div	{width: 30px; height: 20px;}
+
+/* Modal input */
+.input.pname {width: 350px;} 
+.input.color {width: 30px; border: none; padding: 0; background-color: white; 
+	margin: -5px; width: 40px; height: 30px;}
+.input.begin {width: 100px; text-align: center;}
+.input.end	 {width: 100px; text-align: center;} 
+
+.input {border: 1px solid #A9A9A9;}
+
+.m2.p_btn {margin-top: -40px}
+
+#checkCode {line-height: 50px;}

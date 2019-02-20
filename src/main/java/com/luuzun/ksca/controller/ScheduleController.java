@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.Offer;
+import com.luuzun.ksca.domain.OfferProgram;
 import com.luuzun.ksca.domain.OfferProgramJoinForList;
 import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.domain.SCC;
@@ -77,6 +79,91 @@ public class ScheduleController {
 						areaCode, regMonth);
 	
 		return offerProgramList;
+	}
+	
+	//Create Offer Program
+	@ResponseBody
+	@RequestMapping(value="/createOfferProgram", method=RequestMethod.POST)
+	public ResponseEntity<String> createOfferProgram(OfferProgram offerProgram, 
+			String regMonthStr, String beginDateStr, String endDateStr) {
+
+		logger.info("Create Offer Program..........");
+		
+		ResponseEntity<String> entity = null;
+		
+		//DateType Attribute
+		offerProgram.setSimpleRegMonth(regMonthStr);
+		offerProgram.setSimpleBeginDate(beginDateStr);
+		offerProgram.setSimpleEndDate(endDateStr);
+		
+		try {
+			offerProgramService.create(offerProgram);
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+	
+	
+	//Delete Offer Program
+	@ResponseBody
+	@RequestMapping(value="/deleteOfferProgram", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteOfferProgram(String offerProgramCode) {
+
+		logger.info("Delete Offer Program..........");
+		ResponseEntity<String> entity = null;
+		
+		try {
+			offerProgramService.delete(offerProgramCode);
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+	
+	
+	//Modify Offer Program
+	@ResponseBody
+	@RequestMapping(value="/modifyOfferProgram", method=RequestMethod.POST)
+	public ResponseEntity<String> modifyOfferProgram(OfferProgram offerProgram, 
+			String regMonthStr, String beginDateStr, String endDateStr) {
+
+		logger.info("Modify Offer Program..........");
+		
+		ResponseEntity<String> entity = null;
+		
+		//DateType Attribute
+		offerProgram.setSimpleRegMonth(regMonthStr);
+		offerProgram.setSimpleBeginDate(beginDateStr);
+		offerProgram.setSimpleEndDate(endDateStr);
+		
+		try {
+			offerProgramService.update(offerProgram);
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+		
+	//Check OfferProgram
+	@ResponseBody
+	@RequestMapping(value="/checkOfferProgram", method=RequestMethod.POST)
+	public int checkOfferProgram(HttpServletRequest req, String program, String regMonthStr) throws Exception{
+		logger.info("Check Duplication OfferProgram");
+		 
+		 OfferProgram offerProgram 
+		 	= offerProgramService.readForCheck(program, regMonthStr);
+		 
+		 if(offerProgram != null) { //중복시 0 반환
+			 return 0;
+		 } 
+		 return 1;
 	}
 	
 	//Get Schedule List

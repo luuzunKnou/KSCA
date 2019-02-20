@@ -48,4 +48,13 @@ public class OfferProgramDAOImpl implements OfferProgramDAO{
 
 		return sqlSession.selectList(namespace+"readOfferProgramJoinForList",param);
 	}
+
+	@Override
+	public OfferProgram readForCheck(String program, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("program", program);
+		param.put("regMonth", regMonth);
+
+		return sqlSession.selectOne(namespace+"readForCheck",param);
+	}
 }

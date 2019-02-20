@@ -227,6 +227,7 @@ function clear(){
 	$(".input.president").val("");
 	$(".input.phone").val("");
 	$(".modifying").removeClass("modifying");
+	$("#p_checkCode").text("");
 }
 
 //n에 width 자리수에 맞게 0 추가

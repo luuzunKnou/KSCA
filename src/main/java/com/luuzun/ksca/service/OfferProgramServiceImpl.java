@@ -40,4 +40,9 @@ public class OfferProgramServiceImpl implements OfferProgramService{
 	public List<OfferProgramJoinForList> readOfferProgramJoinForList(String areaCode, String regMonth) {
 		return dao.readOfferProgramJoinForList(areaCode, regMonth);
 	}
+
+	@Override
+	public OfferProgram readForCheck(String program, String regMonth) {
+		return dao.readForCheck(program, regMonth);
+	}
 }

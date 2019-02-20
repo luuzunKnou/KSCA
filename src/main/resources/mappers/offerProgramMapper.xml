@@ -29,6 +29,11 @@
 			WHERE code=#{code}; 
 	</select>
 	
+	<select id="readForCheck" resultType="OfferProgram">
+		SELECT * From offerProgram 
+			WHERE program=#{program}
+				AND reg_month=#{regMonth}; 
+	</select>
 	
 	<select id="readOfferProgramJoinForList" resultMap="OfferProgramJoinForList">
 		SELECT  offerprogram.code		AS code,

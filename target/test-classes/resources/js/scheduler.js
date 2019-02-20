@@ -268,33 +268,33 @@ $(document).on("change", "input[type=radio][name=mod]",function(){
 
 
 //Modify AJAX
-$(document).on("click", ".btn_modify_save",function(){
-	var query = {
-			code:			$(".modifying").data("offer_code"),
-			offer:			$(".modifying").data("offer_code"),
-			branchCode: 	$(".m1.input.scc.select option:selected").data("branch_code"),
-			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
-			program:		$(".m1.input.program.select").val(),
-			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
-			beginDateStr:	$(".m1.input_begin").val(),
-			endDateStr:		$(".m1.input_end").val(),
-			activeUser:		0,
-			color:			$(".m1.input_color").val().substring(1),
-			schCode:		$(".modifying").data("schedule_code"),
-			schDate:		$(".m1.input_date").val(),
-			modeFlag:		$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
-		};
-		
-		$.ajax({
-			url  : "/schedule/modifySchedule",
-			type : "post",
-			data :  query,
-			traditional : true,
-			success : function(data){ 
-				$(".input_color").val("#"+data);
-			}
-		})
-});
+//$(document).on("click", "",function(){
+//	var query = {
+//			code:			$(".modifying").data("offer_code"),
+//			offer:			$(".modifying").data("offer_code"),
+//			branchCode: 	$(".m1.input.scc.select option:selected").data("branch_code"),
+//			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
+//			program:		$(".m1.input.program.select").val(),
+//			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
+//			beginDateStr:	$(".m1.input_begin").val(),
+//			endDateStr:		$(".m1.input_end").val(),
+//			activeUser:		0,
+//			color:			$(".m1.input_color").val(),
+//			schCode:		$(".modifying").data("schedule_code"),
+//			schDate:		$(".m1.input_date").val(),
+//			modeFlag:		$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
+//		};
+//		
+//		$.ajax({
+//			url  : "/schedule/modifySchedule",
+//			type : "post",
+//			data :  query,
+//			traditional : true,
+//			success : function(data){ 
+//				$(".input_color").val("#"+data);
+//			}
+//		})
+//});
 
 //Delete AJAX
 $(document).on("click", ".p_schedule",function(){
@@ -375,18 +375,6 @@ $(document).on("mouseout",".p_schedule",function() {
 	$(this).css("text-decoration", "none");
 });
 
-
-
-//Set modal default value(begin, end date )
-function setDefaultValue(){
-	var thisYear  = $(".cal.year").text();
-	var	thisMonth = $(".cal.month").text();
-	var firstDate = $(".cal.date.div").first().text();
-	var lastDate  = $(".cal.date.div").last().text();
-	//begin and end date
-	$(".m1.input_begin").val(thisYear+"-"+thisMonth+"-"+pad(firstDate,2));
-	$(".m1.input_end").val(thisYear+"-"+thisMonth+"-"+pad(lastDate,2));
-}
 
 
 
