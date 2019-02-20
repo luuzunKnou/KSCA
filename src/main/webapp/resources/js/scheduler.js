@@ -161,18 +161,45 @@ function setSchedule(){
 	})
 }
 
-//On Call create
+//On create clicked
 $(document).on("click", ".cal.wrap.div",function(){
 	var thisYear  = $(".cal.year").text();
 	var	thisMonth = $(".cal.month").text();
 	var date = pad($(this).children(".cal.date.div").text(),2);
-	
 	$(".m1.input_date").val(thisYear+"-"+thisMonth+"-"+date);
+	setOfferProgramList();
 });
+
+//On Create clicked Set ProgramList
+function setOfferProgramList(){
+	var dest = $(".m1.input.program.select");
+	var regMonth = $(".cal.year").text()+"-"+$(".cal.month").text()+"-01";
+	var query = {
+		regMonth : regMonth
+	};
+
+	dest.children().remove(); //기존에 append된 정보는 삭제 
+	
+	$.ajax({
+		url  : "/schedule/getOfferProgram",
+		type : "post",
+		data : query,
+		success : function(data){
+			var addCode='<option selected="selected" value="">- 선택 -</option>';
+			$.each(data, function(idx, data) {
+				addCode += 
+					"<option value='"+data.offerProgram.code+"' "+
+						"style='color:#"+data.offerProgram.color+"';>" +
+						data.program.name+"&nbsp&nbsp("+data.agency.name+")"+
+					"</option>"
+			})
+			dest.append(addCode); //코드 추가
+		}
+	})
+};
 
 //Create
 $(document).on("click",".m1.btn_create",function() {
-//	var date = ;
 	var thisYear  = $(".cal.year").text();
 	var	thisMonth = $(".cal.month").text();
 	
@@ -190,12 +217,12 @@ $(document).on("click",".m1.btn_create",function() {
 	
 	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
   
-	var checkDate = new Date(); //요일을 체크할 날짜 세팅
+	var checkDate = new Date(); //요일을 체크할 날짜 Set
 	checkDate.setFullYear(thisYear);
 	checkDate.setMonth(thisMonth);
 	
 	for(i=1; i<=lastDay; i++){
-		checkDate.setDate(i); //체크할 날짜 세팅
+		checkDate.setDate(i); //체크할 날짜 Set
 		
 		for(j=0; j<=checkedDay.length; j++){ //체크할 날짜의 요일과 선택된 요일 배열 비교
 			if(checkedDay[j]==checkDate.getDay()){
@@ -210,11 +237,7 @@ $(document).on("click",".m1.btn_create",function() {
 			branchCode : 	$(".m1.input.scc.select option:selected").data("branch_code"),
 			sccCode:		$(".m1.input.scc.select option:selected").data("scc_code"),
 			program:		$(".m1.input.program.select").val(),
-			regMonthStr:	$(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
-			beginDateStr:	$(".m1.input_begin").val(),
-			endDateStr:		$(".m1.input_end").val(),
 			activeUser:		0,
-			color:			$(".m1.input_color").val().substring(1),
 			dateStrList:	dateStrList 
 	};
 	

@@ -59,11 +59,16 @@ public class ScheduleController {
 		//Input Select를 위한 SCC, Program List
 		List<SCC> sccList = sccService.readByAreaCode(areaCode);
 		List<ProgramJoinForList> programList = programService.readProgramJoinForList(areaCode);
-		model.addAttribute("sccList",sccList);
-		model.addAttribute("programList",programList);
+		model.addAttribute("sccList",sccList); //Used on Offer Modal
+		model.addAttribute("programList",programList); //Used on Offer Program Modal
 		
 		return "schedule/scheduler";
 	}
+	
+	
+	
+	
+	
 	
 	//Get OfferProgram List
 	@RequestMapping(value="/getOfferProgram")
@@ -166,6 +171,14 @@ public class ScheduleController {
 		 return 1;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	//Get Schedule List
 	@RequestMapping(value="/getSchedule")
 	@ResponseBody
@@ -180,12 +193,10 @@ public class ScheduleController {
 		return scheduleList;
 	}
 	
-	/*
 	//Create Schedule
 	@ResponseBody
 	@RequestMapping(value="/createSchedule", method=RequestMethod.POST)
-	public ResponseEntity<String> createSchedule(HttpSession session, Offer offer, 
-			String regMonthStr, String beginDateStr, String endDateStr,	String[] dateStrList) {
+	public ResponseEntity<String> createSchedule(HttpSession session, Offer offer, String[] dateStrList) {
 
 		logger.info("Create Schedule..........");
 		
@@ -196,17 +207,14 @@ public class ScheduleController {
 		
 		//Set AreaCode And DateType Attribute
 		offer.setAreaCode(areaCode);
-		offer.setSimpleRegMonth(regMonthStr);
-		offer.setSimpleBeginDate(beginDateStr);
-		offer.setSimpleEndDate(endDateStr);
+
 		
 		try {
 			String offerCode;
 			Offer checkOffer;
-			//areaCode, branchCode, sccCode, programm, regMonth가 같으면 같은 offer임.
+			//areaCode, branchCode, sccCode, program이 같으면 같은 offer임.
 			checkOffer = offerService.readForExistCheck(
-					areaCode, offer.getBranchCode(), offer.getSccCode(), 
-					offer.getProgram(), offer.getSimpleRegMonth());
+					areaCode, offer.getBranchCode(), offer.getSccCode(), offer.getProgram());
 			if( checkOffer != null) {
 				offerCode = checkOffer.getCode(); //존재하는 offer code를 가져옴
 			} else {
@@ -233,6 +241,7 @@ public class ScheduleController {
 		return entity;
 	}
 	
+	/*
 	//Set Color when program selected
 	@ResponseBody
 	@RequestMapping(value="/setColor", method=RequestMethod.POST)

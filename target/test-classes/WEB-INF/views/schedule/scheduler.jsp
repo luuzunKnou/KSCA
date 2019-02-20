@@ -61,10 +61,7 @@
 			<label>프로그램</label>
 			<div class="m1 input inner program div">
 				<select class="m1 input program select">
-					<option selected="selected" value="">- 선택 -</option>
-					<c:forEach var="program" items="${programList}">
-						<option value="${program.program.code}">${program.program.name}&nbsp&nbsp(${program.agency.name})</option>
-					</c:forEach>
+					<!-- Add option from JQuery -->
 				</select>
 			</div>
 		</div>
@@ -72,11 +69,11 @@
 		<div class="m1 input week div">
 			<label>주간 반복 </label><input type="checkbox" name="weekly" class="m1 checkbox week">
 			<div class="m1 input day div">
-				<input type="checkbox" name="day" class="checkbox day" value="1" disabled="disabled">월
-				<input type="checkbox" name="day" class="checkbox day" value="2" disabled="disabled">화
-				<input type="checkbox" name="day" class="checkbox day" value="3" disabled="disabled">수
-				<input type="checkbox" name="day" class="checkbox day" value="4" disabled="disabled">목
-				<input type="checkbox" name="day" class="checkbox day" value="5" disabled="disabled">금
+				<input type="checkbox" name="day" class="m1 checkbox day" value="1" disabled="disabled">월
+				<input type="checkbox" name="day" class="m1 checkbox day" value="2" disabled="disabled">화
+				<input type="checkbox" name="day" class="m1 checkbox day" value="3" disabled="disabled">수
+				<input type="checkbox" name="day" class="m1 checkbox day" value="4" disabled="disabled">목
+				<input type="checkbox" name="day" class="m1 checkbox day" value="5" disabled="disabled">금
 			</div>
 		</div>
 		
@@ -131,8 +128,8 @@
 						</c:forEach>
 					</select>
 				</td>
-				<td><input type="text" class="input begin"></td>
-				<td><input type="text" class="input end"></td>
+				<td><input type="text" class="m2 input begin"></td>
+				<td><input type="text" class="m2 input end"></td>
 			</tr>
 		</table>
 		<span id="checkCode">&nbsp</span>

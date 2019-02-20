@@ -55,7 +55,7 @@ option {text-align: center;}
 				line-height: 30px; width: 385px;
 			}
 
-.p_btn {margin-top:20px; width : 100%; text-align: center; overflow: hidden;}
+.m1.p_btn {margin-top:20px; width : 100%; text-align: center; overflow: hidden;}
 
 .m1.input.program.select, .m1.input.scc.select {
 	width: 390px; height: 30px; border: 1px solid #e67e22; 

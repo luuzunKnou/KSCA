@@ -10,7 +10,7 @@ function setOfferProgram(){
 	};
 	
 	$.each($(".pro_list_table tr"), function(i, elt) { 
-		if(i!=0){ //첫 번째 tr 제외(th)
+		if(i!=0){ //첫 번째 tr(th) 제외
 			$(this).empty(); 
 		}
 	}) //기존에 append된 정보는 삭제 
@@ -21,9 +21,9 @@ function setOfferProgram(){
 		data : query,
 		success : function(data){
 			var destTable = $(".pro_list_table");
-			
+			var addCode;
 			$.each(data, function(idx, data) {
-				var addCode = "<tr data-offer_program_code="+data.offerProgram.code+">" 
+				addCode += "<tr data-offer_program_code="+data.offerProgram.code+">" 
 					+"<td class='list color' data-color='"+data.offerProgram.color+"';>"
 					+	"<div class='color_div' style='background-color:#"+data.offerProgram.color+"';></div>"
 					+"</td>" 
@@ -33,8 +33,8 @@ function setOfferProgram(){
 					+'<td><button class="m2 btn_modify">수정</button></td>'
 					+'<td><button class="m2 btn_delete">삭제</button></td>'
 					+"</tr>";
-				destTable.append(addCode); //코드 추가
 			})
+			destTable.append(addCode); //코드 추가
 		}
 	})
 }

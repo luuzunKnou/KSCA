@@ -60,8 +60,8 @@
 .input.begin {width: 100px; text-align: center;}
 .input.end	 {width: 100px; text-align: center;} 
 
-.input {border: 1px solid #A9A9A9;}
+.m2.input {border: 1px solid #A9A9A9;} 
 
-.m2.p_btn {margin-top: -40px}
+.m2.p_btn {margin-top: -40px; text-align: center;}
 
 #checkCode {line-height: 50px;}
