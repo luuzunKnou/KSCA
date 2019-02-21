@@ -26,11 +26,11 @@ public class BranchDAOImpl implements BranchDAO{
 
 	@Override
 	public Branch read(String areaCode, String branchCode) throws Exception {
-		Map<String, String> code = new HashMap<>();
-		code.put("areaCode", areaCode);
-		code.put("branchCode", branchCode);
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
 		
-		return sqlSession.selectOne(namespace+"read",code);
+		return sqlSession.selectOne(namespace+"read",param);
 	}
 
 	@Override
@@ -40,21 +40,21 @@ public class BranchDAOImpl implements BranchDAO{
 
 	@Override
 	public void update(String destAreaCode, String destBranchCode, Branch branch) throws Exception {
-		Map<String, String> update = new HashMap<>();
-		update.put("destAreaCode", destAreaCode);
-		update.put("destBranchCode", destBranchCode);
-		update = FieldToMapUtill.getInstance().putAllField(update, branch);
+		Map<String, String> param = new HashMap<>();
+		param.put("destAreaCode", destAreaCode);
+		param.put("destBranchCode", destBranchCode);
+		param = FieldToMapUtill.getInstance().putAllField(param, branch);
 
-		sqlSession.update(namespace+"update", update);
+		sqlSession.update(namespace+"update", param);
 	}
 
 	@Override
 	public void delete(String areaCode, String branchCode) throws Exception {
-		Map<String, String> code = new HashMap<>();
-		code.put("areaCode", areaCode);
-		code.put("branchCode", branchCode);
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
 		
-		sqlSession.delete(namespace+"delete", code);
+		sqlSession.delete(namespace+"delete", param);
 	}
 
 	@Override

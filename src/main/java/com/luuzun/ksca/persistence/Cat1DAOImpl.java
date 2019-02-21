@@ -37,11 +37,11 @@ public class Cat1DAOImpl implements Cat1DAO{
 
 	@Override
 	public void update(String destCode, Cat1 cat1) throws Exception {
-		Map<String, String> update = new HashMap<>();
-		update.put("destCode", destCode);
-		update = FieldToMapUtill.getInstance().putAllField(update, cat1);
+		Map<String, String> param = new HashMap<>();
+		param.put("destCode", destCode);
+		param = FieldToMapUtill.getInstance().putAllField(param, cat1);
 		
-		sqlSession.update(namespace+"update", update);
+		sqlSession.update(namespace+"update", param);
 	}
 
 	@Override

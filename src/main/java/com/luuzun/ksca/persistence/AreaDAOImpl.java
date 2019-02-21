@@ -36,11 +36,11 @@ public class AreaDAOImpl implements AreaDAO{
 
 	@Override
 	public void update(String destCode, Area area) throws Exception {
-		Map<String, String> update = new HashMap<>();
-		update.put("destCode", destCode);
-		update = FieldToMapUtill.getInstance().putAllField(update, area);
+		Map<String, String> param = new HashMap<>();
+		param.put("destCode", destCode);
+		param = FieldToMapUtill.getInstance().putAllField(param, area);
 		
-		sqlSession.update(namespace+"update", update);
+		sqlSession.update(namespace+"update", param);
 	}
 
 	@Override

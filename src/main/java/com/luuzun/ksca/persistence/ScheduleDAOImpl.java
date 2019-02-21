@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
+import com.luuzun.ksca.utill.FieldToMapUtill;
 
 @Repository
 public class ScheduleDAOImpl implements ScheduleDAO{
@@ -60,5 +61,30 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("scheduleList", scheduleList);
 		sqlSession.insert(namespace+"createMany", param);
+	}
+	
+	@Override
+	public void updateByOffer(String offer, Schedule schedule) throws Exception {
+		Map<String, String> param = new HashMap<>();
+		param.put("destOffer", offer);
+		param.put("simpleDate", schedule.getSimpleDate());
+		param = FieldToMapUtill.getInstance().putAllField(param, schedule);
+
+		sqlSession.update(namespace+"updateByOffer", param);
+	}
+
+	@Override
+	public void deleteByOffer(String destOffer) throws Exception {
+		sqlSession.delete(namespace+"deleteByOffer", destOffer);
+	}
+
+	@Override
+	public int checkDuplicate(String offerCode, Schedule schedule) {
+		Map<String, String> param = new HashMap<>();
+		param.put("destOffer", offerCode);
+		param.put("simpleDate", schedule.getSimpleDate());
+		param = FieldToMapUtill.getInstance().putAllField(param, schedule);
+
+		return sqlSession.selectOne(namespace+"checkDuplicate",param);
 	}
 }

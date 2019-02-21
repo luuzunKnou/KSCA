@@ -26,11 +26,11 @@ public class SccDAOImpl implements SccDAO{
 
 	@Override
 	public SCC read(String areaCode, String branchCode, String sccCode) throws Exception {
-		Map<String, String> code = new HashMap<>();
-		code.put("areaCode", areaCode);
-		code.put("branchCode", branchCode);
-		code.put("sccCode", sccCode);
-		return sqlSession.selectOne(namespace+"read",code);
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
+		param.put("sccCode", sccCode);
+		return sqlSession.selectOne(namespace+"read",param);
 	}
 
 	@Override
@@ -40,23 +40,23 @@ public class SccDAOImpl implements SccDAO{
 
 	@Override
 	public void update(String destAreaCode, String destBranchCode, String destSccCode, SCC scc) throws Exception {
-		Map<String, String> update = new HashMap<>();
-		update.put("destAreaCode", destAreaCode);
-		update.put("destBranchCode", destBranchCode);
-		update.put("destSccCode", destSccCode);
-		update.put("simpleRegDate",scc.getSimpleRegDate()); //for update SQL formatting
-		update = FieldToMapUtill.getInstance().putAllField(update, scc);
+		Map<String, String> param = new HashMap<>();
+		param.put("destAreaCode", destAreaCode);
+		param.put("destBranchCode", destBranchCode);
+		param.put("destSccCode", destSccCode);
+		param.put("simpleRegDate",scc.getSimpleRegDate()); //for update SQL formatting
+		param = FieldToMapUtill.getInstance().putAllField(param, scc);
 		
-		sqlSession.update(namespace+"update", update);
+		sqlSession.update(namespace+"update", param);
 	}
 
 	@Override
 	public void delete(String areaCode, String branchCode, String sccCode) throws Exception {
-		Map<String, String> code = new HashMap<>();
-		code.put("areaCode", areaCode);
-		code.put("branchCode", branchCode);
-		code.put("sccCode", sccCode);
-		sqlSession.delete(namespace+"delete", code);
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
+		param.put("sccCode", sccCode);
+		sqlSession.delete(namespace+"delete", param);
 	}
 
 	@Override
@@ -66,10 +66,10 @@ public class SccDAOImpl implements SccDAO{
 
 	@Override
 	public List<SCC> readByBranchCode(String areaCode, String branchCode) {
-		Map<String, String> code = new HashMap<>();
-		code.put("areaCode", areaCode);
-		code.put("branchCode", branchCode);
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("branchCode", branchCode);
 		
-		return sqlSession.selectList(namespace+"readByBranchCode",code);
+		return sqlSession.selectList(namespace+"readByBranchCode",param);
 	}
 }

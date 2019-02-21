@@ -15,4 +15,8 @@ SELECT color FROM offer
 	GROUP BY color 
 	ORDER BY 
 		count(*) DESC LIMIT 1;
-	
+
+SELECT count(*) From schedule
+	WHERE offer=1;
+
+ SELECT count(*) From schedule WHERE offer='1' AND date='2019-02-01 00:00:00'; 

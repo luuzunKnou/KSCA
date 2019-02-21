@@ -26,11 +26,11 @@ public class Cat2DAOImpl implements Cat2DAO{
 
 	@Override
 	public Cat2 read(String code, String cat1) throws Exception {
-		Map<String, String> codeMap = new HashMap<>();
-		codeMap.put("code", code);
-		codeMap.put("cat1", cat1);
+		Map<String, String> param = new HashMap<>();
+		param.put("code", code);
+		param.put("cat1", cat1);
 		
-		return sqlSession.selectOne(namespace+"read",codeMap);
+		return sqlSession.selectOne(namespace+"read",param);
 	}
 
 	@Override
@@ -40,21 +40,21 @@ public class Cat2DAOImpl implements Cat2DAO{
 
 	@Override
 	public void update(String destCode, String destCat1, Cat2 cat2) throws Exception {
-		Map<String, String> update = new HashMap<>();
-		update.put("destCode", destCode);
-		update.put("destCat1", destCat1);
-		update = FieldToMapUtill.getInstance().putAllField(update, cat2);
+		Map<String, String> param = new HashMap<>();
+		param.put("destCode", destCode);
+		param.put("destCat1", destCat1);
+		param = FieldToMapUtill.getInstance().putAllField(param, cat2);
 		
-		sqlSession.update(namespace+"update", update);
+		sqlSession.update(namespace+"update", param);
 	}
 
 	@Override
 	public void delete(String code, String cat1) throws Exception {
-		Map<String, String> codeMap = new HashMap<>();
-		codeMap.put("code", code);
-		codeMap.put("cat1", cat1);
+		Map<String, String> param = new HashMap<>();
+		param.put("code", code);
+		param.put("cat1", cat1);
 		
-		sqlSession.delete(namespace+"delete", codeMap);
+		sqlSession.delete(namespace+"delete", param);
 	}
 
 	@Override

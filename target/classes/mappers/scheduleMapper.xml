@@ -43,7 +43,13 @@
 	
 	<select id="read" resultType="Schedule">
 		SELECT * From schedule 
-			WHERE code=#{code}; 
+			WHERE code=#{code};
+	</select>
+	
+	<select id="checkDuplicate" resultType="int">
+		SELECT count(*) From schedule
+			WHERE offer=#{destOffer}
+				AND date=#{simpleDate};
 	</select>
 	
 	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
@@ -97,8 +103,21 @@
 			WHERE code=#{code}; 
 	</update>
 	
+	<update id="updateByOffer">
+		UPDATE schedule	
+			<set> 
+				<if test="offer != null"> offer	=#{destOffer}, </if>
+			</set>
+			WHERE offer=#{offer}; 
+	</update>
+	
 	<delete id="delete">
 		DELETE FROM schedule 
-			WHERE code=#{code} 
+			WHERE code=#{code};
+	</delete>
+	
+	<delete id="deleteByOffer">
+		DELETE FROM schedule 
+			WHERE offer=#{destOffer};
 	</delete>
 </mapper>

@@ -31,10 +31,10 @@ public class ManagerDAOImpl implements ManagerDAO{
 	
 	@Override
 	public Manager readForLogin(String id, String password) {
-		Map<String, String> managerInfo = new HashMap<>();
-		managerInfo.put("id", id);
-		managerInfo.put("password", password);
-		return sqlSession.selectOne(namespace+"readForLogin", managerInfo);
+		Map<String, String> param = new HashMap<>();
+		param.put("id", id);
+		param.put("password", password);
+		return sqlSession.selectOne(namespace+"readForLogin", param);
 	}
 
 	@Override

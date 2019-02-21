@@ -14,4 +14,8 @@ public interface ScheduleDAO {
 
 	public List<ScheduleJoinforList> scheduleJoinforList(String areaCode, String thisMonth, String thisYear);
 	public void createMany (List<Schedule> scheduleList) throws Exception;
+	
+	public void updateByOffer(String offer, Schedule schedule) throws Exception;
+	public void deleteByOffer(String offer) throws Exception;
+	public int checkDuplicate(String offerCode, Schedule schedule);
 }

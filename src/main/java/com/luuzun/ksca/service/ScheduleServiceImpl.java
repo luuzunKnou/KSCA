@@ -50,4 +50,19 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public void createMany(List<Schedule> scheduleList) throws Exception {
 		dao.createMany(scheduleList);
 	}
+	
+	@Override
+	public void updateByOffer(String offer, Schedule schedule) throws Exception{
+		dao.updateByOffer(offer, schedule);
+	}
+
+	@Override
+	public void deleteByOffer(String offer) throws Exception{
+		dao.deleteByOffer(offer);
+	}
+
+	@Override
+	public int checkDuplicate(String offerCode, Schedule schedule) {
+		return dao.checkDuplicate(offerCode, schedule);
+	}
 }

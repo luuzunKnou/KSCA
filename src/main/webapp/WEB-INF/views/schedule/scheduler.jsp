@@ -51,7 +51,7 @@
  					<option selected="selected" value="">- 선택 -</option>
 					<c:forEach var="scc" items="${sccList}">
 						<option data-branch_code="${scc.branchCode}" data-scc_code="${scc.sccCode}"
-							>${scc.name}</option>	
+							value="${scc.branchCode}-${scc.sccCode}">${scc.name}</option>	
 					</c:forEach> 
  				</select>
 			</div>
@@ -80,8 +80,8 @@
 		<div class="m1 input wrap mode div">
 			<label>수정 방식 선택</label>
 			<div class="m1 input inner mode div">
-				<input type="radio" name="mod" value="0" checked="checked">선택된 프로그램 수정/삭제
-				<input type="radio" name="mod" value="1" >선택된 날짜 수정/삭제
+				<input type="radio" name="mod" value="0" class="mode_all">프로그램 전체 수정(삭제)
+				<input type="radio" name="mod" value="1" class="mode_one">선택된 날짜만 수정(삭제)
 			</div>
 		</div> 
 	</form>

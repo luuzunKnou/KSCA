@@ -167,7 +167,7 @@ $(document).on("click", ".cal.wrap.div",function(){
 });
 
 //On Create clicked Set ProgramList
-function setOfferProgramList(){
+function setOfferProgramList(setList, value){
 	var dest = $(".m1.input.program.select");
 	var regMonth = $(".cal.year").text()+"-"+$(".cal.month").text()+"-01";
 	var query = {
@@ -190,44 +190,16 @@ function setOfferProgramList(){
 					"</option>"
 			})
 			dest.append(addCode); //코드 추가
+			if(setList!=null && value!=null){
+				setList.val(value);
+			}
 		}
 	})
 };
 
 //Create
 $(document).on("click",".m1.btn_create",function() {
-	var thisYear  = $(".cal.year").text();
-	var	thisMonth = $(".cal.month").text();
-	
-	var dateStrList = new Array(); //ajax로 전송할 배열
-
-	var checkedDay = new Array(); //선택된 요일 배열
-	
-	if($(".m1.checkbox.week").is(":checked")){ //매주 항목이 선택
-		$(".m1.day:checked").each(function() { //선택된 요일을 배열에 담음
-			checkedDay.push($(this).val());
-		});
-	} else{ //매주 항목이 선택되지 않음
-		dateStrList.push($(".m1.input_date").val());
-	};
-	
-	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
-  
-	var checkDate = new Date(); //요일을 체크할 날짜 Set
-	checkDate.setFullYear(thisYear);
-	checkDate.setMonth(thisMonth);
-	
-	for(i=1; i<=lastDay; i++){
-		checkDate.setDate(i); //체크할 날짜 Set
-		
-		for(j=0; j<=checkedDay.length; j++){ //체크할 날짜의 요일과 선택된 요일 배열 비교
-			if(checkedDay[j]==checkDate.getDay()){
-				dateStrList.push(checkDate.getFullYear()+"-"+	
-					pad(checkDate.getMonth(),2)+"-"+
-					pad(checkDate.getDate(),2)); //배열에 스케쥴을 입력할 날짜 push
-			} 
-		}
-	}
+	var dateStrList = getDateList(); //ajax로 전송할 배열
 	
 	var query = {
 			branchCode : 	$(".m1.input.scc.select option:selected").data("branch_code"),
@@ -249,16 +221,53 @@ $(document).on("click",".m1.btn_create",function() {
 	
 });
 
+
+//주간반복, 요일 체크에 따라 Date Str 생성
+function getDateList(){
+	var thisYear  = $(".cal.year").text();
+	var	thisMonth = $(".cal.month").text();
+	
+	var dateStrList = new Array(); //ajax로 전송할 배열
+	var checkedDay = new Array(); //선택된 요일 배열
+	
+	if($(".m1.checkbox.week").is(":checked")){ //매주 항목이 선택
+		$(".m1.day:checked").each(function() { //선택된 요일을 배열에 담음
+			checkedDay.push($(this).val());
+		});
+	} else{ //매주 항목이 선택되지 않음
+		dateStrList.push($(".m1.input_date").val());
+	};
+	
+	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
+  
+	var checkDate = new Date(); //요일을 체크할 Year/Month Set
+	checkDate.setFullYear(thisYear);
+	checkDate.setMonth(thisMonth);
+	
+	for(i=1; i<=lastDay; i++){
+		checkDate.setDate(i); //체크할 Date Set
+		
+		for(j=0; j<=checkedDay.length; j++){ //체크할 날짜의 요일과 선택된 요일 배열 비교
+			if(checkedDay[j]==checkDate.getDay()){
+				dateStrList.push(checkDate.getFullYear()+"-"+	
+					pad(checkDate.getMonth(),2)+"-"+
+					pad(checkDate.getDate(),2)); //배열에 스케쥴을 입력할 날짜 push
+			} 
+		}
+	}
+	
+	return dateStrList;
+}
+
+
 //Modify button clicked
 $(document).on("click", ".p_schedule",function(){
 	$(this).addClass("modifying");
+	
 
 	$(".m1.input_date").val($(this).data("date"));
-	//$(".m1.input.scc.select").val($(this).data("date"));
-	$(".m1.input.program.select").val($(this).data("program"));
-	$(".m1.input_color").val("#"+$(this).data("color"));
-	$(".m1.input_begin").val($(this).data("begin_date"));
-	$(".m1.input_end").val($(this).data("end_date"));
+	$(".m1.input.scc.select").val($(this).data("branch_code")+"-"+$(this).data("scc_code"));
+	setOfferProgramList($(".m1.input.program.select"), $(this).data("offer_program_code"));
 	
 	//save 버튼 변경
 	$(".m1.btn_create").text("수정").attr("class","m1 btn_modify_save");
@@ -267,22 +276,13 @@ $(document).on("click", ".p_schedule",function(){
 	//Show mode select radio button 
 	$(".m1.input.wrap.mode.div").css("display","block");
 	
+	$(".m1.input_date").prop("disabled", true);
 	return false;
 });
 
-//Disable mode
-$(document).on("change", "input[type=radio][name=mod]",function(){
-	if($(this).val()==0){ //0: 전체 수정
-		$(".m1.input_date").prop("disabled", true);
-		
-	} else { // 1:선택날짜 수정
-		$(".m1.input_date").prop("disabled", false);
-	}
-});
-
-
 //Modify AJAX
 $(document).on("click", ".m1.btn_modify_save",function(){
+	var dateStrList = getDateList(); //ajax로 전송할 배열
 	var query = {
 			code:			$(".modifying").data("offer_code"),
 			offer:			$(".modifying").data("offer_code"),
@@ -301,10 +301,10 @@ $(document).on("click", ".m1.btn_modify_save",function(){
 			type : "post",
 			data :  query,
 			traditional : true,
-			success : function(data){ 
-				$(".input_color").val("#"+data);
-			}
-		})
+			success : function(data){
+				setSchedule();
+		}
+	})
 });
 
 //Delete AJAX
@@ -339,6 +339,8 @@ function clearM1All() {
 	$(".m1.input.wrap.mode.div").css("display","none"); //Modify mode select button
 	$(".m1.checkbox.day").prop("disabled", true); //checkbox disable
 	$(".m1.input_date").prop("disabled", false); //input date disable
+	
+	$(".mode_all").prop("checked", true); //Mode
 }
 
 
@@ -372,21 +374,41 @@ function pad(n, width) {
 }
 
 
+//Disable by mode
+$(document).on("change", "input[type=radio][name=mod]",function(){
+	if($(this).val()==0){ //0: 전체 수정
+		$(".m1.input_date").prop("disabled", true);
+		$(".m1.checkbox.week").prop("disabled", false).prop("checked", true);
+		enableDayCheck();
+	} else { // 1:선택날짜 수정
+		$(".m1.input_date").prop("disabled", false);
+		$(".m1.checkbox").prop("disabled", true).prop("checked", false);
+	}
+});
 
 //Weekly checkBox Control
 $(document).on("change",".m1.checkbox.week",function() {
-    if($(this).is(':checked')) {
-    	$(".m1.checkbox.day").prop("disabled", false);
-    	$(".m1.input_date").prop("disabled", true);
-    } else {
-    	$(".m1.checkbox.day").prop("disabled", true);
-    	$(".m1.checkbox.day").prop('checked', false);
-    	$(".m1.input_date").prop("disabled", false);
+	
+    if($(this).is(':checked')) { //주간반복 체크
+    	enableDayCheck();
+    } else { //주간반복 체크 해제
+    	disableDayCheck();
+    	if($("input[type=radio][name=mod]").val()==0){
+    		$(".m1.input_date").prop("disabled", true);
+    	}
     }
 });
 
+function disableDayCheck(){
+	$(".m1.checkbox.day").prop("disabled", true);
+	$(".m1.checkbox.day").prop('checked', false);
+	$(".m1.input_date").prop("disabled", false);
+}
 
-
+function enableDayCheck(){
+	$(".m1.checkbox.day").prop("disabled", false);
+	$(".m1.input_date").prop("disabled", true);
+}
 
 
 

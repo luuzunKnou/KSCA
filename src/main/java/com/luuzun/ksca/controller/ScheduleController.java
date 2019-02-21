@@ -210,32 +210,17 @@ public class ScheduleController {
 
 		
 		try {
-			String offerCode;
-			Offer checkOffer;
-			//areaCode, branchCode, sccCode, program이 같으면 같은 offer임.
-			checkOffer = offerService.readForExistCheck(
-					areaCode, offer.getBranchCode(), offer.getSccCode(), offer.getProgram());
-			if( checkOffer != null) {
-				offerCode = checkOffer.getCode(); //존재하는 offer code를 가져옴
-			} else {
-				offerCode = offerService.create(offer); //새로운 offer를 만듬
-			}
-
-			List<Schedule> scheduleList = new ArrayList<>();
+			String offerCode = checkOffer(offer, areaCode);
 			
-			for (String date: dateStrList) { //Schedule List Insert
-				Schedule addSchedule = new Schedule();		
-				addSchedule.setSimpleDate(date);
-				addSchedule.setOffer(offerCode);
-				scheduleList.add(addSchedule);
+			List<Schedule> scheduleList = dateStrToScheduleList(dateStrList, offerCode);
+			if(scheduleList.size()!=0) {
+				scheduleService.createMany(scheduleList);
+				//offerService.updateMonthlyOper(offerCode, scheduleList.size());//Offer에 monthly_oper(월 운영 횟수) 업데이트
 			}
-			logger.info("********: "+scheduleList);
-			scheduleService.createMany(scheduleList);
-			
-			offerService.updateMonthlyOper(offerCode, scheduleList.size());//Offer에 monthly_oper(월 운영 횟수) 업데이트
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
 		}
 
 		return entity;
@@ -244,13 +229,79 @@ public class ScheduleController {
 	//Modify Schedule
 	@ResponseBody
 	@RequestMapping(value="/modifySchedule", method=RequestMethod.POST)
-	public void modifySchedule(Offer offer, Schedule schedule, String schCode, String schDate, 
-			String modeFlag) throws Exception {
-	
-		if(modeFlag=="0") { //전체 수정
-			offerService.update(offer);
+	public void modifySchedule(HttpSession session, Offer offer, Schedule schedule, String schCode, String dateStr, 
+			String modeFlag, String[] dateStrList) throws Exception {
+		
+		Manager manager=(Manager) session.getAttribute("login"); 
+		String areaCode = manager.getArea();
+		
+		offer.setAreaCode(areaCode);
+		schedule.setCode(schCode);
+		schedule.setSimpleDate(dateStr);
+		
+		logger.info("Modify Schedule..........");
+		
+		String offerCode = checkOffer(offer, areaCode);
+		
+		if(modeFlag.equals("0")) { //전체 수정
+			if(dateStrList.length==1) { //주간반복이 변경되지 않았을 때
+				if(scheduleService.checkDuplicate(offerCode, schedule)!=0) { //schedule.offer, date가 같은 값이 존재하면 생성하지 않음.
+					scheduleService.delete(schedule.getCode());
+				} else {
+					scheduleService.updateByOffer(offerCode, schedule);
+				}
+			}
+			
+			if(dateStrList.length>1) { //주간반복이 변경되었을 때
+				scheduleService.deleteByOffer(schedule.getOffer()); //where offerCode=value; //스케줄 전체삭제 후 재등록
+				List<Schedule> scheduleList = dateStrToScheduleList(dateStrList, offerCode);
+				scheduleService.createMany(scheduleList);
+			}
 		} else { //선택 날짜 수정
-			scheduleService.update(schedule);
+			schedule.setOffer(offerCode);
+			if(scheduleService.checkDuplicate(offerCode, schedule)!=0) { //schedule.offer, date가 같은 값이 존재하면 생성하지 않음.
+				scheduleService.delete(schedule.getCode());
+			} else {
+				scheduleService.update(schedule);
+			}
 		}
+	}
+	
+	
+	
+	
+	
+	//offer가 존재하면 Offer Code return, 존재하지 않으면 생성
+	private String checkOffer(Offer offer, String areaCode) throws Exception {
+		String offerCode;
+
+		//areaCode, branchCode, sccCode, program이 같으면 같은 offer임.
+		Offer checkOffer = offerService.readForExistCheck(
+				areaCode, offer.getBranchCode(), offer.getSccCode(), offer.getProgram());
+		if( checkOffer != null) {
+			offerCode = checkOffer.getCode(); //존재하는 offer code를 가져옴
+		} else {
+			offerCode = offerService.create(offer); //새로운 offer를 만듬
+		}
+		return offerCode;
+	}
+	
+	//dateStrList To scheduleList
+	private List<Schedule> dateStrToScheduleList(String[] dateStrList, String offerCode){
+		List<Schedule> scheduleList = new ArrayList<>();
+		
+		for (String date: dateStrList) { //Schedule List Insert
+			Schedule addSchedule = new Schedule();		
+			addSchedule.setSimpleDate(date);
+			addSchedule.setOffer(offerCode);
+			
+			if(scheduleService.checkDuplicate(offerCode, addSchedule)!=0) { //같은 schedule이 존재할 때
+				
+			} else {
+				scheduleList.add(addSchedule);
+			}
+		}
+		
+		return scheduleList;
 	}
 }
