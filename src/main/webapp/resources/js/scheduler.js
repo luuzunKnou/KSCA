@@ -267,16 +267,16 @@ $(document).on("click", ".p_schedule",function(){
 
 	$(".m1.input_date").val($(this).data("date"));
 	$(".m1.input.scc.select").val($(this).data("branch_code")+"-"+$(this).data("scc_code"));
+	
+	//program list 가져오기
 	setOfferProgramList($(".m1.input.program.select"), $(this).data("offer_program_code"));
 	
-	//save 버튼 변경
-	$(".m1.btn_create").text("수정").attr("class","m1 btn_modify_save");
-	//삭제 버튼 추가
-	$(".m1.p_btn").append('<button class="m1 btn_delete">삭제</button>');
-	//Show mode select radio button 
-	$(".m1.input.wrap.mode.div").css("display","block");
-	
-	$(".m1.input_date").prop("disabled", true);
+	$(".m1.btn_create").text("수정").attr("class","m1 btn_modify_save");  //save 버튼 변경
+	$(".m1.p_btn").append('<button class="m1 btn_delete">삭제</button>');  //삭제 버튼 추가
+	$(".m1.input.wrap.mode.div").css("display","block"); //Show mode select radio button
+	$(".mode_all").prop("checked", true); 	//Mode Default 
+	setCheckedValue();
+
 	return false;
 });
 
@@ -309,13 +309,26 @@ $(document).on("click", ".m1.btn_modify_save",function(){
 
 //Delete AJAX
 $(document).on("click", ".m1.btn_delete",function(){
+	var query = {
+			schCode:	$(".modifying").data("schedule_code"),
+			offerCode:	$(".modifying").data("offer_code"),
+			modeFlag:	$("input[name=mod]:checked").val() //0: 전체 수정, 1:선택날짜 수정
+		};
+		
+		$.ajax({
+			url  : "/schedule/deleteSchedule",
+			type : "post",
+			data :  query,
+			success : function(data){
+				setSchedule();
+		}
+	})
 });
 
 //Modal Toggle
 $(document).on("click",".m1.btn_create, .m1.modal_background, .m1.btn_modify_save, " +
 		".m1.btn_delete, .m1.btn_reset",function() {
 	clearM1All();
-	console.log("clear");
 });
 
 $(document).on("click",".m1.btn_create, .m1.btn_reset, .m1.btn_modify_save, .m1.btn_delete, .m1.modal_background, " +
@@ -340,7 +353,8 @@ function clearM1All() {
 	$(".m1.checkbox.day").prop("disabled", true); //checkbox disable
 	$(".m1.input_date").prop("disabled", false); //input date disable
 	
-	$(".mode_all").prop("checked", true); //Mode
+	$(".mode_all").prop("checked", false); //Mode
+	$(".mode_one").prop("checked", false); //Mode
 }
 
 
@@ -374,30 +388,28 @@ function pad(n, width) {
 }
 
 
-//Disable by mode
-$(document).on("change", "input[type=radio][name=mod]",function(){
-	if($(this).val()==0){ //0: 전체 수정
-		$(".m1.input_date").prop("disabled", true);
-		$(".m1.checkbox.week").prop("disabled", false).prop("checked", true);
-		enableDayCheck();
-	} else { // 1:선택날짜 수정
-		$(".m1.input_date").prop("disabled", false);
-		$(".m1.checkbox").prop("disabled", true).prop("checked", false);
-	}
+//Weekly checkBox Control
+$(document).on("change",".m1.checkbox.week, input[type=radio][name=mod]",function() {
+	setCheckedValue();
 });
 
-//Weekly checkBox Control
-$(document).on("change",".m1.checkbox.week",function() {
+function setCheckedValue(){
+	var week = $(".m1.checkbox.week");
+	var mode = $("input[type=radio][name=mod]:checked");
+	console.log("change: "+mode.val());
 	
-    if($(this).is(':checked')) { //주간반복 체크
-    	enableDayCheck();
-    } else { //주간반복 체크 해제
-    	disableDayCheck();
-    	if($("input[type=radio][name=mod]").val()==0){
-    		$(".m1.input_date").prop("disabled", true);
-    	}
-    }
-});
+	if(mode.val()==1){
+		week.prop("checked", false);
+	} else if(mode.val()==0){
+		week.prop("checked", true);
+	}
+	
+	if(week.is(':checked')){
+		enableDayCheck();
+	} else {
+		disableDayCheck();
+	}
+}
 
 function disableDayCheck(){
 	$(".m1.checkbox.day").prop("disabled", true);

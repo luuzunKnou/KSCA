@@ -79,6 +79,7 @@ $(document).on("click", ".m2.btn_modify",function(){
 
 //Modify AJAX
 $(document).on("click", ".m2.btn_modify_save",function(){
+	alert("??");
 	var query = {
 		code 		 : $(".input_offer_program_code").val(),
 		program	 	 : $(".input.pname").val(),

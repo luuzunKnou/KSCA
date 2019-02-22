@@ -214,6 +214,7 @@ public class ScheduleController {
 			
 			List<Schedule> scheduleList = dateStrToScheduleList(dateStrList, offerCode);
 			if(scheduleList.size()!=0) {
+				
 				scheduleService.createMany(scheduleList);
 				//offerService.updateMonthlyOper(offerCode, scheduleList.size());//Offer에 monthly_oper(월 운영 횟수) 업데이트
 			}
@@ -268,7 +269,28 @@ public class ScheduleController {
 	}
 	
 	
-	
+	//Modify Schedule
+	@ResponseBody
+	@RequestMapping(value="/deleteSchedule", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteSchedule(String schCode, String offerCode, String modeFlag) throws Exception {
+		logger.info("Delete Schedule..........");
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			if(modeFlag.equals("0")) {
+				scheduleService.deleteByOffer(offerCode);
+			} else {
+				scheduleService.delete(schCode);
+			}
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+
+		return entity;
+	}
 	
 	
 	//offer가 존재하면 Offer Code return, 존재하지 않으면 생성
