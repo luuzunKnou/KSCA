@@ -52,6 +52,13 @@
 				AND date=#{simpleDate};
 	</select>
 	
+	<select id="readMonthList" resultType="map">
+		SELECT DISTINCT YEAR(date) as year, MONTH(date) as month 
+			FROM schedule
+				JOIN offer ON schedule.offer=offer.code
+				WHERE offer.area_code=#{areaCode};
+	</select>
+	
 	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
 		SELECT offer.code				AS code,
 			   offer.area_code			AS area_code,

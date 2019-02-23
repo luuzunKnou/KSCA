@@ -88,3 +88,19 @@ SELECT  offerprogram.code		AS code,
 		JOIN program ON offerprogram.program=program.code
 	WHERE program.area='03-01'
 		AND offerprogram.reg_month='2019-02-01';
+		
+SELECT DISTINCT YEAR(date), MONTH(date) 
+	FROM schedule
+		JOIN offer ON schedule.offer=offer.code
+		WHERE offer.area_code='03-01';
+
+	
+SELECT  *, 
+		DAYOFWEEK(date), -- 날짜의 요일(1: 일요일 7:토요일)
+		-- DAYOFWEEK(CONCAT_WS('-',YEAR(date),MONTH(date),'01')) AS firstDay, -- 첫 날의 요일
+		CEIL((DAY(date) + DAYOFWEEK(CONCAT_WS('-',YEAR(date),MONTH(date),'01')))/7) AS weekCnt-- 몇 번째 주?
+		FROM schedule
+	WHERE MONTH(date)='02' AND YEAR(date)='2019';
+	
+
+SELECT * FROM offerprogram;

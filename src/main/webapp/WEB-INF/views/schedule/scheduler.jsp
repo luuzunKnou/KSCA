@@ -3,23 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/schedule/scheduler.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/schedule/schModal.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/schedule/schModal.css"  rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/schedule/schModal2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/schedule/schModal3.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colorPicker/spectrum.css"> <!-- ColorPicker -->
 <script src="${pageContext.request.contextPath}/resources/js/scheduler.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/schModal1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/schModal2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/schModal3.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/colorPicker/spectrum.js"></script> <!-- ColorPicker -->
 
 <section>
-	<div id="scheduler">
-		<table class="cal_table">
+	<div id="scheduler"> 
+		<table class="cal_table"> 
 			<tr class="t_header">
 				<th></th>
 				<th class="cal title" colspan="3">
 					<span class="cal left">&lt;&lt;</span>
-					<span class="cal year"></span>.
-					<span class="cal month"></span>
+					<span class="cal year" data-tag="year"></span>.
+					<span class="cal month"data-tag="month"></span>
 					<span class="cal right">&gt;&gt;</span>
 				</th> 
 				<th class="btn_group">
@@ -31,7 +34,7 @@
 	</div>
 </section>
 
-<!-- The Modal-->
+<!-- The Modal 1 -->
 <div class="m1 modal">
 	<!-- Modal content -->
 	<form>
@@ -139,5 +142,22 @@
 		</p>
 	</form>
 </div>
-<div class="m2 modal_background"></div>
+
+<!-- The Modal 3 -->
+<div class="m3 modal">
+	<!-- Modal content -->
+	<form class="m3 form">	
+		<select class="m3 input year">
+			<option selected="selected" value="">- 선택 -</option>
+			<c:forEach var="year" items="${yearList}" varStatus="status">
+				<option data-year="${year}" data-month="${monthList[status.index]}">${year}년 ${monthList[status.index]}월</option>
+			</c:forEach>
+		</select>
+	</form>
+	<p class="m3 p_btn">
+		<button class="m3 btn_load_select">불러오기</button>
+		<button class="m3 btn_reset">취소</button>
+	</p>
+</div>
+<div class="m3 modal_background"></div>
 <%@ include file="../include/footer.jsp"%> 

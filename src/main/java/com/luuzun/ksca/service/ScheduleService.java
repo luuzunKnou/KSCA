@@ -1,6 +1,7 @@
 package com.luuzun.ksca.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
@@ -18,4 +19,5 @@ public interface ScheduleService {
 	public void updateByOffer(String offer, Schedule schedule) throws Exception;
 	public void deleteByOffer(String offer) throws Exception;
 	public int checkDuplicate(String offerCode, Schedule schedule);
+	public List<Map<String, Object>> readMonthList(String areaCode);
 }

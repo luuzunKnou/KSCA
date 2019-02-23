@@ -87,4 +87,9 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 
 		return sqlSession.selectOne(namespace+"checkDuplicate",param);
 	}
+
+	@Override
+	public List<Map<String, Object>> readMonthList(String areaCode) {
+		return sqlSession.selectList(namespace+"readMonthList",areaCode);
+	}
 }

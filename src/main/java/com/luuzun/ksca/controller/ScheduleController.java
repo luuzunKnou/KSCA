@@ -2,6 +2,7 @@ package com.luuzun.ksca.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -59,8 +60,20 @@ public class ScheduleController {
 		//Input Select¸¦ À§ÇÑ SCC, Program List
 		List<SCC> sccList = sccService.readByAreaCode(areaCode);
 		List<ProgramJoinForList> programList = programService.readProgramJoinForList(areaCode);
+
+		List<Map<String,Object>> dateList = scheduleService.readMonthList(areaCode);
+		List<String> monthList = new ArrayList<String>();
+		List<String> yearList = new ArrayList<String>();
+		
+		for (Map<String, Object> map : dateList) {
+			yearList.add(map.get("year").toString());
+			monthList.add(map.get("month").toString());
+		}
+		
 		model.addAttribute("sccList",sccList); //Used on Offer Modal
 		model.addAttribute("programList",programList); //Used on Offer Program Modal
+		model.addAttribute("yearList",yearList);
+		model.addAttribute("monthList",monthList);
 		
 		return "schedule/scheduler";
 	}
@@ -325,5 +338,25 @@ public class ScheduleController {
 		}
 		
 		return scheduleList;
+	}
+	
+	//loadSchedule
+	@ResponseBody
+	@RequestMapping(value="/loadSchedule", method=RequestMethod.POST)
+	public ResponseEntity<String> loadSchedule(String regMonth, String loadYear, String loadMonth) throws Exception {
+		logger.info("Load Schedule..........: "+ regMonth + loadYear + loadMonth);
+		ResponseEntity<String> entity = null;
+		
+		try {
+			
+			
+			
+			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+
+		return entity;
 	}
 }

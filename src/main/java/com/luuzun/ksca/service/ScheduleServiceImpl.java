@@ -1,6 +1,7 @@
 package com.luuzun.ksca.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -64,5 +65,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Override
 	public int checkDuplicate(String offerCode, Schedule schedule) {
 		return dao.checkDuplicate(offerCode, schedule);
+	}
+
+	@Override
+	public List<Map<String, Object>> readMonthList(String areaCode) {
+		return dao.readMonthList(areaCode);
 	}
 }
