@@ -25,9 +25,9 @@ public class OfferProgramDAOImpl implements OfferProgramDAO{
 	}
 
 	@Override
-	public String create(OfferProgram OfferProgram) throws Exception {
+	public OfferProgram create(OfferProgram OfferProgram) throws Exception {
 		sqlSession.insert(namespace+"create", OfferProgram);
-		return OfferProgram.getCode();
+		return OfferProgram;
 	}
 
 	@Override
@@ -56,5 +56,14 @@ public class OfferProgramDAOImpl implements OfferProgramDAO{
 		param.put("regMonth", regMonth);
 
 		return sqlSession.selectOne(namespace+"readForCheck",param);
+	}
+
+	@Override
+	public List<OfferProgram> readByRegMonth(String areaCode, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("regMonth", regMonth);
+		
+		return sqlSession.selectList(namespace+"readByRegMonth",param);
 	}
 }

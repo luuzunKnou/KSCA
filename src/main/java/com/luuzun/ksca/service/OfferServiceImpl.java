@@ -26,7 +26,7 @@ public class OfferServiceImpl implements OfferService{
 	}
 
 	@Override
-	public String create(Offer offer) throws Exception{
+	public Offer create(Offer offer) throws Exception{
 		return dao.create(offer);
 	}
 
@@ -53,5 +53,10 @@ public class OfferServiceImpl implements OfferService{
 	@Override
 	public void updateMonthlyOper(String offerCode, int monthlyOper) {
 		dao.updateMonthlyOper(offerCode, monthlyOper);
+	}
+
+	@Override
+	public List<Offer> readByRegMonth(String areaCode, String regMonth) {
+		return dao.readByRegMonth(areaCode, regMonth);
 	}
 }

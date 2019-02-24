@@ -20,3 +20,11 @@ SELECT count(*) From schedule
 	WHERE offer=1;
 
  SELECT count(*) From schedule WHERE offer='1' AND date='2019-02-01 00:00:00'; 
+ 
+INSERT INTO schedule(offer, date) VALUES 
+	(1, '2019-02-01'),
+	(1, '2019-02-08');
+	
+SELECT * FROM offerprogram;
+SELECT * FROM offer;
+SELECT * FROM schedule;

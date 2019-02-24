@@ -120,7 +120,7 @@ INSERT INTO offerprogram(program, reg_month, begin_date, end_date, color) VALUES
 -- code area_code branch_code scc_code program reg_month begin_date end_date monthly_oper active_user color
 INSERT INTO offer(area_code, branch_code, scc_code, program, monthly_oper, active_user) VALUES 
 	('03-01','99','001', 1, 8, 31),
-	('03-01','99','002', 1, 4, 20);
+	('03-01','99','002', 2, 4, 20);
 
 -- code offer date
 INSERT INTO schedule(offer, date) VALUES 
@@ -135,17 +135,17 @@ INSERT INTO schedule(offer, date) VALUES
 	(2, '2019-02-04'),
 	(2, '2019-02-11'),
 	(2, '2019-02-18'),
-	(2, '2019-02-25'),
-	(1, '2018-01-01'),
-	(1, '2018-02-08'),
-	(1, '2018-03-15'),
-	(1, '2017-04-22'),
-	(2, '2017-05-01'),
-	(2, '2017-06-08'),
-	(2, '2016-01-15'),
-	(2, '2016-02-22'),
-	(2, '2016-03-04'),
-	(2, '2015-04-11'),
-	(2, '2015-05-18'),
-	(2, '2015-11-25');
+	(2, '2019-02-25');
+-- 	(1, '2018-01-01'),
+-- 	(1, '2018-02-08'),
+-- 	(1, '2018-03-15'),
+-- 	(1, '2017-04-22'),
+-- 	(2, '2017-05-01'),
+-- 	(2, '2017-06-08'),
+-- 	(2, '2016-01-15'),
+-- 	(2, '2016-02-22'),
+-- 	(2, '2016-03-04'),
+-- 	(2, '2015-04-11'),
+-- 	(2, '2015-05-18'),
+-- 	(2, '2015-11-25');
 	

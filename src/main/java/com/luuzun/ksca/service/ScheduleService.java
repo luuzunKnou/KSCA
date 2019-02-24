@@ -3,13 +3,14 @@ package com.luuzun.ksca.service;
 import java.util.List;
 import java.util.Map;
 
+import com.luuzun.ksca.domain.OfferProgram;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
 
 public interface ScheduleService {
 	public List<Schedule> listAll() throws Exception;
 	public Schedule read(String code) throws Exception;
-	public String create(Schedule schedule) throws Exception;
+	public Schedule create(Schedule schedule) throws Exception;
 	public void update(Schedule schedule) throws Exception;
 	public void delete(String code) throws Exception;
 	
@@ -20,4 +21,6 @@ public interface ScheduleService {
 	public void deleteByOffer(String offer) throws Exception;
 	public int checkDuplicate(String offerCode, Schedule schedule);
 	public List<Map<String, Object>> readMonthList(String areaCode);
+
+	public List<Schedule> readByRegMonth(String areaCode, String regMonth);
 }

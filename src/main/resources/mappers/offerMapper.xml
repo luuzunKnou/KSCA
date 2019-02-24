@@ -28,6 +28,14 @@
 				AND program		=#{program};
 	</select>
 	
+	<select id="readByRegMonth" resultType="Offer">
+		SELECT offer.code, offer.area_code, offer.branch_code, offer.scc_code, offer.program, offer.monthly_oper, offer.active_user  
+			FROM offer
+				JOIN offerprogram ON offer.program=offerprogram.code
+			WHERE offer.area_code=#{areaCode}
+				AND offerprogram.reg_month=#{regMonth}; 
+	</select>
+	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO offer(area_code, branch_code, scc_code, program, monthly_oper, active_user) VALUES
 			(#{areaCode}, #{branchCode}, #{sccCode}, #{program}, #{monthlyOper}, #{activeUser});

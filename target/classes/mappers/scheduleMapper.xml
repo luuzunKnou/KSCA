@@ -59,6 +59,15 @@
 				WHERE offer.area_code=#{areaCode};
 	</select>
 	
+	<select id="readByRegMonth" resultType="Schedule">
+		SELECT schedule.code, schedule.offer, schedule.date 
+			FROM schedule
+				JOIN offer ON schedule.offer=offer.code
+				JOIN offerprogram ON offer.program=offerprogram.code 
+			WHERE offer.area_code=#{areaCode}
+				AND offerprogram.reg_month=#{regMonth}; 
+	</select>
+	
 	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
 		SELECT offer.code				AS code,
 			   offer.area_code			AS area_code,
@@ -94,7 +103,7 @@
 			(#{offer}, #{date});
 	</insert>
 	
-	<insert id="createMany">
+	<insert id="createMany"> 
 		INSERT INTO schedule(offer, date) VALUES
 			<foreach collection="scheduleList" item="schedule" separator=" , ">
             	(#{schedule.offer}, #{schedule.date})

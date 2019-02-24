@@ -1,6 +1,10 @@
 package com.luuzun.ksca.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -310,13 +314,13 @@ public class ScheduleController {
 	private String checkOffer(Offer offer, String areaCode) throws Exception {
 		String offerCode;
 
-		//areaCode, branchCode, sccCode, program이 같으면 같은 offer임.
+		//areaCode, branchCode, sccCode, offerProgram이 같으면 같은 offer임.
 		Offer checkOffer = offerService.readForExistCheck(
 				areaCode, offer.getBranchCode(), offer.getSccCode(), offer.getProgram());
 		if( checkOffer != null) {
 			offerCode = checkOffer.getCode(); //존재하는 offer code를 가져옴
 		} else {
-			offerCode = offerService.create(offer); //새로운 offer를 만듬
+			offerCode = offerService.create(offer).getCode(); //새로운 offer를 만듬
 		}
 		return offerCode;
 	}
@@ -340,16 +344,100 @@ public class ScheduleController {
 		return scheduleList;
 	}
 	
+	
+	
+	
 	//loadSchedule
 	@ResponseBody
 	@RequestMapping(value="/loadSchedule", method=RequestMethod.POST)
-	public ResponseEntity<String> loadSchedule(String regMonth, String loadYear, String loadMonth) throws Exception {
-		logger.info("Load Schedule..........: "+ regMonth + loadYear + loadMonth);
+	public ResponseEntity<String> loadSchedule(HttpSession session, String srcMonth, String destMonth) throws Exception {
+		logger.info("Load Schedule..........: "+ srcMonth +" >>>> "+ destMonth);
 		ResponseEntity<String> entity = null;
 		
+		Manager manager=(Manager) session.getAttribute("login");
+		String areaCode = manager.getArea();
+		
+		String insertCode;
+		String srcCode;
+		
+
 		try {
+			List<OfferProgram> offerProgramList = offerProgramService.readByRegMonth(areaCode, srcMonth);
+			Map<String, String> offerProgramCodeList = new HashMap<String, String>();
+			Calendar defEndDate = Calendar.getInstance();
 			
+			//offerProgram RegMonth Change
+			for (OfferProgram offerProgram : offerProgramList) {
+				offerProgram.setSimpleRegMonth(destMonth);
+				
+				defEndDate.setTime(offerProgram.getRegMonth());
+				offerProgram.setSimpleBeginDate(destMonth);
+				offerProgram.setSimpleEndDate(""+defEndDate.get(Calendar.YEAR)+"-"+(defEndDate.get(Calendar.MONTH)+1)+"-"+defEndDate.getActualMaximum(Calendar.DATE));
+			}
 			
+			//inert offerProgram
+			OfferProgram offerProgramDupCheck;
+			for (OfferProgram offerProgram : offerProgramList) {
+				offerProgramDupCheck //중복 체크 
+					= offerProgramService.readForCheck(offerProgram.getProgram(), offerProgram.getSimpleRegMonth());
+				if(offerProgramDupCheck != null) { //offer program이 존재하면 code를 가져옴
+					insertCode = offerProgramDupCheck.getCode(); 
+				} else { //offer program이 존재하지 않으면 생성
+					insertCode = offerProgramService.create(offerProgram).getCode();
+				}
+				
+				srcCode	   = offerProgram.getCode();
+				offerProgramCodeList.put(srcCode, insertCode);
+			}
+
+		/***************************************************************************/		
+			
+			List<Offer> offerList = offerService.readByRegMonth(areaCode, srcMonth);
+			Map<String, String> offerCodeList = new HashMap<String, String>();
+			//offerList program Change
+			for (Offer offer: offerList) {
+				for(String key : offerProgramCodeList.keySet()){
+		            String value = offerProgramCodeList.get(key);
+		            if(offer.getProgram().equals(key)) { //key와 같으면 value로 변경
+		            	offer.setProgram(value);
+		            }//////////////////////////////////첫 번째는 offer가 생성되지않음... 두번째는 생성됨. 왜?
+		        }
+			}
+			
+			//inert offer
+			for (Offer offer: offerList) {
+				srcCode	   = offer.getCode();
+				insertCode = checkOffer(offer, offer.getAreaCode()); 
+				offerCodeList.put(srcCode, insertCode);
+			}
+
+		/***************************************************************************/
+			OfferProgram offerProgram = offerProgramList.get(0);
+			
+			List<Schedule> scheduleList = scheduleService.readByRegMonth(areaCode, srcMonth);
+			Date changeDate = new Date();
+			//Schedule Code Change
+			for (Schedule schedule: scheduleList) {
+				for(String key : offerCodeList.keySet()){
+		            String value = offerCodeList.get(key);
+		            if(schedule.getOffer().equals(key)) { //key와 같으면 value로 변경
+		            	schedule.setOffer(value);
+		            }
+		        }
+				changeDate = changeDate(schedule.getDate(),offerProgram.getRegMonth());
+				if(changeDate!=null) {
+					schedule.setDate(changeDate);//Date 변경
+				}
+			}
+			
+			//inert schedule
+			for (Schedule schedule: scheduleList) {
+				if(scheduleService.checkDuplicate(schedule.getOffer(), schedule)!=0) { //같은 schedule이 존재할 때
+					
+				} else {
+					scheduleService.create(schedule);
+				}
+			}
 			
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
@@ -358,5 +446,25 @@ public class ScheduleController {
 		}
 
 		return entity;
+	}
+	
+	//srcDate를 destDate의 주/날짜에 맞게 변경
+	private Date changeDate(Date srcDate, Date destMonth) { 
+		Calendar srcCal = new GregorianCalendar();
+		srcCal.setTime(srcDate);
+
+		Calendar destCal = new GregorianCalendar();
+		destCal.setTime(destMonth);
+
+		for(int i=1; i<=destCal.getActualMaximum(Calendar.DATE); i++) {//destMonth 1~31일 //System.out.println(destCal.get(Calendar.YEAR)+"-"+destCal.get(Calendar.MONTH)+"-"+destCal.get(Calendar.DATE));
+			destCal.set(Calendar.DATE, i);
+			if(destCal.get(Calendar.WEEK_OF_MONTH)==srcCal.get(Calendar.WEEK_OF_MONTH) 			
+					&& destCal.get(Calendar.DAY_OF_WEEK)==srcCal.get(Calendar.DAY_OF_WEEK)) { 
+			//주, 요일이 같은 날
+			return new Date(destCal.getTimeInMillis());
+			}
+		}
+		
+		return null;
 	}
 }

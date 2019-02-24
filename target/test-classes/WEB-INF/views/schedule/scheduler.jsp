@@ -142,6 +142,7 @@
 		</p>
 	</form>
 </div>
+<div class="m2 modal_background"></div> 
 
 <!-- The Modal 3 -->
 <div class="m3 modal">

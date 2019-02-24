@@ -8,7 +8,7 @@ function setOfferProgram(){
 	var query = {
 		regMonth : regMonth
 	};
-	
+	console.log(query);
 	$.each($(".pro_list_table tr"), function(i, elt) { 
 		if(i!=0){ //첫 번째 tr(th) 제외
 			$(this).empty(); 
@@ -79,7 +79,6 @@ $(document).on("click", ".m2.btn_modify",function(){
 
 //Modify AJAX
 $(document).on("click", ".m2.btn_modify_save",function(){
-	alert("??");
 	var query = {
 		code 		 : $(".input_offer_program_code").val(),
 		program	 	 : $(".input.pname").val(),
@@ -95,6 +94,7 @@ $(document).on("click", ".m2.btn_modify_save",function(){
 		data : query,
 		success : function(data){
 			setOfferProgram();
+			setSchedule();
 		}
 	})
 	return false;
@@ -115,6 +115,7 @@ $(document).on("click", ".m2.btn_delete",function(){
 			data : query,
 			success : function(data){
 				deleteTr.remove();
+				setSchedule();
 			}
 		})
 	}
@@ -166,6 +167,11 @@ $(document).on("click",".m2.modal_background, .m2.btn_reset, .m2.btn_modify_save
 $(document).on("click",".btn_pro_manager, .m2.modal_background, .m2.btn_reset",function() {
 	$(".m2.modal, .m2.modal_background").toggle(); 
 });
+
+$(document).on("click",".btn_pro_manager",function() {
+	setOfferProgram();
+});
+
 
 
 //Close, Save시 Cat1 input clear

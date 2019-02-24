@@ -22,7 +22,7 @@ public class OfferProgramServiceImpl implements OfferProgramService{
 	}
 
 	@Override
-	public String create(OfferProgram offerProgram) throws Exception {
+	public OfferProgram create(OfferProgram offerProgram) throws Exception {
 		return dao.create(offerProgram);
 	}
 
@@ -44,5 +44,10 @@ public class OfferProgramServiceImpl implements OfferProgramService{
 	@Override
 	public OfferProgram readForCheck(String program, String regMonth) {
 		return dao.readForCheck(program, regMonth);
+	}
+
+	@Override
+	public List<OfferProgram> readByRegMonth(String areaCode, String regMonth) {
+		return dao.readByRegMonth(areaCode, regMonth);
 	}
 }

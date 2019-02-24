@@ -35,6 +35,15 @@
 				AND reg_month=#{regMonth}; 
 	</select>
 	
+	<select id="readByRegMonth" resultType="OfferProgram">
+		SELECT op.code, op.program, op.reg_month, op.begin_date, op.end_date, op.color 
+			FROM offerProgram AS op
+				JOIN program ON op.program=program.code
+			WHERE program.area=#{areaCode}
+				AND op.reg_month=#{regMonth}; 
+	</select>
+	
+	
 	<select id="readOfferProgramJoinForList" resultMap="OfferProgramJoinForList">
 		SELECT  offerprogram.code		AS code,
 				program.name			AS name,

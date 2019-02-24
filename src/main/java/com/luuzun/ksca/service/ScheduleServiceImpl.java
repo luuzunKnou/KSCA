@@ -28,7 +28,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public String create(Schedule schedule) throws Exception{
+	public Schedule create(Schedule schedule) throws Exception{
 		return dao.create(schedule);
 	}
 
@@ -70,5 +70,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Override
 	public List<Map<String, Object>> readMonthList(String areaCode) {
 		return dao.readMonthList(areaCode);
+	}
+
+	@Override
+	public List<Schedule> readByRegMonth(String areaCode, String regMonth) {
+		return dao.readByRegMonth(areaCode, regMonth);
 	}
 }

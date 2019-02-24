@@ -62,5 +62,9 @@ public class OfferProgramDAOTest {
 	public void test_05_readOfferProgramJoinForList() throws Exception{
 		logger.info(dao.readOfferProgramJoinForList("03-01","2019-02-01").toString());
 	}
-
+	
+	@Test
+	public void test_06_readByRegMonth() throws Exception{
+		logger.info(dao.readByRegMonth("03-01","2019-02-01").toString());
+	}
 }

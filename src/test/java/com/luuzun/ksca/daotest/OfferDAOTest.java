@@ -75,4 +75,11 @@ public class OfferDAOTest {
 	public void test_08_updateMonthlyOper() throws Exception{
 		dao.updateMonthlyOper("1",10);
 	}
+
+	@Test
+	public void test_09_readByRegMonth() throws Exception{
+		logger.info(dao.readByRegMonth("03-01","2019-02-01").toString());
+	}
+	
 }
+

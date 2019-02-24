@@ -31,9 +31,9 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	}
 
 	@Override
-	public String create(Schedule schedule) throws Exception {
+	public Schedule create(Schedule schedule) throws Exception {
 		sqlSession.insert(namespace+"create", schedule);
-		return schedule.getCode();
+		return schedule;
 	}
 
 	@Override
@@ -91,5 +91,14 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	@Override
 	public List<Map<String, Object>> readMonthList(String areaCode) {
 		return sqlSession.selectList(namespace+"readMonthList",areaCode);
+	}
+
+	@Override
+	public List<Schedule> readByRegMonth(String areaCode, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("regMonth", regMonth);
+		
+		return sqlSession.selectList(namespace+"readByRegMonth",param);
 	}
 }
