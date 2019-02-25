@@ -119,8 +119,8 @@ INSERT INTO offerprogram(program, reg_month, begin_date, end_date, color) VALUES
 	
 -- code area_code branch_code scc_code program reg_month begin_date end_date monthly_oper active_user color
 INSERT INTO offer(area_code, branch_code, scc_code, program, monthly_oper, active_user) VALUES 
-	('03-01','99','001', 1, 8, 31),
-	('03-01','99','002', 2, 4, 20);
+	('03-01','99','001', 1, 0, 31),
+	('03-01','99','002', 2, 0, 20);
 
 -- code offer date
 INSERT INTO schedule(offer, date) VALUES 

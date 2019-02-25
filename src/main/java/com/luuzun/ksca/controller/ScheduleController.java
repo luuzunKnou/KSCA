@@ -378,6 +378,8 @@ public class ScheduleController {
 			//inert offerProgram
 			OfferProgram offerProgramDupCheck;
 			for (OfferProgram offerProgram : offerProgramList) {
+				srcCode = offerProgram.getCode();
+				
 				offerProgramDupCheck //중복 체크 
 					= offerProgramService.readForCheck(offerProgram.getProgram(), offerProgram.getSimpleRegMonth());
 				if(offerProgramDupCheck != null) { //offer program이 존재하면 code를 가져옴
@@ -386,9 +388,15 @@ public class ScheduleController {
 					insertCode = offerProgramService.create(offerProgram).getCode();
 				}
 				
-				srcCode	   = offerProgram.getCode();
 				offerProgramCodeList.put(srcCode, insertCode);
 			}
+			
+			logger.info("===============offerProgramCodeList===================");
+			 
+	        for(String key : offerProgramCodeList.keySet()){
+	            String value = offerProgramCodeList.get(key);
+	            System.out.println(key+" : "+value);
+	        }
 
 		/***************************************************************************/		
 			
@@ -400,7 +408,7 @@ public class ScheduleController {
 		            String value = offerProgramCodeList.get(key);
 		            if(offer.getProgram().equals(key)) { //key와 같으면 value로 변경
 		            	offer.setProgram(value);
-		            }//////////////////////////////////첫 번째는 offer가 생성되지않음... 두번째는 생성됨. 왜?
+		            }
 		        }
 			}
 			
