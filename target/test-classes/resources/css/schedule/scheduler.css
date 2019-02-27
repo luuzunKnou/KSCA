@@ -55,7 +55,7 @@
 }
 
 
-.btn_pro_manager, .btn_load{
+.btn_pro_manager, .btn_load, .btn_download{
 	width: 100px; margin: 5px 5px 0px 5px; border-radius:5px; padding:3px 0;
 	background-color: #e67e22; color: white; border:none; height:25px;
 	float: right;

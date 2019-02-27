@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.luuzun.ksca.domain.ExcelOutput;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
 import com.luuzun.ksca.utill.FieldToMapUtill;
@@ -100,5 +101,14 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 		param.put("regMonth", regMonth);
 		
 		return sqlSession.selectList(namespace+"readByRegMonth",param);
+	}
+
+	@Override
+	public List<ExcelOutput> excelOutput(String areaCode, String regMonth) {
+		Map<String, String> param = new HashMap<>();
+		param.put("areaCode", areaCode);
+		param.put("regMonth", regMonth);
+		
+		return sqlSession.selectList(namespace+"excelOutput",param);
 	}
 }

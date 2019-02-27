@@ -15,7 +15,6 @@ $(document).on("click",".m3.btn_load_select",function(){
 					pad($(".m3.input.year").find(':selected').data('month'),2)+"-01",
 		destMonth : regMonth
 	};
-	console.log(query);
 	$.ajax({
 		url  : "/schedule/loadSchedule",
 		type : "post",

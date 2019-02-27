@@ -11,9 +11,9 @@
 			<result property="activeUser" 	column="active_user"/>
 		</association>
 		
-		<association property="scc" javaType="Scc">
+		<association property="scc" javaType="SCC">
 			<id property="sccCode" 		  column="scc_code"/>
-			<result property="areaCode"		column="area_code"/>
+			<result property="areaCode"	  column="area_code"/>
 			<result property="branchCode" column="branch_code"/>
 			<result property="name" 	  column="scc_name"/>
 		</association>
@@ -24,7 +24,7 @@
 		</association>
 		
 		<association property="offerProgram" javaType="OfferProgram">
-			<id property="code" 	column="offer_program"/>
+			<id property="code" 			column="offer_program"/>
 			<result property="regMonth"		column="reg_month"/>
 			<result property="beginDate" 	column="begin_date"/>
 			<result property="endDate" 		column="end_date"/>
@@ -37,21 +37,62 @@
 		</association>
 	</resultMap>
 	
+	<resultMap id="excelOutput" type="ExcelOutput">
+		<association property="scc" javaType="SCC">
+			<id property="areaCode" 	    column="area_code"/>
+			<id property="branchCode" 	    column="branch_code"/>
+			<id property="sccCode" 	  	    column="scc_code"/>
+			<result property="name" 		column="scc_name"/>
+		</association>
+		
+		<association property="cat1" javaType="Cat1">
+			<id property="code" 			column="cat1_code"/>
+			<result property="name"  		column="cat1_name"/>
+		</association>
+		
+		<association property="cat2" javaType="Cat2">
+			<id property="code" 			column="cat2_code"/>
+			<result property="name"		  	column="cat2_name"/>
+		</association>
+		
+		<association property="program" javaType="Program">
+			<result property="name"		  	column="program_name"/>
+		</association>
+		
+		<association property="offerprogram" javaType="Offerprogram">
+			<result property="beginDate"  	column="begin_date"/>
+			<result property="endDate"  	column="end_date"/>
+		</association>
+		
+		<association property="offer" javaType="Offer">
+			<result property="activeUser" 	column="active_user"/>
+			<result property="monthlyOper"  column="monthly_oper"/>
+		</association>
+		
+		<association property="agency" javaType="Agency">
+			<result property="name"  		column="agency_name"/>
+		</association>
+	</resultMap>
+		
+	<!--  -->
 	<select id="listAll" resultType="Schedule">
 		SELECT * From schedule
 	</select>
 	
+	<!--  -->
 	<select id="read" resultType="Schedule">
 		SELECT * From schedule 
 			WHERE code=#{code};
 	</select>
 	
+	<!-- on create check duplication -->
 	<select id="checkDuplicate" resultType="int">
 		SELECT count(*) From schedule
 			WHERE offer=#{destOffer}
 				AND date=#{simpleDate};
 	</select>
 	
+	<!-- year-month list for load-->
 	<select id="readMonthList" resultType="map">
 		SELECT DISTINCT YEAR(date) as year, MONTH(date) as month 
 			FROM schedule
@@ -59,6 +100,7 @@
 				WHERE offer.area_code=#{areaCode};
 	</select>
 	
+	<!-- read list for load -->
 	<select id="readByRegMonth" resultType="Schedule">
 		SELECT schedule.code, schedule.offer, schedule.date 
 			FROM schedule
@@ -68,6 +110,7 @@
 				AND offerprogram.reg_month=#{regMonth}; 
 	</select>
 	
+	<!-- Schedule List -->
 	<select id="scheduleJoinforList" resultMap="scheduleJoinforList">
 		SELECT offer.code				AS code,
 			   offer.area_code			AS area_code,
@@ -97,12 +140,43 @@
 					AND YEAR(schedule.date)=#{thisYear};
 					<!-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28'); -->
 	</select>
+
+	<!-- Excel Output -->	
+	<select id="excelOutput" resultMap="excelOutput">
+		SELECT  scc.area_code			AS area_code,
+			scc.branch_code			AS branch_code,
+			scc.scc_code			AS scc_code,
+			scc.name				AS scc_name,
+			cat1.code				AS cat1_code,
+			cat1.name				AS cat1_name,
+			cat2.code				AS cat2_code,
+			cat2.name				AS cat2_name,
+			program.name			AS program_name,
+			offerprogram.begin_date	AS begin_date,
+			offerprogram.end_date	AS end_date,
+			offer.active_user		AS active_user,
+			agency.name				AS agency_name,
+			offer.monthly_oper		AS monthly_oper
+		FROM scc 
+			JOIN offer ON scc.area_code=offer.area_code 
+						AND scc.branch_code	= offer.branch_code
+						AND scc.scc_code	= offer.scc_code
+			JOIN offerprogram ON offer.program = offerprogram.code
+			JOIN program 	  ON offerprogram.program = program.code
+			JOIN cat2		  ON program.cat2 = cat2.code 
+			JOIN cat1		  ON program.cat1 = cat1.code
+			JOIN agency		  ON program.agency = agency.code
+		WHERE scc.area_code=#{areaCode} 
+			AND offerprogram.reg_month=#{regMonth};
+	</select>
 	
+	<!-- create schedule -->
 	<insert id="create" useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO schedule(offer, date) VALUES
 			(#{offer}, #{date});
 	</insert>
 	
+	<!-- create schedule by list -->
 	<insert id="createMany"> 
 		INSERT INTO schedule(offer, date) VALUES
 			<foreach collection="scheduleList" item="schedule" separator=" , ">
@@ -110,6 +184,7 @@
 			</foreach>
 	</insert>
 	
+	<!-- update schedule -->
 	<update id="update">
 		UPDATE schedule	
 			<set> 
@@ -119,6 +194,7 @@
 			WHERE code=#{code}; 
 	</update>
 	
+	<!-- update by offer for change weekly -->
 	<update id="updateByOffer">
 		UPDATE schedule	
 			<set> 
@@ -127,11 +203,13 @@
 			WHERE offer=#{offer}; 
 	</update>
 	
+	<!-- delete schedule -->
 	<delete id="delete">
 		DELETE FROM schedule 
 			WHERE code=#{code};
 	</delete>
 	
+	<!-- delete for change weekly -->
 	<delete id="deleteByOffer">
 		DELETE FROM schedule 
 			WHERE offer=#{destOffer};

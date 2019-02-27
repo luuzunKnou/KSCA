@@ -8,7 +8,6 @@ function setOfferProgram(){
 	var query = {
 		regMonth : regMonth
 	};
-	console.log(query);
 	$.each($(".pro_list_table tr"), function(i, elt) { 
 		if(i!=0){ //첫 번째 tr(th) 제외
 			$(this).empty(); 

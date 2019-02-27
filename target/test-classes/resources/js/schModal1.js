@@ -229,7 +229,6 @@ $(document).on("change",".m1.checkbox.week, input[type=radio][name=mod]",functio
 function setCheckedValue(){
 	var week = $(".m1.checkbox.week");
 	var mode = $("input[type=radio][name=mod]:checked");
-	console.log("change: "+mode.val());
 	
 	if(mode.val()==1){
 		week.prop("checked", false);
