@@ -19,14 +19,15 @@
 		<table class="cal_table"> 
 			<tr class="t_header">
 				<th></th>
-				<th class="cal title" colspan="3">
+				<th class="cal title" colspan="3"> 
 					<span class="cal left">&lt;&lt;</span>
 					<span class="cal year" data-tag="year"></span>.
 					<span class="cal month"data-tag="month"></span>
 					<span class="cal right">&gt;&gt;</span>
-				</th> 
+				</th>  
 				<th class="btn_group">
-					<button class="btn_load">불러오기</button>
+					<button class="btn_download">다운로드</button>
+					<button class="btn_load">불러오기</button> 
 					<button class="btn_pro_manager">프로그램 관리</button>
 				</th>
 			</tr>

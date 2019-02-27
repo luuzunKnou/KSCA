@@ -3,7 +3,7 @@ package com.luuzun.ksca.service;
 import java.util.List;
 import java.util.Map;
 
-import com.luuzun.ksca.domain.OfferProgram;
+import com.luuzun.ksca.domain.ExcelOutput;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
 
@@ -23,4 +23,5 @@ public interface ScheduleService {
 	public List<Map<String, Object>> readMonthList(String areaCode);
 
 	public List<Schedule> readByRegMonth(String areaCode, String regMonth);
+	public List<ExcelOutput> excelOutput(String areaCode, String regMonth);
 }

@@ -19,7 +19,6 @@ function drawCal(year, month) {
 	
 	//당월 마지막 날
 	var lastDate = lastDateList[month];
-	console.log(year+"-"+month+"...."+"First Day:  "+firstDate+"("+firstDay+")"+"Last Day"+lastDate);
 	
 	//윤년 2월달 처리(2월 29일)
 	if(year%4==0 && year%100!=0 || year%400==0) {
@@ -242,6 +241,12 @@ function changeCal(destObj){
 	$(".t_header").nextAll().remove();
 	drawCal(year, month);
 }
+
+//excel download
+$(document).on("click",".btn_download",function(e) {
+	var regMonth = $(".cal.year").text()+"-"+$(".cal.month").text()+"-01";
+	window.location.href = "ExcelPoi?regMonth="+regMonth;
+});
 
 //n에 width 자리수에 맞게 0 추가
 function pad(n, width) {

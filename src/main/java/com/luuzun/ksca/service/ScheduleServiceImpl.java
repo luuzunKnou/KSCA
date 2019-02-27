@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.luuzun.ksca.domain.ExcelOutput;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
 import com.luuzun.ksca.persistence.ScheduleDAO;
@@ -75,5 +76,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Override
 	public List<Schedule> readByRegMonth(String areaCode, String regMonth) {
 		return dao.readByRegMonth(areaCode, regMonth);
+	}
+
+	@Override
+	public List<ExcelOutput> excelOutput(String areaCode, String regMonth) {
+		return dao.excelOutput(areaCode, regMonth);
 	}
 }

@@ -1,6 +1,5 @@
 package com.luuzun.ksca.daotest;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,109 +35,71 @@ public class ScheduleDAOTest {
 	@Inject	private OfferProgramDAO offerProgramDao;
 	
 	private static Logger logger = LoggerFactory.getLogger(ScheduleDAOTest.class);
-//	@Test
-//	public void test_01_Create() throws Exception{
-//		Schedule schedule = new Schedule();
-//		schedule.setSimpleDate("2019-01-01");
-//		schedule.setOffer("1");
-//		dao.create(schedule);
-//	}
-//	
-//	@Test
-//	public void test_02_Update() throws Exception{
-//		Schedule schedule = new Schedule();
-//		schedule.setSimpleDate("2019-02-02");
-//		schedule.setOffer("2");
-//		dao.update(schedule);
-//	}
-//	
-//	@Test
-//	public void test_03_Read() throws Exception{
-//		logger.info(dao.read("1").toString());
-//	}
-//	
-//	@Test
-//	public void test_04_Delete() throws Exception{
-//		dao.delete("3");
-//	}
-//	
-//	@Test
-//	public void test_05_ListAll() throws Exception{
-//		logger.info(dao.listAll().toString());
-//	}
-//	
-//	@Test
-//	public void test_06_ScheduleJoinforList() throws Exception{
-//		logger.info(dao.scheduleJoinforList("03-01","2","2019").toString());
-//	}
-//	
-//	@Test
-//	public void test_07_CreateMany() throws Exception{
-//		Schedule schedule1 = new Schedule();
-//		schedule1.setSimpleDate("2010-01-01");
-//		schedule1.setOffer("1");
-//
-//		Schedule schedule2 = new Schedule();
-//		schedule2.setSimpleDate("2010-01-01");
-//		schedule2.setOffer("1");
-//		
-//		List<Schedule> list = new ArrayList<Schedule>();
-//		list.add(schedule1);
-//		list.add(schedule2);
-//		
-//		dao.createMany(list);
-//	}
-//	
-//	@Test
-//	public void test_08_readMonthList() throws Exception{
-//		logger.info(dao.readMonthList("03-01").toString());
-//	}
-	
-//	@Test
-//	public void test_09_readMonthList() throws Exception{
-//		Calendar cal = Calendar.getInstance();
-//		cal.set(Calendar.YEAR, 2019);
-//		cal.set(Calendar.MONTH, 2-1);
-//		cal.set(Calendar.DATE, 1);
-//		int monthCnt = cal.get(Calendar.WEEK_OF_MONTH);
-//		int date = cal.get(Calendar.DAY_OF_WEEK);
-//		//요일 (1: 일요일)
-//		System.out.println(monthCnt +":"+date);
-//		Calendar destCal = Calendar.getInstance();
-//		destCal.set(Calendar.YEAR, 2019);
-//		destCal.set(Calendar.MONTH, 3-1);
-//
-//		List<Calendar> cals = new ArrayList<>();
-//		
-//		System.out.println("Max: "+destCal.getActualMaximum(Calendar.DATE));
-//		for(int i=1; i<=destCal.getActualMaximum(Calendar.DATE); i++) {//destMonth 1~31일
-//			destCal.set(Calendar.DATE, i);
-//			System.out.println(destCal.get(Calendar.DATE));
-//
-//			if(destCal.get(Calendar.WEEK_OF_MONTH)==monthCnt 
-//					&& destCal.get(Calendar.DAY_OF_WEEK)==date) { //주, 요일이 같은 날
-//
-//				Calendar addCal = Calendar.getInstance();
-//				addCal.set(Calendar.YEAR, 2019);
-//				addCal.set(Calendar.MONTH, 3-1);
-//				addCal.set(Calendar.DATE, i);
-//				System.out.println("add : "+addCal.get(Calendar.DATE));
-//				cals.add(addCal);//배열에 추가
-//			}
-//		}
-//		
-//		for (Calendar calendar : cals) {
-//			System.out.println("2019-03-"+calendar.get(Calendar.DATE));
-//		}	
-//	}
-//
-//	@Test
-//	public void test_10_readByRegMonth() throws Exception{
-//		logger.info(dao.readByRegMonth("03-01","2019-02-01").toString());
-//	}
+	@Test
+	public void test_01_Create() throws Exception{
+		Schedule schedule = new Schedule();
+		schedule.setSimpleDate("2019-01-01");
+		schedule.setOffer("1");
+		dao.create(schedule);
+	}
 	
 	@Test
-	public void test_12_loadTest() throws Exception{
+	public void test_02_Update() throws Exception{
+		Schedule schedule = new Schedule();
+		schedule.setSimpleDate("2019-02-02");
+		schedule.setOffer("2");
+		dao.update(schedule);
+	}
+	
+	@Test
+	public void test_03_Read() throws Exception{
+		logger.info(dao.read("1").toString());
+	}
+	
+	@Test
+	public void test_04_Delete() throws Exception{
+		dao.delete("3");
+	}
+	
+	@Test
+	public void test_05_ListAll() throws Exception{
+		logger.info(dao.listAll().toString());
+	}
+	
+	@Test
+	public void test_06_ScheduleJoinforList() throws Exception{
+		logger.info(dao.scheduleJoinforList("03-01","2","2019").toString());
+	}
+	
+	@Test
+	public void test_07_CreateMany() throws Exception{
+		Schedule schedule1 = new Schedule();
+		schedule1.setSimpleDate("2010-01-01");
+		schedule1.setOffer("1");
+
+		Schedule schedule2 = new Schedule();
+		schedule2.setSimpleDate("2010-01-01");
+		schedule2.setOffer("1");
+		
+		List<Schedule> list = new ArrayList<Schedule>();
+		list.add(schedule1);
+		list.add(schedule2);
+		
+		dao.createMany(list);
+	}
+	
+	@Test
+	public void test_08_readMonthList() throws Exception{
+		logger.info(dao.readMonthList("03-01").toString());
+	}
+
+	@Test
+	public void test_10_readByRegMonth() throws Exception{
+		logger.info(dao.readByRegMonth("03-01","2019-02-01").toString());
+	}
+	
+	@Test
+	public void test_11_loadTest() throws Exception{
 		String areaCode = "03-01";
 		String srcMonth = "2019-02-01";
 		String destMonth = "2019-03-01";
@@ -226,17 +187,9 @@ public class ScheduleDAOTest {
 		return null;
 	}
 	
-//	@Test
-//	public void test() throws Exception{
-//		
-//		Calendar cal = Calendar.getInstance();
-//		cal.set(2019, 2-1, 30, 0, 0, 0);
-//		cal.set(Calendar.MILLISECOND, 0);
-//		System.out.println(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DATE));
-//		
-//		Date date = new Date();
-//		SimpleDateFormat sd = new SimpleDateFormat("yyyy-mm-dd");
-//		date = sd.parse("2019-02-30");
-//		System.out.println(sd.format(date));
-//	}
+	
+	@Test
+	public void test_13_excelOutput() throws Exception{
+		logger.info(dao.excelOutput("03-01", "2019-02-01").toString());
+	}
 }

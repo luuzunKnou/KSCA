@@ -3,6 +3,7 @@ package com.luuzun.ksca.persistence;
 import java.util.List;
 import java.util.Map;
 
+import com.luuzun.ksca.domain.ExcelOutput;
 import com.luuzun.ksca.domain.Schedule;
 import com.luuzun.ksca.domain.ScheduleJoinforList;
 
@@ -21,4 +22,5 @@ public interface ScheduleDAO {
 	public int checkDuplicate(String offerCode, Schedule schedule);
 	public List<Map<String, Object>> readMonthList(String areaCode);
 	public List<Schedule> readByRegMonth(String areaCode, String regMonth);
+	public List<ExcelOutput> excelOutput(String areaCode, String regMonth);
 }
