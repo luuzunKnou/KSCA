@@ -8,6 +8,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/cat/catModal.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/cat1List.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/cat2List.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/catInputCheck.js"></script>
 
 <section>
 <div class="catList">

@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/manager/modify.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/signUpInputCheck.js"></script>
+
 <section>
 <div id="sign_up">
 	<form class="form-horizontal" method="post">

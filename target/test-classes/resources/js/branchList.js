@@ -1,5 +1,10 @@
 /* Create Branch AJAX */
 $(document).on("click",".save",function() {
+	if(!submitCheck()){
+		$("#myModal,#modal_background").toggle();
+		return;
+	};
+	
 	var query = {
 		branch 		: $(".input.branch").val(),
 		branchCode	: $(".input.branch_code").val()
@@ -49,6 +54,11 @@ $(document).on("click",".btn_modify",function() {
 
 /* Update Branch AJAX */
 $(document).on("click",".modify_save",function() {
+	if(!submitCheck()){
+		$("#myModal,#modal_background").toggle();
+		return;
+	};
+	
 	var query = {
 		destBranchCode : $(".dest_branch_code").val(),
 		branch 		: $(".input.branch").val(),
@@ -147,12 +157,6 @@ function clear() {
 	$(".input.branch_code").val("");
 	$(".modify_save").text("저장").attr("class","save");
 	$("#p_checkCode").text("");
-}
-
-//n에 width 자리수에 맞게 0 추가
-function pad(n, width) {
-	n = n + '';
-	return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
 }
 
 //Key up시 Code 생성

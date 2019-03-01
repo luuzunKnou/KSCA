@@ -39,10 +39,13 @@
 		</interceptor>
 		 
 		<interceptor>
+			<mapping path="/agency/*"/>
 			<mapping path="/branch/*"/>
+			<mapping path="/cat/*"/>
+			<mapping path="/program/*"/>
 			<mapping path="/scc/*"/>
+			<mapping path="/schedule/*"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
-	
 </beans:beans>

@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/agency/agencyList.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/agencyList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/agencyInputCheck.js"></script>
 
 <section>
 <div class="agencyList">

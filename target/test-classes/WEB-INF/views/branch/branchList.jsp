@@ -5,6 +5,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/branch/branchList.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/branch/branchModal.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/branchList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/branchInputCheck.js"></script>
 
 <section>
 <div class="branchList">

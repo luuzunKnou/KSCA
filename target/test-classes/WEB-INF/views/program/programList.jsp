@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/program/programList.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/programList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/programInputCheck.js"></script>
 
 <section>
 <div class="programList">
@@ -61,7 +62,7 @@
 				
 				<td>
 					<select class="input cat2">
-	 					<option selected="selected" value=""> - </option>
+	 					<option selected="selected" value="">- 선택 -</option>
 	 				</select>
 				</td>
 				<td>

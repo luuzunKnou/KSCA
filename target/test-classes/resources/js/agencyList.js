@@ -1,5 +1,9 @@
 //On Save Button Click
 $(document).on("click",".save",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var query = {
 		name	: $(".input.name").val(),
 		manager : $(".input.manager").val(),
@@ -72,6 +76,10 @@ $(document).on("click",".btn_modify",function() {
 
 //Modify Ajax
 $(document).on("click",".modify",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var query = {
 		code	: $(".input.code").val(), 
 		name	: $(".input.name").val(),
@@ -105,6 +113,7 @@ $(document).on("click",".modify",function() {
 $(document).on("click",".close",function() {
 	$(".modify").text("추가").attr("class","save");
 	$(".agencyList").css("opacity",1.0);
+	clear();
 });
 
 function clear(){

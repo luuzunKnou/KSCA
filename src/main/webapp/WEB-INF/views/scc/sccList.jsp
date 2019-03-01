@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/scc/sccList.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/sccList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/sccInputCheck.js"></script>
 
 <section>
 <div class="sccList">

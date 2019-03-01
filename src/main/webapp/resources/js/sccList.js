@@ -1,5 +1,9 @@
 //On Save Button Click
 $(document).on("click",".save",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var sccCode=pad($(".input.scc_code").val(),3);
 	
 	var query = {
@@ -115,6 +119,10 @@ $(document).on("click",".btn_modify",function() {
 
 //Modify Ajax
 $(document).on("click",".modify",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var query = {
 		destAreaCode	: $(".input.dest_area_code").val(),
 		destBranchCode	: $(".input.dest_branch_code").val(), 
@@ -208,6 +216,7 @@ $(document).on("keyup change",".input.scc_code, .input.branch",function() {
 $(document).on("click",".close",function() {
 	$(".modify").text("추가").attr("class","save");
 	$(".sccList").css("opacity",1.0);
+	clear();
 });
 
 function clear(){

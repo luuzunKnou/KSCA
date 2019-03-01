@@ -44,7 +44,7 @@
 		UPDATE cat1	
 			<set> 
 				<if test="code != null"> code =#{code}, </if>
-				<if test="name	= null"> name =#{name}, </if> 
+				<if test="name != null"> name =#{name}, </if> 
 			</set>
 			WHERE code=#{destCode};
 	</update>

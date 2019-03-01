@@ -1,5 +1,9 @@
 //On Save Button Click
 $(document).on("click",".save",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var query = {
 		name  : $(".input.name").val(),
 		cat1  : $(".input.cat1").val(),
@@ -66,21 +70,33 @@ $(document).on("click",".btn_delete",function
 
 //Modify Button Click
 $(document).on("click",".btn_modify",function() {
+	//Set input value
 	var modifyingTr = $(this).parent().parent();
 	modifyingTr.addClass("modifying");
 	
-	//Set input value
 	$(".input.code").val(	modifyingTr.children(".list.code").text());
 	$(".input.name").val(	modifyingTr.children(".list.name").text());
 	$(".input.cat1").val(	modifyingTr.find(".list.cat1.code").text());
-	setCat2Option();
-	
-	setTimeout(function() {
-		$(".input.cat2").val(	modifyingTr.find(".list.cat2.code").text());
-	}, 500);
-	clearTimeout()
-
 	$(".input.agency").val(	modifyingTr.children(".list.a_code").text());
+	
+	var query = {
+			code : $(".input.cat1").val()
+		};
+		
+	var option = '<option selected="selected" value="">- 선택 -</option>';
+	$.ajax({
+		url  : "/program/getCat2List",
+		type : "post",
+		data : query,
+		success : function(data){
+			$.each(data, function (index, item) { 
+				option += '<option value="'+item.code+'">'+item.name+' ('+item.code+')'+'</option>';
+			});
+			
+			$(".input.cat2").html(option);
+			$(".input.cat2").val(modifyingTr.find(".list.cat2.code").text());
+		}
+	})
 	
 	//change button and opacity
 	$(".save").text("수정").attr("class","modify");
@@ -89,6 +105,10 @@ $(document).on("click",".btn_modify",function() {
 
 //Modify Ajax
 $(document).on("click",".modify",function() {
+	if(!submitCheck()){
+		return;
+	};
+	
 	var query = {
 		code	: $(".input.code").val(), 
 		name	: $(".input.name").val(),
@@ -127,11 +147,6 @@ $(document).on("click",".modify",function() {
 
 //Get Category2 List
 $(document).on("change",".input.cat1",function() {
-	setCat2Option();
-});
-
-//Set Category 2
-function setCat2Option(){
 	var query = {
 			code : $(".input.cat1").val()
 		};
@@ -148,8 +163,8 @@ function setCat2Option(){
 			
 			$(".input.cat2").html(option);
 		}
-	});
-}
+	})
+});
 
 //Modify - Reset button
 $(document).on("click",".close",function() {

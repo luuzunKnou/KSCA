@@ -1,8 +1,13 @@
 /* Create Cat1 AJAX */
 $(document).on("click",".m1.save",function() {
+	if(!submitCheckCat1()){
+		$(".modal.m1, .m1.modal_background").toggle();
+		return;
+	};
+	
 	var query = {
-		code  : $(".m1.name").val(),
-		name  : $(".m1.code").val()
+		code  : $(".m1.code").val(),
+		name  : $(".m1.name").val()
 	};
 
 	$.ajax({
@@ -61,6 +66,11 @@ $(document).on("click",".list.name1, .list.code1",function() {
 
 /* Update Cat1 AJAX */
 $(document).on("click",".m1.modify_save",function() {
+	if(!submitCheckCat1()){
+		$(".modal.m1, .m1.modal_background").toggle();
+		return;
+	};
+	
 	var query = {
 		destCode : $(".m1.dest_cat1_code").val(),
 		code 	 : $(".m1.input.code").val(),
@@ -76,8 +86,13 @@ $(document).on("click",".m1.modify_save",function() {
 			modifyingTr.children(".list.name1").text(data.name);
 			modifyingTr.children(".list.code1").text(data.code);
 			
+			$(modifyingTr.siblings().find(".code2_cat1")).each(function() {
+				var text = $(this).text();
+				$(this).text(text.replace($(".m1.dest_cat1_code").val(),data.code));
+			});
+			
 			alert("수정되었습니다.");
-			clearAll();
+			clearAll(); 
 		}
 	})
 });
@@ -151,7 +166,6 @@ $(function(){
 
 //Close, Save시 Cat1 input clear
 function clearAll() {
-	console.log("ccc"); 
 	$(".input.code").val("");
 	$(".input.name").val("");
 	$(".p_checkCode").text("");

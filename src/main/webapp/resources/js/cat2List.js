@@ -1,5 +1,10 @@
 /* Create Cat2 AJAX */
 $(document).on("click",".m2.save",function() {
+	if(!submitCheckCat2()){
+		$(".modal.m2, .m2.modal_background").toggle();
+		return;
+	};
+	
 	var query = {
 		code  : $(".m2.cat2.code").val(),
 		name  : $(".m2.cat2.name").val(),
@@ -22,6 +27,11 @@ $(document).on("click",".m2.save",function() {
 
 /* Click modify Button*/
 $(document).on("click",".list.name2, .list.code2",function() {
+	if(!submitCheckCat2()){
+		$(".modal.m2, .m2.modal_background").toggle();
+		return;
+	};
+	
 	//Cat1 name, code 가져오기
 	var modifyingTr = $(this).parent();
 	modifyingTr.addClass("modifying");
@@ -128,6 +138,10 @@ $(document).on("click",".m2.delete",function() {
 
 //Check Duplication Cat2 Code AJAX
 $(document).on("keyup change",".m2.input.code, .m2.input.cat1.code",function() {
+	if($(".m2.input.cat2.code").val()==""){
+		return;
+	}
+	
 	var query = {
 		code : $(".m2.input.cat2.code").val(),
 		cat1 : $(".m2.input.cat1.code").val()

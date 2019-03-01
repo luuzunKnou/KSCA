@@ -247,9 +247,3 @@ $(document).on("click",".btn_download",function(e) {
 	var regMonth = $(".cal.year").text()+"-"+$(".cal.month").text()+"-01";
 	window.location.href = "ExcelPoi?regMonth="+regMonth;
 });
-
-//n에 width 자리수에 맞게 0 추가
-function pad(n, width) {
-	n = n + '';
-	return n.length >= width ? n : new Array(width - n.length + 1).join('0')+n;
-}
