@@ -8,6 +8,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/schedule/schModal3.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colorPicker/spectrum.css"> <!-- ColorPicker -->
+<script src="${pageContext.request.contextPath}/resources/js/inputCheck/scheduleInputCheck.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/scheduler.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/schModal1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/schModal2.js"></script>
@@ -157,8 +158,8 @@
 		</select>
 	</form>
 	<p class="m3 p_btn">
-		<button class="m3 btn_load_select">불러오기</button>
 		<button class="m3 btn_reset">취소</button>
+		<button class="m3 btn_load_select">불러오기</button>
 	</p>
 </div>
 <div class="m3 modal_background"></div>

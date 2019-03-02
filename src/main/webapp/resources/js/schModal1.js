@@ -41,6 +41,11 @@ function setOfferProgramList(setList, value){
 
 //Create
 $(document).on("click",".m1.btn_create",function() {
+	if(!submitCheckSch()){
+		$(".m1.modal, .m1.modal_background").toggle();
+		return;
+	};
+	
 	var dateStrList = getDateList(); //ajax로 전송할 배열
 	
 	var query = {
@@ -60,14 +65,14 @@ $(document).on("click",".m1.btn_create",function() {
 			setSchedule();
 		}
 	})
-	
+	clearM1All();
 });
 
 
 //주간반복, 요일 체크에 따라 Date Str 생성
 function getDateList(){
 	var thisYear  = $(".cal.year").text();
-	var	thisMonth = $(".cal.month").text();
+	var	thisMonth = parseInt($(".cal.month").text())-1;
 	
 	var dateStrList = new Array(); //ajax로 전송할 배열
 	var checkedDay = new Array(); //선택된 요일 배열
@@ -80,11 +85,13 @@ function getDateList(){
 		dateStrList.push($(".m1.input_date").val());
 	};
 	
-	var lastDay=lastDateList[parseInt(thisMonth)-1]; //이번 달 마지막 날
+	var lastDay=lastDateList[thisMonth]; //이번 달 마지막 날
   
 	var checkDate = new Date(); //요일을 체크할 Year/Month Set
 	checkDate.setFullYear(thisYear);
 	checkDate.setMonth(thisMonth);
+
+	console.log(checkDate+" : "+checkedDay + " : " + lastDay);
 	
 	for(i=1; i<=lastDay; i++){
 		checkDate.setDate(i); //체크할 Date Set
@@ -92,7 +99,7 @@ function getDateList(){
 		for(j=0; j<=checkedDay.length; j++){ //체크할 날짜의 요일과 선택된 요일 배열 비교
 			if(checkedDay[j]==checkDate.getDay()){
 				dateStrList.push(checkDate.getFullYear()+"-"+	
-					pad(checkDate.getMonth(),2)+"-"+
+					pad(checkDate.getMonth()+1,2)+"-"+
 					pad(checkDate.getDate(),2)); //배열에 스케쥴을 입력할 날짜 push
 			} 
 		}
@@ -124,6 +131,11 @@ $(document).on("click", ".p_schedule",function(){
 
 //Modify AJAX
 $(document).on("click", ".m1.btn_modify_save",function(){
+	if(!submitCheckSch()){
+		$(".m1.modal, .m1.modal_background").toggle();
+		return;
+	};
+	
 	var dateStrList = getDateList(); //ajax로 전송할 배열
 	var query = {
 			code:			$(".modifying").data("offer_code"),
@@ -147,6 +159,7 @@ $(document).on("click", ".m1.btn_modify_save",function(){
 				setSchedule();
 		}
 	})
+	clearM1All();
 });
 
 //Delete AJAX
@@ -168,8 +181,7 @@ $(document).on("click", ".m1.btn_delete",function(){
 });
 
 //Modal Toggle
-$(document).on("click",".m1.btn_create, .m1.modal_background, .m1.btn_modify_save, " +
-		".m1.btn_delete, .m1.btn_reset",function() {
+$(document).on("click",".m1.modal_background, .m1.btn_delete, .m1.btn_reset",function() {
 	clearM1All();
 });
 

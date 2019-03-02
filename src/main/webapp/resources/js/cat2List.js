@@ -27,11 +27,6 @@ $(document).on("click",".m2.save",function() {
 
 /* Click modify Button*/
 $(document).on("click",".list.name2, .list.code2",function() {
-	if(!submitCheckCat2()){
-		$(".modal.m2, .m2.modal_background").toggle();
-		return;
-	};
-	
 	//Cat1 name, code 가져오기
 	var modifyingTr = $(this).parent();
 	modifyingTr.addClass("modifying");
@@ -68,6 +63,11 @@ $(document).on("click",".list.name2, .list.code2",function() {
 
 /* Update Cat2 AJAX */
 $(document).on("click",".m2.modify_save",function() {
+	if(!submitCheckCat2()){
+		$(".modal.m2, .m2.modal_background").toggle();
+		return;
+	};
+	
 	var destCat1 = $(".m2.dest_cat1_code").val();
 	var query = {
 		destCode : $(".m2.dest_cat2_code").val(),

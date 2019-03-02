@@ -182,6 +182,10 @@ $(document).on("click",".modify",function() {
 
 //Check Duplication SCC Code AJAX
 $(document).on("keyup change",".input.scc_code, .input.branch",function() {
+	if($(".input.scc_code").val()==""){
+		return;
+	} 
+	
 	var sccCode=pad($(".input.scc_code").val(),3);
 
 	var query = {

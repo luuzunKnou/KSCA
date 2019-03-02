@@ -25,4 +25,10 @@
 .m3.btn_reset, .m3.btn_load_select{
 	width: 60px; margin: 5px 5px 0px 5px; border-radius:5px; padding:3px 0;
 	background-color: #e67e22; color: white; border:none; height:25px;
+	float: right;
+}
+
+.m3.input.year {
+	margin: 20px 0;
+	width: 200px; height: 25px;
 }

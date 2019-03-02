@@ -9,6 +9,11 @@
 
 //On Load clicked
 $(document).on("click",".m3.btn_load_select",function(){
+	if(!submitCheckLoad()){
+		$(".m3.modal, .m3.modal_background").toggle();
+		return;
+	};
+	
 	var regMonth = $(".cal.year").text()+"-"+$(".cal.month").text()+"-01";
 	var query = {
 		srcMonth  : $(".m3.input.year").find(':selected').data('year')+"-"+
@@ -26,9 +31,9 @@ $(document).on("click",".m3.btn_load_select",function(){
 });
 
 //Modal Toggle
-$(document).on("click",".m3.btn_reset, .m3.modal_background",function() {
+$(document).on("click",".m3.btn_load_select, .m3.btn_reset, .m3.modal_background",function() {
 	clearM3All();
-});
+}); 
 
 $(document).on("click",".btn_load, .m3.btn_load_select, .m3.btn_reset, .m3.modal_background",function() {
 	$(".m3.modal, .m3.modal_background").toggle();
@@ -37,6 +42,5 @@ $(document).on("click",".btn_load, .m3.btn_load_select, .m3.btn_reset, .m3.modal
 
 //Close, Save시 clear
 function clearM3All() {
-	$(".m1.input_date").val("");
-	$(".m1.input.scc.select").val("");
+	$(".m3.input.year").val("");
 }

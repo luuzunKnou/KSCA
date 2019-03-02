@@ -40,6 +40,10 @@ function setOfferProgram(){
 
 //Create
 $(document).on("click",".m2.btn_create",function() {
+	if(!submitCheckPro()){
+		return false;
+	};
+	
 	var query = {
 			program	 	 : $(".input.pname").val(),
 			regMonthStr	 : $(".cal.year").text()+"-"+$(".cal.month").text()+"-01",
@@ -55,6 +59,7 @@ $(document).on("click",".m2.btn_create",function() {
 			setOfferProgram();
 		}
 	})
+	clearM2All();
 	return false;
 });
 
@@ -78,6 +83,10 @@ $(document).on("click", ".m2.btn_modify",function(){
 
 //Modify AJAX
 $(document).on("click", ".m2.btn_modify_save",function(){
+	if(!submitCheckPro()){
+		return false;
+	};
+	
 	var query = {
 		code 		 : $(".input_offer_program_code").val(),
 		program	 	 : $(".input.pname").val(),
@@ -96,6 +105,8 @@ $(document).on("click", ".m2.btn_modify_save",function(){
 			setSchedule();
 		}
 	})
+	
+	clearM2All();
 	return false;
 });
 
@@ -158,7 +169,7 @@ $(document).on("change",".m2.input.pname",function() {
 
 
 //Modal Toggle
-$(document).on("click",".m2.modal_background, .m2.btn_reset, .m2.btn_modify_save",function() {
+$(document).on("click",".m2.modal_background, .m2.btn_reset",function() {
 	clearM2All();
 	return false;
 });

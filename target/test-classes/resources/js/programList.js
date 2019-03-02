@@ -47,8 +47,7 @@ $(document).on("click",".save",function() {
 
 
 //Delete Button
-$(document).on("click",".btn_delete",function
-		() {
+$(document).on("click",".btn_delete",function() {
 	var result = confirm("정말 삭제하시겠습니까?");
 	if(result){
 		var deleteTr = $(this).parent().parent();
