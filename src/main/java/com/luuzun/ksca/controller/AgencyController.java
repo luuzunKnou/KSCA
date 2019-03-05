@@ -51,11 +51,12 @@ public class AgencyController {
 	@ResponseBody
 	@RequestMapping(value="/createAgency", method=RequestMethod.POST)
 	public Agency createAgency(Agency agency, HttpSession session) throws Exception  {
-		logger.info("Create Agency..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		String areaCode = manager.getArea();
 
+		logger.info("Create Agency..........: " + agency + " : " + areaCode);
+		
 		//Set insert Agency
 		agency.setArea(areaCode);
 		String lastIdx = service.create(agency);
@@ -70,7 +71,7 @@ public class AgencyController {
 	@ResponseBody
 	@RequestMapping(value="/modifyAgency", method=RequestMethod.POST)
 	public Agency modifyAgency(Agency agency, Model model) throws Exception  {
-		logger.info("Modify Agency..........:");
+		logger.info("Modify Agency..........: " + agency);
 		service.update(agency);
 		return agency;
 	}
@@ -81,7 +82,7 @@ public class AgencyController {
 	@ResponseBody
 	@RequestMapping(value="/removeAgency", method=RequestMethod.POST)
 	public Agency removeAgency(Model model, HttpServletRequest req, Agency agency) throws Exception {
-		logger.info("Remove Agency..........");
+		logger.info("Remove Agency..........: " + agency);
 		
 		service.delete(agency.getCode());
 		return agency;

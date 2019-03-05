@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.luuzun.ksca.domain.OfferProgram;
 import com.luuzun.ksca.domain.OfferProgramJoinForList;
+import com.luuzun.ksca.domain.Program;
 
 public interface OfferProgramDAO {
 	public OfferProgram read(String code) throws Exception;
@@ -14,4 +15,5 @@ public interface OfferProgramDAO {
 	public List<OfferProgramJoinForList> readOfferProgramJoinForList(String areaCode, String regMonth);
 	public OfferProgram readForCheck(String program, String regMonth);
 	public List<OfferProgram> readByRegMonth(String areaCode, String regMonth);
+	public List<Program> readByProgram(String code);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.luuzun.ksca.domain.OfferProgram;
 import com.luuzun.ksca.domain.OfferProgramJoinForList;
+import com.luuzun.ksca.domain.Program;
 
 @Repository
 public class OfferProgramDAOImpl implements OfferProgramDAO{
@@ -65,5 +66,10 @@ public class OfferProgramDAOImpl implements OfferProgramDAO{
 		param.put("regMonth", regMonth);
 		
 		return sqlSession.selectList(namespace+"readByRegMonth",param);
+	}
+
+	@Override
+	public List<Program> readByProgram(String code) {
+		return sqlSession.selectList(namespace+"readByProgram",code);
 	}
 }

@@ -1,12 +1,15 @@
 package com.luuzun.ksca.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.luuzun.ksca.domain.Cat2;
 import com.luuzun.ksca.domain.Program;
 import com.luuzun.ksca.domain.ProgramJoinForList;
 
@@ -56,5 +59,14 @@ public class ProgramDAOImpl implements ProgramDAO{
 	@Override
 	public ProgramJoinForList readProgramJoinByCode(String code) {
 		return sqlSession.selectOne(namespace+"readProgramJoinByCode",code);
+	}
+
+	@Override
+	public List<Cat2> readByCat2(Cat2 cat2) {
+		Map<String, String> param = new HashMap<>();
+		param.put("cat1", cat2.getCat1());
+		param.put("cat2", cat2.getCode());
+
+		return sqlSession.selectList(namespace+"readByCat2",param);
 	}
 }

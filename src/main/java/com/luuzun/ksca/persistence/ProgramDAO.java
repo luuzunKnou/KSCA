@@ -2,6 +2,7 @@ package com.luuzun.ksca.persistence;
 
 import java.util.List;
 
+import com.luuzun.ksca.domain.Cat2;
 import com.luuzun.ksca.domain.Program;
 import com.luuzun.ksca.domain.ProgramJoinForList;
 
@@ -15,4 +16,5 @@ public interface ProgramDAO {
 	
 	public List<ProgramJoinForList> readProgramJoinForList(String areaCode);
 	public ProgramJoinForList readProgramJoinByCode(String code);
+	public List<Cat2> readByCat2(Cat2 cat2);
 }

@@ -65,10 +65,11 @@ public class ProgramController {
 	@ResponseBody
 	@RequestMapping(value="/createProgram", method=RequestMethod.POST)
 	public ProgramJoinForList createProgram(Program program, HttpSession session) throws Exception  {
-		logger.info("Create Program..........");
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		String areaCode = manager.getArea();
+		
+		logger.info("Create Program.......... : " + program + " : " + areaCode);
 
 		//Set insert Program
 		program.setArea(areaCode);
@@ -88,7 +89,7 @@ public class ProgramController {
 	@ResponseBody
 	@RequestMapping(value="/modifyProgram", method=RequestMethod.POST)
 	public ProgramJoinForList modifyProgram(Program program, Model model) throws Exception  {
-		logger.info("Modify Program..........:");
+		logger.info("Modify Program.......... : " + program);
 
 		service.update(program);
 		
@@ -103,7 +104,7 @@ public class ProgramController {
 	@ResponseBody
 	@RequestMapping(value="/getCat2List", method=RequestMethod.POST)
 	public List<Cat2> getCat2List(String code) throws Exception  {
-		logger.info("Get Category2 List..........:");
+		logger.info("Get Category2 List..........");
 		List<Cat2> cat2List = cat2Service.readByCat1(code);
 		return cat2List;
 	}
@@ -113,9 +114,7 @@ public class ProgramController {
 	@ResponseBody
 	@RequestMapping(value="/removeProgram", method=RequestMethod.POST)
 	public Program removeProgram(Model model, HttpServletRequest req, Program program) throws Exception {
-		logger.info("Remove Program..........");
-		
-		service.delete(program.getCode());
-		return program;
+		logger.info("Remove Program.......... : " + program);
+		return service.delete(program.getCode());
 	}
 }

@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,9 +52,10 @@ public class ScheduleController {
 	//Schduler Page
 	@RequestMapping(value="/scheduler")
 	public String programList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
-		logger.info("Scheduler Page..........");
 		
 		Manager manager = (Manager) session.getAttribute("login");
+		logger.info("Scheduler Page.......... : " + manager);
+		
 		//Permission Check
 		if(manager==null) {
 			rttr.addFlashAttribute("msg","권한이 없습니다.");
@@ -91,10 +93,11 @@ public class ScheduleController {
 	@RequestMapping(value="/getOfferProgram")
 	@ResponseBody
 	public List<OfferProgramJoinForList> getOfferProgram(HttpSession session, String regMonth){
-		logger.info("Get OfferProgram..........");
 
 		Manager manager = (Manager) session.getAttribute("login");
 		String areaCode = manager.getArea();
+		
+		logger.info("Get OfferProgram.......... : " + areaCode);
 		
 		List<OfferProgramJoinForList> offerProgramList 
 				= offerProgramService.readOfferProgramJoinForList(
@@ -109,7 +112,6 @@ public class ScheduleController {
 	public ResponseEntity<String> createOfferProgram(OfferProgram offerProgram, 
 			String regMonthStr, String beginDateStr, String endDateStr) {
 
-		logger.info("Create Offer Program..........");
 		
 		ResponseEntity<String> entity = null;
 		
@@ -117,6 +119,8 @@ public class ScheduleController {
 		offerProgram.setSimpleRegMonth(regMonthStr);
 		offerProgram.setSimpleBeginDate(beginDateStr);
 		offerProgram.setSimpleEndDate(endDateStr);
+		
+		logger.info("Create Offer Program.......... : " + offerProgram);
 		
 		try {
 			offerProgramService.create(offerProgram);
@@ -134,7 +138,7 @@ public class ScheduleController {
 	@RequestMapping(value="/deleteOfferProgram", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteOfferProgram(String offerProgramCode) {
 
-		logger.info("Delete Offer Program..........");
+		logger.info("Delete Offer Program.......... : " + offerProgramCode);
 		ResponseEntity<String> entity = null;
 		
 		try {
@@ -153,8 +157,6 @@ public class ScheduleController {
 	@RequestMapping(value="/modifyOfferProgram", method=RequestMethod.POST)
 	public ResponseEntity<String> modifyOfferProgram(OfferProgram offerProgram, 
 			String regMonthStr, String beginDateStr, String endDateStr) {
-
-		logger.info("Modify Offer Program..........");
 		
 		ResponseEntity<String> entity = null;
 		
@@ -163,6 +165,7 @@ public class ScheduleController {
 		offerProgram.setSimpleBeginDate(beginDateStr);
 		offerProgram.setSimpleEndDate(endDateStr);
 		
+		logger.info("Modify Offer Program.......... : " + offerProgram);
 		try {
 			offerProgramService.update(offerProgram);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
@@ -231,9 +234,7 @@ public class ScheduleController {
 			
 			List<Schedule> scheduleList = dateStrToScheduleList(dateStrList, offerCode);
 			if(scheduleList.size()!=0) {
-				
 				scheduleService.createMany(scheduleList);
-				//offerService.updateMonthlyOper(offerCode, scheduleList.size());//Offer에 monthly_oper(월 운영 횟수) 업데이트
 			}
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
@@ -349,6 +350,7 @@ public class ScheduleController {
 	
 	//loadSchedule
 	@ResponseBody
+	@Transactional
 	@RequestMapping(value="/loadSchedule", method=RequestMethod.POST)
 	public ResponseEntity<String> loadSchedule(HttpSession session, String srcMonth, String destMonth) throws Exception {
 		logger.info("Load Schedule..........: "+ srcMonth +" >>>> "+ destMonth);
@@ -468,8 +470,8 @@ public class ScheduleController {
 			destCal.set(Calendar.DATE, i);
 			if(destCal.get(Calendar.WEEK_OF_MONTH)==srcCal.get(Calendar.WEEK_OF_MONTH) 			
 					&& destCal.get(Calendar.DAY_OF_WEEK)==srcCal.get(Calendar.DAY_OF_WEEK)) { 
-			//주, 요일이 같은 날
-			return new Date(destCal.getTimeInMillis());
+				//주, 요일이 같은 날
+				return new Date(destCal.getTimeInMillis());
 			}
 		}
 		

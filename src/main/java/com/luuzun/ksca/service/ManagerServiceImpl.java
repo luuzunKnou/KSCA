@@ -5,16 +5,23 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.luuzun.ksca.domain.Area;
+import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.ManagerHasArea;
+import com.luuzun.ksca.persistence.AreaDAO;
+import com.luuzun.ksca.persistence.BranchDAO;
 import com.luuzun.ksca.persistence.ManagerDAO;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
 
-	@Inject
-	private ManagerDAO dao;
+	@Inject	private ManagerDAO dao;
+	@Inject	private BranchDAO branchDao;
+	@Inject	private AreaDAO areaDao;
+	
 	
 	@Override
 	public List<Manager> listAll() throws Exception {
@@ -32,7 +39,22 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
-	public void create(Manager manager) throws Exception {
+	@Transactional
+	public void create(Manager manager, Area area) throws Exception {
+		//set area
+		area.setCode();
+		
+		//set manager
+		manager.setArea(area.getCode());
+		
+		//set branch 
+		Branch branch = new Branch();
+		branch.setAreaCode(area.getCode());
+		branch.setBranch("¾øÀ½");
+		branch.setBranchCode("99");
+		
+		areaDao.create(area);
+		branchDao.create(branch);
 		dao.create(manager);
 	}
 

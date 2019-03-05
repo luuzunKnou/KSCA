@@ -61,7 +61,10 @@
 				AND offerprogram.reg_month=#{regMonth};
 	</select>
 
-	
+	<select id="readByProgram">
+		SELECT * From offerProgram 
+			WHERE program=#{code}; 
+	</select>
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
 		INSERT INTO offerProgram(program, reg_month, begin_date, end_date, color) VALUES

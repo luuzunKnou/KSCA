@@ -2,7 +2,6 @@ package com.luuzun.ksca.service;
 
 import java.util.List;
 
-import com.luuzun.ksca.domain.Offer;
 import com.luuzun.ksca.domain.OfferProgram;
 import com.luuzun.ksca.domain.OfferProgramJoinForList;
 

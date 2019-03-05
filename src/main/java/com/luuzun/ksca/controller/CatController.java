@@ -68,8 +68,7 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/createCat1", method=RequestMethod.POST)
 	public Cat1 createCat1(Cat1 cat1, Model model) throws Exception  {
-		logger.info("Create Category1..........");
-		logger.info("Category1: "+cat1);
+		logger.info("Create Category1.......... : " + cat1);
 		
 		try {
 			cat1Service.create(cat1);
@@ -84,8 +83,7 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/createCat2", method=RequestMethod.POST)
 	public Cat2 createCat2(Cat2 cat2, Model model) throws Exception  {
-		logger.info("Create Category2..........");
-		logger.info("Category2: "+cat2);
+		logger.info("Create Category2.......... : " + cat2);
 		
 		try {
 			cat2Service.create(cat2);
@@ -102,7 +100,7 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/updateCat1", method=RequestMethod.POST)
 	public Cat1 updateCat1(Model model, String destCode, Cat1 cat1) throws Exception {
-		logger.info("Update Category 1..........");
+		logger.info("Update Category 1.......... : " + destCode + " to " + cat1);
 		cat1Service.update(destCode, cat1);
 		return cat1;
 	}
@@ -111,8 +109,7 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/updateCat2", method=RequestMethod.POST)
 	public Cat2 updateCat2(Model model, String destCode, String destCat1, Cat2 cat2) throws Exception {
-		logger.info("Update Category 2..........");
-		logger.info("DestCode : " + destCode + "DestCat1 : " + destCat1 + "Cat2 : " + cat2);
+		logger.info("Update Category 2.......... : " + destCode + " to " + cat2);
 		cat2Service.update(destCode, destCat1, cat2);
 		return cat2;
 	}
@@ -123,28 +120,18 @@ public class CatController {
 	@ResponseBody
 	@RequestMapping(value="/removeCat1", method=RequestMethod.POST)
 	public String removeCat1(Model model, String code) throws Exception {
-		logger.info("Remove Category 1..........");
-
-		//하위 Cat2 존재하면 삭제 불가
-		if(cat2Service.readByCat1(code).size()!=0) {
-			return "ERROR:cascade";
-		}
-		
-		cat1Service.delete(code);
-		return code;
+		logger.info("Remove Category 1.......... : " + code);
+		return cat1Service.delete(code);
 	}
 	
 	//Category 2 삭제
 	@ResponseBody
 	@RequestMapping(value="/removeCat2", method=RequestMethod.POST)
 	public Cat2 removeCat2(Model model, Cat2 cat2) throws Exception {
-		logger.info("Remove Category 2..........");
+		logger.info("Remove Category 2.......... : " + cat2);
 		logger.info("DestCode : " + cat2.getCode() + "DestCat1 : " + cat2.getCat1());
 
-		//하위 프로그램이 존재하면 삭제 불가
-		
-		cat2Service.delete(cat2.getCode(), cat2.getCat1());
-		return cat2;
+		return cat2Service.delete(cat2);
 	}
 		
 		
@@ -154,12 +141,12 @@ public class CatController {
 	public int checkCat1(String code) throws Exception{
 		logger.info("Check duplication Cat1");
 		 
-		 Cat1 cat1 =  cat1Service.read(code);
-		 
-		 if(cat1 != null) { //아이디 중복시 0 반환
-			 return 0;
-		 } 
-		 return 1;
+		Cat1 cat1 =  cat1Service.read(code);
+		
+		if(cat1 != null) { //아이디 중복시 0 반환
+			return 0;
+		} 
+			return 1;
 	}
 	
 	
@@ -169,11 +156,11 @@ public class CatController {
 	public int checkCat2(String code, String cat1) throws Exception{
 		logger.info("Check duplication Cat2");
 
-		 Cat2 cat2 =  cat2Service.read(code, cat1);
+		Cat2 cat2 =  cat2Service.read(code, cat1);
 		 
-		 if(cat2 != null) { //아이디 중복시 0 반환
-			 return 0;
-		 } 
-		 return 1;
+		if(cat2 != null) { //아이디 중복시 0 반환
+			return 0;
+		} 
+			return 1;
 	}
 }

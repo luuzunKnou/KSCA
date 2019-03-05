@@ -10,7 +10,7 @@ public interface ProgramService {
 	public Program read(String code) throws Exception;
 	public String create(Program program) throws Exception;
 	public void update(Program program) throws Exception;
-	public void delete(String code) throws Exception;
+	public Program delete(String code) throws Exception;
 	public List<Program> readByAreaCode(String areaCode);
 	
 	public List<ProgramJoinForList> readProgramJoinForList(String areaCode);

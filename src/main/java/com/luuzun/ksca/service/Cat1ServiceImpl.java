@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.luuzun.ksca.domain.Cat1;
 import com.luuzun.ksca.domain.Cat1HasCat2;
 import com.luuzun.ksca.persistence.Cat1DAO;
+import com.luuzun.ksca.persistence.Cat2DAO;
 
 @Service
 public class Cat1ServiceImpl implements Cat1Service{
@@ -16,6 +17,10 @@ public class Cat1ServiceImpl implements Cat1Service{
 	@Inject
 	private Cat1DAO dao;
 
+	@Inject
+	private Cat2DAO cat2Dao;
+
+	
 	@Override
 	public List<Cat1> listAll() throws Exception {
 		return dao.listAll();
@@ -37,8 +42,15 @@ public class Cat1ServiceImpl implements Cat1Service{
 	}
 
 	@Override
-	public void delete(String code) throws Exception{
+	public String delete(String code) throws Exception{
+		
+		//하위 Cat2 존재하면 삭제 불가
+		if(cat2Dao.readByCat1(code).size()!=0) {
+			return "ERROR:cascade";
+		}
+		
 		dao.delete(code);
+		return code;
 	}
 
 	@Override

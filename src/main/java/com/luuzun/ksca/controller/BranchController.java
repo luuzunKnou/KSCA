@@ -20,7 +20,6 @@ import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.service.AreaService;
 import com.luuzun.ksca.service.BranchService;
-import com.luuzun.ksca.service.SccService;
 
 @Controller
 @RequestMapping("/branch/*")
@@ -29,7 +28,6 @@ public class BranchController {
 	
 	@Inject	private BranchService service;
 	@Inject	private AreaService areaService;
-	@Inject	private SccService sccService;
 
 	//Area List
 	@RequestMapping(value="/branchList")
@@ -59,10 +57,10 @@ public class BranchController {
 	@ResponseBody
 	@RequestMapping(value="/createBranch", method=RequestMethod.POST)
 	public Branch createBranch(Branch branch, HttpSession session, Model model) throws Exception  {
-		logger.info("Create Branch..........");
 		Manager manager = (Manager) session.getAttribute("login");
 		branch.setAreaCode(manager.getArea());
-		logger.info("Branch: "+branch);
+
+		logger.info("Create Branch..........: " + branch + " : " + manager.getArea());
 
 		service.create(branch);
 
@@ -75,10 +73,10 @@ public class BranchController {
 	@RequestMapping(value="/updateBranch", method=RequestMethod.POST)
 	public Branch updateBranch(Model model, HttpServletRequest req, HttpSession session,
 			String destBranchCode, Branch branch) throws Exception {
-		logger.info("Update Branch..........");
 		Manager manager = (Manager) session.getAttribute("login");
 		branch.setAreaCode(manager.getArea());
-		logger.info(destBranchCode+":"+branch.toString());
+		
+		logger.info("Update Branch.........."+ destBranchCode + " to " + branch + " : " + manager.getArea());
 
 		service.update(manager.getArea(), destBranchCode, branch);
 		return branch;
@@ -92,19 +90,8 @@ public class BranchController {
 			String branchCode) throws Exception {
 		Manager manager = (Manager) session.getAttribute("login");
 		logger.info("Remove Branch..........: " + manager.getArea() + "-" + branchCode);
-
-		//99 삭제 불가
-		if(branchCode.equals("99")){
-			return "ERROR:def";
-		}
 		
-		//분회에 소속된 경로당이 존재하면 삭제 불가
-		if(sccService.readByBranchCode(manager.getArea(), branchCode).size()!=0) {
-			return "ERROR:cascade";
-		}
-		
-		service.delete(manager.getArea(), branchCode);
-		return branchCode;
+		return service.delete(manager.getArea(), branchCode);
 	}
 	
 	

@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luuzun.ksca.domain.Area;
-import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.service.AreaService;
-import com.luuzun.ksca.service.BranchService;
 import com.luuzun.ksca.service.ManagerService;
 
 @Controller
@@ -29,7 +27,6 @@ public class ManagerController {
 	
 	@Inject	private ManagerService service;
 	@Inject	private AreaService areaService;
-	@Inject	private BranchService branchService;
 	
 	//로그인 페이지 이동
 	@RequestMapping(value="/logIn")
@@ -43,7 +40,9 @@ public class ManagerController {
 	public void loginPost(Manager inputMember, Model model) throws Exception{
 		Manager manager = service.readForLogin(
 				inputMember.getId(), inputMember.getPassword());
+		
 		logger.info("Manager(Login Controller) :"+manager);
+		
 		if(manager==null){
 			//일치하는 매니저가 없다면 null 전달
 			logger.info("Cannot Find Manager");
@@ -77,26 +76,9 @@ public class ManagerController {
 	//회원가입 submit
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
 	public String signUpPost(Manager manager, Area area, RedirectAttributes rttr) throws Exception{
-		logger.info("SignUp..........");
-		logger.info(manager.toString());
+		logger.info("SignUp.......... : " + manager + " : " + area);
 		
-		//set area
-		area.setCode();
-		logger.info(area.toString());
-		
-		//set manager
-		manager.setArea(area.getCode());
-		
-		//set branch 
-		Branch branch = new Branch();
-		branch.setAreaCode(area.getCode());
-		branch.setBranch("없음");
-		branch.setBranchCode("99");
-
-		//Transaction
-		areaService.create(area);
-		service.create(manager);
-		branchService.create(branch);
+		service.create(manager, area);
 		
 		rttr.addFlashAttribute("msg","회원 가입 신청이 완료되었습니다.");
 		return "redirect:/";
@@ -149,15 +131,15 @@ public class ManagerController {
 	//회원정보 수정 페이지 이동
 	@RequestMapping(value="/modify")
 	public String modifyGet(HttpSession session, Model model, RedirectAttributes rttr) throws Exception{
-		logger.info("Modify Profile..........");
 		Manager manager = (Manager) session.getAttribute("login");
+		logger.info("Modify Profile.......... : " + manager);
+		
 		if(manager==null) {
 			rttr.addFlashAttribute("msg","권한이 없습니다.");
 			return "redirect:/";
 		}
 		
 		String id = manager.getId();
-		logger.info(id);
 		model.addAttribute("managerInfo",service.readManagerHasArea(id));
 		return "manager/modify"; 
 	}
@@ -166,7 +148,7 @@ public class ManagerController {
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modifyPost(Manager manager,
 			HttpSession session, Model model, RedirectAttributes rttr) throws Exception{
-		logger.info("Modify Profile Post..........");
+		logger.info("Modify Profile Post.......... : " + manager);
 		logger.info(manager.toString());
 
 		//password null 처리
@@ -185,7 +167,7 @@ public class ManagerController {
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
 	public String removePost(String id, 
 			HttpSession session, Model model, RedirectAttributes rttr) throws Exception{
-		logger.info("Remove Profile Post.........."+id);
+		logger.info("Remove Profile Post.........." + id);
 		
 		service.leave(id);
 		session.removeAttribute("login");

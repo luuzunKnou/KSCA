@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.luuzun.ksca.domain.Program;
 import com.luuzun.ksca.domain.ProgramJoinForList;
+import com.luuzun.ksca.persistence.OfferProgramDAO;
 import com.luuzun.ksca.persistence.ProgramDAO;
 
 @Service
 public class ProgramServiceImpl implements ProgramService{
 
-	@Inject
-	private ProgramDAO dao;
-
+	@Inject	private ProgramDAO dao;
+	@Inject	private OfferProgramDAO offerProgramDAO;
+	
 	@Override
 	public List<Program> listAll() throws Exception {
 		return dao.listAll();
@@ -37,8 +38,17 @@ public class ProgramServiceImpl implements ProgramService{
 	}
 
 	@Override
-	public void delete(String code) throws Exception{
+	public Program delete(String code) throws Exception{
+		Program program = new Program();
+		program.setCode(code);
+		
+		if(offerProgramDAO.readByProgram(code).size()!=0) {
+			program.setCode("ERROR:cascade");
+			return program;
+		}
+		
 		dao.delete(code);
+		return program;
 	}
 
 	@Override

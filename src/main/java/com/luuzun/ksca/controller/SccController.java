@@ -71,7 +71,7 @@ public class SccController {
 	@ResponseBody
 	@RequestMapping(value="/createScc", method=RequestMethod.POST)
 	public SCC createScc(SCC scc, HttpSession session, Model model, String regDateStr) throws Exception  {
-		logger.info("Create SCC..........");
+		logger.info("Create SCC.......... : " + scc);
 		
 		Manager manager=(Manager) session.getAttribute("login");
 		String areaCode = manager.getArea();
@@ -99,7 +99,7 @@ public class SccController {
 	public SCC modifyScc(String destAreaCode, String destBranchCode, String destSccCode,
 			SCC scc, Model model, String regDateStr) throws Exception  {
 		
-		logger.info("Modify SCC..........:"+regDateStr);
+		logger.info("Modify SCC..........:" + regDateStr);
 		
 		//Set insert SCC
 		if(regDateStr.length()!=0) {

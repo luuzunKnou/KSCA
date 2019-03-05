@@ -60,7 +60,12 @@ $(document).on("click",".btn_delete",function() {
 			type : "post",
 			data : query,
 			success : function(data){
-				deleteTr.remove();
+				if(data.code=="ERROR:cascade"){
+					alert("스케줄러에 등록된 프로그램이 존재하므로 삭제할 수 없습니다.");
+				} else {
+					deleteTr.remove();
+					alert("삭제되었습니다.");
+				}
 			}
 		})
 	}

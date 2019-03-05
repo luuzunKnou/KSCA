@@ -123,7 +123,7 @@ $(document).on("click",".m2.delete",function() {
 			type : "post",
 			data : query,
 			success : function(data){
-				if(data=="ERROR:cascade"){
+				if(data.code=="ERROR:cascade"){
 					alert("카테고리에 등록된 프로그램이 존재하므로 삭제할 수 없습니다.");
 				} else {
 					var targetTd = $(".list.code1:contains("+data.cat1+")");

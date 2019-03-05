@@ -42,6 +42,10 @@
 			WHERE area=#{area};
 	</select>
 	
+	<select id="readByCat2" resultType="program">
+		SELECT * FROM program 
+			WHERE cat1=#{cat1} AND cat2=#{cat2};
+	</select>
 	
 	<select id="readProgramJoinByCode" resultMap="programJoinForList">
 		SELECT  program.code 	AS pcode, 
