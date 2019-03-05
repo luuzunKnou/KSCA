@@ -31,7 +31,7 @@
 	
 	<select id="readForLogin" resultType="Manager">
 		SELECT * FROM manager 
-			WHERE BINARY(id)=#{id} AND BINARY(password)=#{password} 
+			WHERE BINARY(id)=#{id} AND password=md5(#{password}) 
 				AND is_exist=TRUE;
 	</select>
 	
@@ -50,13 +50,13 @@
 	
 	<insert id="create">
 		INSERT INTO manager(id, password, name, tel, mail, area) 
-			VALUES (#{id}, #{password}, #{name}, #{tel}, #{mail}, #{area})
+			VALUES (#{id}, md5(#{password}), #{name}, #{tel}, #{mail}, #{area})
 	</insert>
 	
 	<update id="update">
 		UPDATE manager 
 			<set>
-	 			<if test="password != null">	password	=#{password}, </if> 
+	 			<if test="password != null">	password	=md5(#{password}), </if> 
 				<if test="name != null">		name		=#{name}, </if>
 				<if test="tel != null">			tel			=#{tel}, </if>
 				<if test="mail != null">		mail		=#{mail}, </if>

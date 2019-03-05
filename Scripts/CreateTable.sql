@@ -28,7 +28,7 @@ CREATE TABLE area (
 
 CREATE TABLE manager (
 	id         VARCHAR(50) NOT NULL, 
-	password   VARCHAR(20) NOT NULL, 
+	password   VARCHAR(35) NOT NULL, 
 	name       VARCHAR(12) NOT NULL, 
 	tel        VARCHAR(30) NOT NULL, 
 	mail       VARCHAR(40) NOT NULL, 

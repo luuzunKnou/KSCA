@@ -52,8 +52,8 @@ INSERT INTO agency(area, name) VALUES
 
 -- id password name tel mail is_approve permission area
 INSERT INTO manager(id, password, name, tel, mail, is_approve, permission, area) VALUES
-	('luuzun','1234','이원준','010-4940-5498','luuzun@naver.com',true,'MASTER', '01-01'),
-	('mcmoto','1234','우금주','010-9004-0726','mcmoto@naver.com',true,'MANAGER','03-01');
+	('luuzun',md5(1234),'이원준','010-4940-5498','luuzun@naver.com',true,'MASTER', '01-01'),
+	('mcmoto',md5(1234),'우금주','010-9004-0726','mcmoto@naver.com',true,'MANAGER','03-01');
 
 
 INSERT INTO branch(area_code, branch_code, branch) VALUES

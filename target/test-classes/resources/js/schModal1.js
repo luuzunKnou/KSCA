@@ -91,7 +91,6 @@ function getDateList(){
 	checkDate.setFullYear(thisYear);
 	checkDate.setMonth(thisMonth);
 
-	console.log(checkDate+" : "+checkedDay + " : " + lastDay);
 	
 	for(i=1; i<=lastDay; i++){
 		checkDate.setDate(i); //체크할 Date Set
