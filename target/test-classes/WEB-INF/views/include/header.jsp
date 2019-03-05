@@ -21,22 +21,22 @@
 		</div>
 		<div id="menu">
 			<ul>
+				<%-- <li class="menu_btn"><a href="${pageContext.request.contextPath}
+					/introduce/introduce">소개 및 사용법</a></li> --%>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/introduce/introduce">소개 및 사용법</a></li>
+					/branch/branchList">분회 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/branch/branchList">분회</a></li>
+					/scc/sccList">경로당 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/scc/sccList">경로당</a></li>
+					/agency/agencyList">기관 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/agency/agencyList">기관</a></li>
-				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/program/programList">프로그램</a></li>
+					/program/programList">프로그램 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/schedule/scheduler">스케줄</a></li>
 					
 				<c:if test="${login.permToString() eq 'Master'}">
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
-					/cat/catList">카테고리</a></li>
+					/cat/catList">카테고리 관리</a></li>
 				<li class="menu_btn"><a href="${pageContext.request.contextPath}
 					/manager/managerManagement">매니저 관리</a></li>
 				</c:if>

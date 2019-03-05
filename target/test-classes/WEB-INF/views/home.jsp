@@ -9,5 +9,9 @@
 			alert(result);
 		}
 	</script>
+
+	<%
+		response.sendRedirect("schedule/scheduler");
+	%>
 <%@ include file="include/footer.jsp"%>  
  
