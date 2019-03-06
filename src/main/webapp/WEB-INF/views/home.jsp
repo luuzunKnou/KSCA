@@ -8,10 +8,7 @@
 		if(result.length!=0){
 			alert(result);
 		}
+		window.location.href='schedule/scheduler';
 	</script>
-
-	<%
-		response.sendRedirect("schedule/scheduler");
-	%>
 <%@ include file="include/footer.jsp"%>  
  

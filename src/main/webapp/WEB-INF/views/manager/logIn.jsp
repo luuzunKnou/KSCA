@@ -5,7 +5,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/manager/logIn.css" rel="stylesheet">
 	<section>
 		 <div id="login">
-		 	<form id="form_login" action="/manager/logInPost" method="post">
+		 	<form id="form_login" action="${pageContext.request.contextPath}/manager/logInPost" method="post">
 		 		<div class="div_label">
 		 			<label class="login_label" for="input_id">ID</label>
 		 		</div>

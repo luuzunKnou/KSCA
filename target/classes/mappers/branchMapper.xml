@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="readByAreaCode" resultType="Branch">
-		SELECT * FROM Branch 
+		SELECT * FROM branch 
 			WHERE area_code=#{areaCode};
 	</select>
 	
