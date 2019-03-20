@@ -90,6 +90,16 @@ $(document).on("click",".m1.modify_save",function() {
 				var text = $(this).text();
 				$(this).text(text.replace($(".m1.dest_cat1_code").val(),data.code));
 			});
+
+			//cat1 코드 수정, 삭제 시 select option 변경
+			$(".m2.cat1.code option").each(function(i) {
+				if($(".m1.dest_cat1_code").val()==$(this).val()){
+					$(this).val(data.code);
+					$(this).text(data.code);
+					$(".m2.cat1.name option:eq("+i+")").val(data.name);
+					$(".m2.cat1.name option:eq("+i+")").text(data.name);
+				}
+			})
 			
 			alert("수정되었습니다.");
 			clearAll(); 
@@ -99,10 +109,11 @@ $(document).on("click",".m1.modify_save",function() {
 
 /* Delete Button AJAX*/ 
 $(document).on("click",".m1.delete",function() {
+	var code = $(".m1.input.code").val();
 	var result = confirm("정말 삭제하시겠습니까?");
 	if(result){
 		var query = {
-			code : $(".m1.input.code").val()
+			code : code
 		};
 		
 		$.ajax({
@@ -116,6 +127,15 @@ $(document).on("click",".m1.delete",function() {
 					//rowspan 사용 시 하위 tr이 child가 아닌 sibiling형태로 추가됨..
 					$(".list.code1:contains("+data+")").parent().next().remove();
 					$(".list.code1:contains("+data+")").parent().remove();
+				
+					//cat1 삭제시 select option 삭제
+					$(".m2.cat1.code option").each(function(i) {
+						console.log(code+":::"+$(this).val())
+						if(code==$(this).val()){
+							$(this).remove();
+							$(".m2.cat1.name option:eq("+i+")").remove();
+						}
+					})
 					
 					alert("삭제되었습니다.");
 				}

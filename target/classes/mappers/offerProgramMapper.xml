@@ -25,24 +25,24 @@
 	</resultMap>
 	
 	<select id="read" resultType="OfferProgram">
-		SELECT * From offerProgram 
+		SELECT * From offerprogram 
 			WHERE code=#{code}; 
 	</select>
 	
 	<select id="readForCheck" resultType="OfferProgram">
-		SELECT * From offerProgram 
+		SELECT * From offerprogram 
 			WHERE program=#{program}
 				AND reg_month=#{regMonth}; 
 	</select>
 	
 	<select id="readByRegMonth" resultType="OfferProgram">
 		SELECT op.code, op.program, op.reg_month, op.begin_date, op.end_date, op.color 
-			FROM offerProgram AS op
+			FROM offerprogram AS op
 				JOIN program ON op.program=program.code
 			WHERE program.area=#{areaCode}
 				AND op.reg_month=#{regMonth}; 
 	</select>
-	
+	 
 	
 	<select id="readOfferProgramJoinForList" resultMap="OfferProgramJoinForList">
 		SELECT  offerprogram.code		AS code,
@@ -62,17 +62,17 @@
 	</select>
 
 	<select id="readByProgram">
-		SELECT * From offerProgram 
+		SELECT * From offerprogram 
 			WHERE program=#{code}; 
 	</select>
 	
 	<insert id="create"  useGeneratedKeys="true" keyProperty="code">
-		INSERT INTO offerProgram(program, reg_month, begin_date, end_date, color) VALUES
+		INSERT INTO offerprogram(program, reg_month, begin_date, end_date, color) VALUES
 			(#{program}, #{regMonth}, #{beginDate}, #{endDate}, #{color});
 	</insert>
 	
 	<update id="update">
-		UPDATE offerProgram	
+		UPDATE offerprogram	
 			<set> 
 				<if test="program 	!= null"> program	 =#{program}, </if>
 				<if test="regMonth 	!= null"> reg_month	 =#{regMonth}, </if>
@@ -84,7 +84,7 @@
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM offerProgram 
+		DELETE FROM offerprogram 
 			WHERE code=#{code} 
 	</delete>
 </mapper>

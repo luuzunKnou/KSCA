@@ -167,6 +167,13 @@
 			<version>2.5.4</version>
 		</dependency>
 		
+		<!-- JSON Object For Android -->
+		<dependency>
+ 			<groupId>com.googlecode.json-simple</groupId>
+ 			<artifactId>json-simple</artifactId>
+ 			<version>1.1.1</version>
+ 	    </dependency>
+
 		<!-- Excel Dependency -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
