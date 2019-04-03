@@ -10,6 +10,7 @@
 <html>
 <head>
 	<title>The Korea Senior Citizens Assoiation Program Schduler</title>
+	<link rel="icon" type="image/png"  href="${pageContext.request.contextPath}/resources/ic.png"/>
 </head>
 
 <body>
