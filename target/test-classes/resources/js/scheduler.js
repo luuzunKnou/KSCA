@@ -47,8 +47,6 @@ function drawCal(year, month) {
 	var divCnt = 0;	//실제 생성되는 div 갯수
 	var addCode;	//반복문 안에서 더해질 코드
 	
-	//첫 번째 주 또는 마지막 주가 토/일요일때문에 add되지 않으면 space 한줄 추가되는 현상 발생
-
 	for(var i=1; i<=rowCnt; i++){
 		cal += '<tr class="cal date tr">';
 		for(var j=1; j<=7; j++){

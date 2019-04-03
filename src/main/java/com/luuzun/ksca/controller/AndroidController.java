@@ -20,13 +20,14 @@ import com.luuzun.ksca.domain.Branch;
 import com.luuzun.ksca.domain.Manager;
 import com.luuzun.ksca.domain.ProgramJoinForList;
 import com.luuzun.ksca.domain.SCC;
+import com.luuzun.ksca.domain.ScheduleJoinforList;
 import com.luuzun.ksca.service.AgencyService;
 import com.luuzun.ksca.service.AreaService;
 import com.luuzun.ksca.service.BranchService;
 import com.luuzun.ksca.service.ManagerService;
 import com.luuzun.ksca.service.ProgramService;
 import com.luuzun.ksca.service.SccService;
-import com.luuzun.ksca.utill.FieldToMapUtill;
+import com.luuzun.ksca.service.ScheduleService;
 
 @Controller
 @RequestMapping("/android/*")
@@ -39,7 +40,8 @@ public class AndroidController {
 	@Inject	private AgencyService agencyService;
 	@Inject	private ProgramService programService;
 	@Inject	private SccService sccService;
-
+	@Inject	private ScheduleService scheduleService;
+	
 	@RequestMapping("/login")
 	@ResponseBody
 	public Map<String,Object> login(HttpServletRequest request) throws Exception{ 
@@ -191,7 +193,7 @@ public class AndroidController {
         	map.put("dong", scc.getDong());
         	map.put("name", scc.getName());
         	map.put("address", scc.getAddress());
-        	map.put("regDate", scc.getSimpleRegDate());
+        	map.put("simpleRegDate", scc.getSimpleRegDate());
         	map.put("site", scc.getSite());
         	map.put("building", scc.getBuilding());
         	map.put("member", scc.getMember());
@@ -201,6 +203,44 @@ public class AndroidController {
         	map.put("tel", scc.getTel());
         	map.put("president", scc.getPresident());
         	map.put("phone", scc.getPhone());
+	
+            result.add(index++,map);
+		}
+        
+        for (Map<String, Object> map : result) {
+        	 for(String key : map.keySet()){
+        		 Object value = (Object) map.get(key);
+        		 if(value!=null) {
+        			 logger.info(key+" : "+value.toString());
+        		 }
+             }
+		}
+        
+        return result;
+	}
+	
+	@RequestMapping("/schedule")
+	@ResponseBody
+	public List<Map<String,Object>> getSchedule(HttpServletRequest request) throws Exception { 
+		
+		logger.info("Call by Android - Schedule");
+		String areaCode = request.getParameter("areaCode");
+		String month = request.getParameter("month");
+		String year = request.getParameter("year");
+		logger.info(areaCode+"-"+year+"-"+month);
+		
+		List<ScheduleJoinforList> scheduleList = scheduleService.scheduleJoinforList(areaCode, month, year);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+
+        int index=0;
+        for (ScheduleJoinforList schedule: scheduleList) {
+        	Map<String,Object> map = new HashMap<String,Object>();
+        	
+        	map.put("offer", schedule.getOffer());
+        	map.put("scc", schedule.getScc());
+        	map.put("schedule", schedule.getSchedule());
+        	map.put("offerProgram", schedule.getOfferProgram());
+        	map.put("program", schedule.getProgram());
 	
             result.add(index++,map);
 		}
