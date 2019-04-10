@@ -43,17 +43,22 @@
 	</select>
 	
 	<select id="readManagerHasArea" resultMap="managerHasArea">
-		SELECT id, name, tel, mail, 
-				city, city_code, gu, gu_code 
+		SELECT id, name, tel, mail, city, city_code, gu, gu_code 
 			FROM manager, area
 			WHERE area.code=manager.area 
 				AND BINARY(id)=#{id};
 	</select>
 	
-	<insert id="create">
+	<!-- <insert id="create">
 		INSERT INTO manager(id, password, name, tel, mail, area) 
 			VALUES (#{id}, md5(#{password}), #{name}, #{tel}, #{mail}, #{area})
-	</insert>
+	</insert> -->
+	
+	<!-- Tester 가입을 위해 가입 승인 과정을 생략합니다. -->
+	<insert id="create">
+		INSERT INTO manager(id, password, name, tel, mail, area, is_approve, permission) 
+			VALUES (#{id}, md5(#{password}), #{name}, #{tel}, #{mail}, #{area}, true, 'MASTER')
+	</insert> 
 	
 	<update id="update">
 		UPDATE manager 
@@ -62,8 +67,6 @@
 				<if test="name != null">		name		=#{name}, </if>
 				<if test="tel != null">			tel			=#{tel}, </if>
 				<if test="mail != null">		mail		=#{mail}, </if>
-				<if test="isApprove != null">	is_approve	=#{isApprove}, </if>
-				<if test="permission != null">	permission	=#{permission} </if>
 			</set>
 			WHERE id = #{id}
 	</update>

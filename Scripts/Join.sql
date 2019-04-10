@@ -70,8 +70,8 @@ SELECT offer.code				AS code,
 		JOIN schedule 	  ON schedule.offer=offer.code
 		JOIN offerprogram ON offer.program=offerprogram.code
 		JOIN program 	  ON offerprogram.program=program.code
-	WHERE offer.area_code='03-01'
-			AND MONTH(schedule.date)='02'
+	WHERE offer.area_code='00-00'
+			AND MONTH(schedule.date)='04'
 			AND YEAR(schedule.date)='2019';
 		-- AND schedule.date BETWEEN date('2019-02-01') AND date('2019-02-28');
 

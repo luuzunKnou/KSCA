@@ -167,6 +167,7 @@
 			JOIN cat1		  ON program.cat1 = cat1.code
 			JOIN agency		  ON program.agency = agency.code
 		WHERE scc.area_code=#{areaCode} 
+			AND offer.monthly_oper != 0 
 			AND offerprogram.reg_month=#{regMonth};
 	</select>
 	

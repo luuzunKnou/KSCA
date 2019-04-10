@@ -10,6 +10,7 @@ public class ManagerHasArea {
 	private boolean isExist;
 	private Permission permission;
 	private Area area;
+	
 	@Override
 	public String toString() {
 		return String.format(

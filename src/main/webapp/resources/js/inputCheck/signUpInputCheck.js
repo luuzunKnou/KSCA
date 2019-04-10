@@ -1,4 +1,4 @@
-$(document).on("click",".sign_up_btn.btn_submit",function() {
+$(document).on("click",".sign_up_btn.btn_submit, .sign_up_btn.modify",function() {
 	var id 		= $("#inputID");
 	var mail 	= $("#inputEmail");
 	var pwd 	= $("#inputPassword");

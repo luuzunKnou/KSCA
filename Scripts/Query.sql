@@ -28,3 +28,35 @@ INSERT INTO schedule(offer, date) VALUES
 SELECT * FROM offerprogram;
 SELECT * FROM offer;
 SELECT * FROM schedule;
+
+use ksca;
+
+		SELECT  scc.area_code			AS area_code,
+			scc.branch_code			AS branch_code,
+			scc.scc_code			AS scc_code,
+			scc.name				AS scc_name,
+			cat1.code				AS cat1_code,
+			cat1.name				AS cat1_name,
+			cat2.code				AS cat2_code,
+			cat2.name				AS cat2_name,
+			program.name			AS program_name,
+			offerprogram.begin_date	AS begin_date,
+			offerprogram.end_date	AS end_date,
+			offer.active_user		AS active_user,
+			agency.name				AS agency_name,
+			offer.monthly_oper		AS monthly_oper
+		FROM scc 
+			JOIN offer ON scc.area_code=offer.area_code 
+						AND scc.branch_code	= offer.branch_code
+						AND scc.scc_code	= offer.scc_code
+			JOIN offerprogram ON offer.program = offerprogram.code
+			JOIN program 	  ON offerprogram.program = program.code
+			JOIN cat2		  ON program.cat2 = cat2.code 
+			JOIN cat1		  ON program.cat1 = cat1.code
+			JOIN agency		  ON program.agency = agency.code
+		WHERE scc.area_code='00-00'
+			AND offer.monthly_oper != 0 
+			AND offerprogram.reg_month='2019-04-01';
+			
+		select * from manager;
+		update manager set is_approve=1 where id='luuzun';

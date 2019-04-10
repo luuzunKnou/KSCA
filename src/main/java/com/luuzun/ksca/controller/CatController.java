@@ -71,7 +71,7 @@ public class CatController {
 		logger.info("Create Category1.......... : " + cat1);
 		
 		try {
-			cat1Service.create(cat1);
+			//forTest cat1Service.create(cat1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,7 +86,7 @@ public class CatController {
 		logger.info("Create Category2.......... : " + cat2);
 		
 		try {
-			cat2Service.create(cat2);
+			//forTest cat2Service.create(cat2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,7 +101,7 @@ public class CatController {
 	@RequestMapping(value="/updateCat1", method=RequestMethod.POST)
 	public Cat1 updateCat1(Model model, String destCode, Cat1 cat1) throws Exception {
 		logger.info("Update Category 1.......... : " + destCode + " to " + cat1);
-		cat1Service.update(destCode, cat1);
+		//forTest cat1Service.update(destCode, cat1);
 		return cat1;
 	}
 	
@@ -110,7 +110,7 @@ public class CatController {
 	@RequestMapping(value="/updateCat2", method=RequestMethod.POST)
 	public Cat2 updateCat2(Model model, String destCode, String destCat1, Cat2 cat2) throws Exception {
 		logger.info("Update Category 2.......... : " + destCode + " to " + cat2);
-		cat2Service.update(destCode, destCat1, cat2);
+		//forTest cat2Service.update(destCode, destCat1, cat2);
 		return cat2;
 	}
 		
@@ -121,7 +121,8 @@ public class CatController {
 	@RequestMapping(value="/removeCat1", method=RequestMethod.POST)
 	public String removeCat1(Model model, String code) throws Exception {
 		logger.info("Remove Category 1.......... : " + code);
-		return cat1Service.delete(code);
+		//forTest return cat1Service.delete(code);
+		return "ERROR:cascade";
 	}
 	
 	//Category 2 ªË¡¶
@@ -131,7 +132,8 @@ public class CatController {
 		logger.info("Remove Category 2.......... : " + cat2);
 		logger.info("DestCode : " + cat2.getCode() + "DestCat1 : " + cat2.getCat1());
 
-		return cat2Service.delete(cat2);
+		//forTest return cat2Service.delete(cat2);
+		return cat2;
 	}
 		
 		
