@@ -30,7 +30,7 @@ import com.luuzun.ksca.service.SccService;
 import com.luuzun.ksca.service.ScheduleService;
 
 @Controller
-@RequestMapping("/android/*")
+@RequestMapping("/android/*") //안드로이드 연동 컨트롤러
 public class AndroidController {
 	private static final Logger logger = LoggerFactory.getLogger(AndroidController.class);
 	
