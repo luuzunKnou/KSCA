@@ -21,7 +21,7 @@ import com.luuzun.ksca.service.AgencyService;
 
 @Controller
 @RequestMapping("/agency/*")
-public class AgencyController {
+public class AgencyController { 
 	private static final Logger logger = LoggerFactory.getLogger(AgencyController.class);
 	
 	@Inject	private AgencyService service;
