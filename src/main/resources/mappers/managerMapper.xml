@@ -49,16 +49,10 @@
 				AND BINARY(id)=#{id};
 	</select>
 	
-	<!-- <insert id="create">
+	<insert id="create">
 		INSERT INTO manager(id, password, name, tel, mail, area) 
 			VALUES (#{id}, md5(#{password}), #{name}, #{tel}, #{mail}, #{area})
-	</insert> -->
-	
-	<!-- Tester 가입을 위해 가입 승인 과정을 생략합니다. -->
-	<insert id="create">
-		INSERT INTO manager(id, password, name, tel, mail, area, is_approve, permission) 
-			VALUES (#{id}, md5(#{password}), #{name}, #{tel}, #{mail}, #{area}, true, 'MASTER')
-	</insert> 
+	</insert>
 	
 	<update id="update">
 		UPDATE manager 
