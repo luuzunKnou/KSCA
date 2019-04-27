@@ -39,7 +39,7 @@ function submitCheck(){
 	
 	//소재지(주소)
 	if(tel.val().length!=0 && 
-			!check(/^[가-힣0-9a-zA-Z-_,.ㆍ ]{2,255}$/, address, "주소가 올바르지 않습니다.")){
+			!check(/^[가-힣0-9a-zA-Z-_,.ㆍ() ]{2,255}$/, address, "주소가 올바르지 않습니다.")){
 		return false;
 	}
 	
